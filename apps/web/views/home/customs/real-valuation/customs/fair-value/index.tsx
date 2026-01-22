@@ -7,7 +7,7 @@ import { Typography } from '@finranks/design-system/components/typography'
 import React, { useEffect, useState } from 'react';
 
 
-const FairValue = () => {
+const FairValue = ({ dictionary }: { dictionary: any }) => {
     const [stockPrice, setStockPrice] = useState(1);
     const fairValue = 3
 
@@ -24,7 +24,7 @@ const FairValue = () => {
     return (
         <Card className='relative p-4 md:p-6 overflow-hidden'>
             <div className='flex flex-col items-center'>
-                <Typography variant="body" color="secondary" className='text-[18px] md:text-inherit'>Fair value</Typography>
+                <Typography variant="body" color="secondary" className='text-[18px] md:text-inherit'>{dictionary.fairValueCardTitle}</Typography>
                 <Typography variant="body" className='text-md font-bold!'>${fairValue}</Typography>
                 <div style={{ marginBottom: 10 }}>
                     <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -34,17 +34,17 @@ const FairValue = () => {
             </div>
             <GenericGaugeChart hideText percent={percent} />
             <div className='flex items-center justify-between'>
-                <span style={{ opacity: 0.6, fontSize: 12 }}>Undervalued</span>
-                <span style={{ opacity: 0.6, fontSize: 12 }}>Stock Price</span>
-                <span style={{ opacity: 0.6, fontSize: 12 }}>Overvalued</span>
+                <span style={{ opacity: 0.6, fontSize: 12 }}>{dictionary.undervaluedLabel}</span>
+                <span style={{ opacity: 0.6, fontSize: 12 }}>{dictionary.fairlyPricedLabel}</span>
+                <span style={{ opacity: 0.6, fontSize: 12 }}>{dictionary.overvaluedLabel}</span>
             </div>
             <div className='flex justify-center'>
                 <Typography variant="body" className='text-md font-bold!'>${stockPrice}</Typography>
             </div>
             <div className='mt-10'>
-                <Typography variant="h3" className="text-center text-[18px] md:text-[22ox] leading-[76px] font-bold!">Fair value</Typography>
+                <Typography variant="h3" className="text-center text-[18px] md:text-[22ox] leading-[76px] font-bold!">{dictionary.fairValueCardTitle}</Typography>
                 <div className='home-card__subtext text-[14px] md:text-inherit mb-0'>
-                    Our proprietary valuation gauge instantly shows whether a stock is undervalued, fairly priced, or overvalued compared to its calculated fair value.
+                    {dictionary.fairValueCardDescription}
                 </div>
             </div>
             <BorderBeam colorFrom="rgba(158, 61, 255, 0.70)"

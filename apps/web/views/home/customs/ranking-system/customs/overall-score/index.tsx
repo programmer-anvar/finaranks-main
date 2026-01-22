@@ -3,53 +3,54 @@ import { Card } from '@finranks/design-system/components/card';
 import { Typography } from '@finranks/design-system/components/typography'
 import React from 'react';
 
-const metricData = [
-    {
-        iconPath: "/images/homeIcon1.svg",
-        subtitle: "Financial Strength",
-        text: "Measures how stable and debt-resilient a company is",
-    },
-    {
-        iconPath: "/images/homeIcon2.svg",
-        subtitle: "Profitability",
-        text: "Shows how efficiently a company turns revenue into profit and cash",
-    },
-    {
-        iconPath: "/images/homeIcon3.svg",
-        subtitle: "Effectiveness",
-        text: "Evaluates how well a company uses its assets, capital, and equity to generate returns",
-    },
-    {
-        iconPath: "/images/homeIcon4.svg",
-        subtitle: "Growth",
-        text: "Tracks how consistently the company is increasing its revenue, profits, and cash flow",
-    },
-    {
-        iconPath: "/images/homeIcon1.svg",
-        subtitle: "Forecast",
-        text: "Summarizes analyst expectations, earnings estimates, and future outlook",
-    },
-    {
-        iconPath: "/images/homeIcon2.svg",
-        subtitle: "Valuation",
-        text: "Compares the stock's price to its actual worth using ratios and DCF models",
-    },
-    {
-        iconPath: "/images/homeIcon3.svg",
-        subtitle: "Dividend",
-        text: "Assesses dividend yield, payout safety, and consistency for income-focused investors",
-    },
-    {
-        iconPath: "/images/homeIcon4.svg",
-        subtitle: "Economic Moat",
-        text: "Measures how strong and sustainable the company's competitive advantage",
-    },
-];
 
-const OverallScore = () => {
+
+const OverallScore = ({ dictionary }: { dictionary: any }) => {
+    const metricData = [
+        {
+            iconPath: "/images/homeIcon1.svg",
+            subtitle: dictionary.financialStrengthTitle,
+            text: dictionary.financialStrengthDesc,
+        },
+        {
+            iconPath: "/images/homeIcon2.svg",
+            subtitle: dictionary.profitabilityTitle,
+            text: dictionary.profitabilityDesc,
+        },
+        {
+            iconPath: "/images/homeIcon3.svg",
+            subtitle: dictionary.effectivenessTitle,
+            text: dictionary.effectivenessDesc,
+        },
+        {
+            iconPath: "/images/homeIcon4.svg",
+            subtitle: dictionary.growthTitle,
+            text: dictionary.growthDesc,
+        },
+        {
+            iconPath: "/images/homeIcon1.svg",
+            subtitle: dictionary.forecastTitle,
+            text: dictionary.forecastDesc,
+        },
+        {
+            iconPath: "/images/homeIcon2.svg",
+            subtitle: dictionary.valuationTitle,
+            text: dictionary.valuationDesc,
+        },
+        {
+            iconPath: "/images/homeIcon3.svg",
+            subtitle: dictionary.dividendTitle,
+            text: dictionary.dividendDesc,
+        },
+        {
+            iconPath: "/images/homeIcon4.svg",
+            subtitle: dictionary.economicMoatTitle,
+            text: dictionary.economicMoatDesc,
+        },
+    ];
     return (
         <Card className='space-y-6 relative p-4 md:p-6 overflow-hidden'>
-            <Typography variant="h3" className='text-[18px] md:text-inherit'>8 categories</Typography>
+            <Typography variant="h3" className='text-[18px] md:text-inherit'>{dictionary.categoriesTitle}</Typography>
             <div className='grid grid-cols-[repeat(auto-fit,minmax(210px,1fr))] gap-6 pb-3 md:pb-0'>
                 {
                     metricData?.map((e) => {

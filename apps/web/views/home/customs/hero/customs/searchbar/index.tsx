@@ -27,7 +27,7 @@ type CompaniesResponse = {
     data: Company[];
 };
 
-const SearchBar: React.FC = () => {
+const SearchBar: React.FC = ({ dictionary }) => {
     const router = useRouter();
 
     const [searchValue, setSearchValue] = useState<string>("");
@@ -85,11 +85,11 @@ const SearchBar: React.FC = () => {
                             type="text"
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
-                            placeholder="Search any stock for a free analysis"
+                            placeholder={dictionary.searchPlaceholder}
                             className="w-full  text-foreground placeholder-slate-500 outline-none text-lg"
                         />
 
-                        <Button className="absolute -right-2 top-[19px] -translate-y-1/2 hidden! md:block!">Search</Button>
+                        <Button className="absolute -right-2 top-[19px] -translate-y-1/2 hidden! md:block!">{dictionary.searchBtn}</Button>
 
 
                     </div>
@@ -97,7 +97,7 @@ const SearchBar: React.FC = () => {
                     {/* Trending */}
                     <div className=" flex items-center gap-2 overflow-hidden">
                         <Typography variant="body" className="font-bold!">
-                            Trending:
+                            {dictionary.trading}:
                         </Typography>
 
                         <ul className=" items-center gap-2 hidden md:flex">
@@ -117,13 +117,13 @@ const SearchBar: React.FC = () => {
                             ))}
                         </ul>
                         <ul className="  flex md:hidden
-    items-center gap-2
-    overflow-x-auto overflow-y-hidden
-    whitespace-nowrap
-    flex-nowrap
-    scrollbar-hide
-    overscroll-x-contain
-    touch-pan-x w-[calc(100%-4rem)] no-scrollbar">
+                            items-center gap-2
+                            overflow-x-auto overflow-y-hidden
+                            whitespace-nowrap
+                            flex-nowrap
+                            scrollbar-hide
+                            overscroll-x-contain
+                            touch-pan-x w-[calc(100%-4rem)] no-scrollbar">
                             {STOCK_MOBILE_BADGES?.map((el) => (
                                 <li key={el.id} className="shrink-0">
                                     <Badge

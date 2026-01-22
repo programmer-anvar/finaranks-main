@@ -1,4 +1,6 @@
 import SummaryPage from "@/views/stock/summary";
+import { getDictionary } from "@finranks/internationalization";
 export default async function Page({ params }: any) {
-    return <SummaryPage params={params} />;
+    const dic = await getDictionary("en")
+    return <SummaryPage params={params} dictionary={dic} />;
 }

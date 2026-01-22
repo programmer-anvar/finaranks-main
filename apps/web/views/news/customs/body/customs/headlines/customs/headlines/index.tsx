@@ -8,10 +8,10 @@ type TRendingHeadlines = {
     data: TData[]
 }
 
-const HeadlineList = ({ data }: TRendingHeadlines) => {
+const HeadlineList = ({ data, dictionary }: TRendingHeadlines) => {
     return (
         <div className='space-y-2'>
-            <Typography variant="h3" color="primary" weight="bold" className='text-xl md:text-2xl'>Trending headlines</Typography>
+            <Typography variant="h3" color="primary" weight="bold" className='text-xl md:text-2xl'>{dictionary.trendingHeadlinesTitle}</Typography>
 
             <ul className="space-y-2">
                 {

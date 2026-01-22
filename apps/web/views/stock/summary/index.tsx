@@ -68,7 +68,7 @@ const AnalystRating = dynamic(() => import("./customs/analyst-rating"), {
 })
 
 
-const SummaryPage = async ({ params }: any) => {
+const SummaryPage = async ({ params, dictionary }: any) => {
     const { slug } = await params
 
     const [{ data: analysis }, { data: stocks }, { data: analyst }] =
@@ -101,7 +101,7 @@ const SummaryPage = async ({ params }: any) => {
             {/* Top overview */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
                 <RevealOnScroll>
-                    <StockDetails overview={get(stocks, "overview.data")} />
+                    <StockDetails overview={get(stocks, "overview.data")} dictionary={dictionary.stock} />
                 </RevealOnScroll>
                 <RevealOnScroll delay={0.05}>
                     <About info={get(stocks, "info.data")} />

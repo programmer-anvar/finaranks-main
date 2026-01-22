@@ -27,12 +27,12 @@ export async function getNewsList(): Promise<NewsResponse> {
     return res.json();
 }
 
-const Body = async () => {
+const Body = async ({ dictionary }) => {
     const news = await getNewsList();
     return (
         <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-4 items-baseline">
-            <NewsList initialNews={news.data} lastPage={news.meta.last_page} />
-            <Headlines />
+            <NewsList initialNews={news.data} lastPage={news.meta.last_page} dictionary={dictionary} />
+            <Headlines dictionary={dictionary} />
         </div>
     )
 }

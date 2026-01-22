@@ -42,6 +42,7 @@ const StockHeader: React.FC<StockHeaderProps> = ({
     exchange = '',
     displayTime,
     currentMarketState = 'REGULAR',
+    dictionary
 }) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [activeTab, setActiveTab] = useState<string>('');

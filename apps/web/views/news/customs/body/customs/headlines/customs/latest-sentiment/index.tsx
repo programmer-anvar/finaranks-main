@@ -6,35 +6,37 @@ import { useMediaQuery } from '@uidotdev/usehooks';
 
 
 
-const SentimentTooltip = ({ indexValue, data }: any) => {
-    return (
-        <div className="min-w-[180px] rounded-lg bg-white px-3 py-2 text-sm shadow-xl">
-            <div className="mb-2 font-semibold text-gray-900">
-                {indexValue}
-            </div>
 
-            <div className="flex items-center gap-2 text-gray-700">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
-                <span>Positive count:</span>
-                <span className="ml-auto font-semibold">{data["Positive count"]}</span>
-            </div>
 
-            <div className="mt-1 flex items-center gap-2 text-gray-700">
-                <span className="h-2 w-2 rounded-full bg-red-500" />
-                <span>Negative count:</span>
-                <span className="ml-auto font-semibold">{data["Negative count"]}</span>
-            </div>
+const LatestSentiment = ({ sentiments, dictionary }: { sentiments: any },) => {
+    const SentimentTooltip = ({ indexValue, data }: any) => {
+        return (
+            <div className="min-w-[180px] rounded-lg bg-white px-3 py-2 text-sm shadow-xl">
+                <div className="mb-2 font-semibold text-gray-900">
+                    {indexValue}
+                </div>
 
-            <div className="mt-1 flex items-center gap-2 text-gray-700">
-                <span className="h-2 w-2 rounded-full bg-yellow-400" />
-                <span>Neutral count:</span>
-                <span className="ml-auto font-semibold">{data["Neutral count"]}</span>
-            </div>
-        </div>
-    );
-};
+                <div className="flex items-center gap-2 text-gray-700">
+                    <span className="h-2 w-2 rounded-full bg-green-500" />
+                    <span>{dictionary.positiveCount}:</span>
+                    <span className="ml-auto font-semibold">{data["Positive count"]}</span>
+                </div>
 
-const LatestSentiment = ({ sentiments }: { sentiments: any }) => {
+                <div className="mt-1 flex items-center gap-2 text-gray-700">
+                    <span className="h-2 w-2 rounded-full bg-red-500" />
+                    <span>{dictionary.negativeCount}:</span>
+                    <span className="ml-auto font-semibold">{data["Negative count"]}</span>
+                </div>
+
+                <div className="mt-1 flex items-center gap-2 text-gray-700">
+                    <span className="h-2 w-2 rounded-full bg-yellow-400" />
+                    <span>{dictionary.neaturalCount}:</span>
+                    <span className="ml-auto font-semibold">{data["Neutral count"]}</span>
+                </div>
+            </div>
+        );
+    };
+
     const isMobile = useMediaQuery("(max-width: 768px)");
     const chartData = sentiments.map((item: any) => {
         return {
@@ -46,7 +48,7 @@ const LatestSentiment = ({ sentiments }: { sentiments: any }) => {
     })
     return (
         <div className='h-[440px] pb-8 space-y-2'>
-            <Typography variant="h3" color="primary" weight="bold" className='text-xl md:text-2xl'>Latest news sentiment</Typography>
+            <Typography variant="h3" color="primary" weight="bold" className='text-xl md:text-2xl'>{dictionary.latestNewsTitle}</Typography>
             <ResponsiveBar
                 data={chartData}
                 keys={["Positive count", "Negative count", "Neutral count"]}

@@ -56,15 +56,15 @@ async function getNewsSentiment(): Promise<any> {
     return res.json();
 }
 
-const Headlines = async () => {
+const Headlines = async ({ dictionary }) => {
     const { data: headLines } = await getTrendingHeadlines();
     const { data: topMentionedStocks } = await getTopMentionedStocks();
     const { data: newsSentiment } = await getNewsSentiment();
     return (
         <Card className="p-4 rounded-md sticky top-18 space-y-5">
-            <HeadlineList data={headLines} />
-            <MentionedStocks topMentionedStocks={topMentionedStocks?.all} />
-            <LatestSentiment sentiments={newsSentiment.sentiments} />
+            <HeadlineList data={headLines} dictionary={dictionary} />
+            < MentionedStocks topMentionedStocks={topMentionedStocks?.all} dictionary={dictionary} />
+            <LatestSentiment dictionary={dictionary} sentiments={newsSentiment.sentiments} />
         </Card>
     )
 }

@@ -2,7 +2,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbS
 import { Typography } from '@finranks/design-system/components/typography'
 import { Home } from 'lucide-react'
 
-const Header = () => {
+const Header = ({ dictionary }) => {
     return (
         <div className='space-y-4 mt-5'>
             <Breadcrumb>
@@ -10,18 +10,18 @@ const Header = () => {
                     <BreadcrumbItem>
                         <BreadcrumbLink href="/" className="inline-flex items-center gap-1.5">
                             <Home size={16} strokeWidth={2} aria-hidden="true" />
-                            Home
+                            {dictionary.home}
                         </BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
                         <BreadcrumbLink href="#" className="inline-flex items-center gap-1.5">
-                            News
+                            {dictionary.news}
                         </BreadcrumbLink>
                     </BreadcrumbItem>
                 </BreadcrumbList>
             </Breadcrumb>
-            <Typography variant='h1' weight='semibold'>Search News</Typography>
+            <Typography variant='h1' weight='semibold'>{dictionary.searchNews}</Typography>
         </div>
     )
 }

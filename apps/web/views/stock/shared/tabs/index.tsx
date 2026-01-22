@@ -1,5 +1,6 @@
 "use client"
 import { cn } from "@finranks/design-system/lib/utils";
+import { getDictionary } from "@finranks/internationalization";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -15,7 +16,7 @@ const tabs = [
     { label: 'Profile', link: 'profile' },
 ]
 
-const StockTabs = () => {
+const StockTabs = async () => {
     const { slug } = useParams();
     const pathname = usePathname();
     const [activeTab, setActiveTab] = useState(pathname.split('/').pop());

@@ -1,53 +1,54 @@
 import { BorderBeam } from '@finranks/design-system/components/border-beam';
 import { Card } from '@finranks/design-system/components/card'
 import { Typography } from '@finranks/design-system/components/typography';
+import { describe } from 'node:test';
 
 
-const mockStatistics = [
-    {
-        label: 'DCF Model Period',
-        value: '5 years',
-        iconPath: '/icons/arrow-circle-right.svg',
-    },
-    {
-        label: 'Discount Rate (WACC)',
-        value: '12.79%',
-        iconPath: '/icons/arrow-circle-right.svg',
-    },
-    {
-        label: 'Perpetual Growth Rate',
-        value: '3.00%',
-        iconPath: '/icons/arrow-circle-right.svg',
-    },
-    {
-        label: 'Revenue 5 Year CAGR',
-        value: '14.00%',
-        iconPath: '/icons/arrow-circle-right.svg',
-    },
-    {
-        label: 'FCF 5 Year CAGR',
-        value: '5%',
-        iconPath: '/icons/arrow-circle-right.svg',
-    },
-    {
-        label: 'Calculated Fair Value',
-        value: '353.69$',
-        iconPath: '/icons/arrow-circle-right.svg',
-        link: '/valuation/fair-value'
-    },
-    {
-        label: 'Current Stock Price',
-        value: '412.23$',
-        iconPath: '/icons/arrow-circle-right.svg',
-    },
-];
 
-const Model = () => {
+
+const Model = ({ dictionary }: { dictionary: any }) => {
+    const mockStatistics = [
+        {
+            label: dictionary.dcfPeriod,
+            value: dictionary.dcfPeriodValue,
+            iconPath: '/icons/arrow-circle-right.svg',
+        },
+        {
+            label: dictionary.discountRate,
+            value: '12.79%',
+            iconPath: '/icons/arrow-circle-right.svg',
+        },
+        {
+            label: dictionary.perpetualGrowth,
+            value: '3.00%',
+            iconPath: '/icons/arrow-circle-right.svg',
+        },
+        {
+            label: dictionary.revenueCagr,
+            value: '14.00%',
+            iconPath: '/icons/arrow-circle-right.svg',
+        },
+        {
+            label: dictionary.fcfCagr,
+            value: '5%',
+            iconPath: '/icons/arrow-circle-right.svg',
+        },
+        {
+            label: dictionary.calculatedFairValue,
+            value: '353.69$',
+            iconPath: '/icons/arrow-circle-right.svg',
+            link: '/valuation/fair-value'
+        },
+        {
+            label: dictionary.currentStockPrice,
+            value: '412.23$',
+            iconPath: '/icons/arrow-circle-right.svg',
+        },
+    ];
     return (
         <Card className='relative p-4 md:p-6 overflow-hidden'>
-            <Typography variant="h3" className='text-[18px] md:text-inherit'>DCF model</Typography>
-            <Typography variant="small" color='secondary' className='text-[14px] md:text-inherit'>The DCF (Discounted Cash Flow) model estimates a company's true value
-                based on its future cash flows, adjusted for risk and time</Typography>
+            <Typography variant="h3" className='text-[18px] md:text-inherit'>{dictionary.dcfModelTitle}</Typography>
+            <Typography variant="small" color='secondary' className='text-[14px] md:text-inherit'>{dictionary.dcfModelDescription}</Typography>
 
             <ul className="flex flex-col gap-2 mt-7">
                 {

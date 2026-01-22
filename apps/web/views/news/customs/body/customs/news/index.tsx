@@ -13,7 +13,7 @@ type Props = {
 };
 
 
-const NewsList = ({ initialNews, lastPage }: Props) => {
+const NewsList = ({ initialNews, lastPage, dictionary }: Props) => {
     const [searchValue, setSearchValue] = useState<string>("");
     const [news, setNews] = useState<NewsCardProps[]>(initialNews);
     const [page, setPage] = useState(1);
@@ -50,7 +50,7 @@ const NewsList = ({ initialNews, lastPage }: Props) => {
     return (
         <div>
             <SearchInput
-                placeholder="Search any stock"
+                placeholder={dictionary.searchPlaceholder}
                 value={searchValue}
                 size="lg"
                 onChange={e => setSearchValue(e.target.value)}
@@ -68,7 +68,7 @@ const NewsList = ({ initialNews, lastPage }: Props) => {
                     }
                 </ScrollArea>
 
-                <Button onClick={loadMore} isLoading={isLoading} variant="outline">Load More</Button>
+                <Button onClick={loadMore} isLoading={isLoading} variant="outline">{dictionary.loadMoreBtn}</Button>
             </div>
         </div>
     )

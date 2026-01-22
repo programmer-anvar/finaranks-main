@@ -37,7 +37,8 @@ type DesktopDashboardPageProps = {
     watchlistData?: TWatchlistCompany[];
 };
 
-const Body: React.FC<DesktopDashboardPageProps> = () => {
+const Body: React.FC<DesktopDashboardPageProps> = ({ dictionary }) => {
+    console.log('dic', dictionary)
     const { state, setState } = useAppContext();
     const [deletingTicker, setDeletingTicker] = useState<string | null>(null);
 
@@ -128,7 +129,7 @@ const Body: React.FC<DesktopDashboardPageProps> = () => {
         return (
             <div className="flex flex-col items-center gap-4">
                 <img src="/images/empty.png" alt="Empty" />
-                <Button>Add watchlist</Button>
+                <Button>{dictionary.watchListBtn}</Button>
             </div>
         )
     }
@@ -161,7 +162,7 @@ const Body: React.FC<DesktopDashboardPageProps> = () => {
                                                 backdrop-blur
                                             "
                                 >
-                                    Company
+                                    {dictionary.listTable.companyLabel}
                                 </TableHead>
 
                                 {watchlistSetting.map(setting => (
@@ -173,7 +174,7 @@ const Body: React.FC<DesktopDashboardPageProps> = () => {
                                     </TableHead>
                                 ))}
 
-                                <TableHead className="w-[60px] bg-purple-600" >Action</TableHead>
+                                <TableHead className="w-[60px] bg-purple-600" >{dictionary.listTable.action}</TableHead>
                             </TableRow>
                         </TableHeader>
 
@@ -181,10 +182,10 @@ const Body: React.FC<DesktopDashboardPageProps> = () => {
                             {items.map(item => (
                                 <TableRow key={item.ticker}
                                     className="
-                transition-colors
-                hover:bg-purple-500/20
-                data-[state=selected]:bg-purple-500/20
-            ">
+                                            transition-colors
+                                            hover:bg-purple-500/20
+                                            data-[state=selected]:bg-purple-500/20
+                                        ">
                                     {/* Sticky first column */}
                                     <TableCell className="
                                                 sticky left-0 z-10

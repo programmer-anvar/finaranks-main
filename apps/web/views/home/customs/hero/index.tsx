@@ -3,7 +3,8 @@
 import { Typography } from "@finranks/design-system/components/typography";
 import SearchBar from "./customs/searchbar";
 
-const Hero = () => {
+const Hero = ({ dictionary }: { dictionary: any }) => {
+    console.log(dictionary)
     return (
         <section id="hero" className="h-[630px]">
             <img src="/images/home-top-lines.svg" alt="" className='absolute top-0 left-0  w-full opacity-30' />
@@ -40,9 +41,8 @@ const Hero = () => {
                             <span>Beta version</span>
                         </button>
                     </div>
-                    <Typography variant="h1" align="center" className=" text-white! w-full text-center text-[25px]  md:text-[62px] md:leading-[76px] font-bold! absolute top-[25px] md:top-[250px] right-0 left-0 ">Discover the true quality of any<br />
-                        stock in minutes</Typography>
-                    <SearchBar />
+                    <Typography variant="h1" align="center" className=" text-white! w-full text-center text-[25px]  md:text-[62px] md:leading-[76px] font-bold! absolute top-[25px] md:top-[250px] right-0 left-0 ">{dictionary.heroTitle}</Typography>
+                    <SearchBar dictionary={dictionary} />
                 </div>
             </div>
         </section>

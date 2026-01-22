@@ -3,11 +3,11 @@ import Header from './customs/header';
 import Body from './customs/body';
 
 
-const NewsPage = () => {
+const NewsPage = ({ dictionary }: { dictionary: any }) => {
     return (
         <div className='app-container space-y-4'>
-            <Header />
-            <Body />
+            <Header dictionary={dictionary.newsPage.newsPageHeader} />
+            <Body dictionary={dictionary.newsPage.newsPageBody} />
         </div>
     )
 }

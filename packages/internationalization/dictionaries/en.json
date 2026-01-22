@@ -1,189 +1,753 @@
 {
-  "web": {
-    "global": {
-      "primaryCta": "Book a call",
-      "secondaryCta": "Sign up"
+  "header": {
+    "home": "Home",
+    "screener": "Screener",
+    "news": "News",
+    "about": "About",
+    "signInBtn": "sign In",
+    "getStartedBtn": "Get Started",
+    "searchPlaceholder": "Search any stock"
+  },
+  "homePage": {
+    "heroTitle": "Discover the true quality of any stock in minutes",
+    "searchPlaceholder": "Search any stock for a free analysis",
+    "searchBtn": "Search",
+    "trading": "Trending",
+    "featureOneSection": {
+      "featureOneTitle ": "One page. Total clarity",
+      "featureOneDescription": "Finranks gives you a complete view of any stock on a single page with intuitive scores based on deep analysis of 70+ core data points across growth, valuation, competitive strength, and more"
     },
-    "header": {
-      "home": "Home",
-      "product": {
-        "title": "Product",
-        "description": "Managing a small business today is already tough.",
-        "pricing": "Pricing"
-      },
-      "blog": "Blog",
-      "docs": "Docs",
-      "contact": "Contact",
-      "signIn": "Sign in",
-      "signUp": "Get started"
+    "rankingSection": {
+      "rankingSectionTitle": "Powerful 8-dimension ranking system",
+      "rankingSectionSubtitle": "Finranks breaks down complex financials into simple scores across 8 critical categories helping you evaluate companies with confidence, even if you're not a finance expert.",
+      "octagonViewTitle": "Octagon View",
+      "categoriesTitle": "8 categories",
+      "financialStrengthTitle": "Financial Strength",
+      "financialStrengthDesc": "Measures how stable and debt-resilient a company is",
+      "profitabilityTitle": "Profitability",
+      "profitabilityDesc": "Shows how efficiently a company turns revenue into profit",
+      "effectivenessTitle": "Effectiveness",
+      "effectivenessDesc": "Evaluates how well a company uses its assets, capital, and equity to generate returns",
+      "growthTitle": "Growth",
+      "growthDesc": "Tracks how consistently the company is increasing its revenue, profits, and cash flow",
+      "forecastTitle": "Forecast",
+      "forecastDesc": "Summarizes analyst expectations, earnings estimates, and future outlook",
+      "valuationTitle": "Valuation",
+      "valuationDesc": "Compares the stock's price to its actual worth using ratios and DCF models",
+      "dividendTitle": "Dividend",
+      "dividendDesc": "Assesses dividend yield, payout safety, and consistency for income-focused investors",
+      "economicMoatTitle": "Economic Moat",
+      "economicMoatDesc": "Measures how strong and sustainable the company's competitive advantage"
     },
-    "home": {
-      "meta": {
-        "title": "Transform Your Business Operations Today",
-        "description": "In today's fast-paced world, your business deserves better than outdated trading systems. Our innovative platform streamlines operations, reduces complexity, and helps small businesses thrive in the modern economy."
-      },
-      "hero": {
-        "announcement": "Read our latest article"
-      },
-      "cases": {
-        "title": "Empowering Success Stories Across the Globe"
-      },
-      "features": {
-        "title": "Powerful Tools for Modern Business",
-        "description": "Discover how our cutting-edge features can revolutionize your daily operations.",
-        "items": [
-          {
-            "title": "Streamlined Operations",
-            "description": "Our platform streamlines operations, reduces complexity, and helps small businesses thrive in the modern economy."
-          },
-          {
-            "title": "Real-Time Analytics",
-            "description": "Get instant insights into your business performance with comprehensive analytics and reporting tools."
-          },
-          {
-            "title": "Automated Workflows",
-            "description": "Save time and reduce errors with intelligent automation that handles repetitive tasks for you."
-          },
-          {
-            "title": "Secure Transactions",
-            "description": "Rest easy knowing your business operations are protected by enterprise-grade security and encryption."
-          }
-        ]
-      },
-      "stats": {
-        "title": "Real Results, Real Impact",
-        "description": "Join thousands of businesses that have transformed their operations with our platform. Our solutions have helped companies reduce administrative overhead by 60% and increase trading efficiency by 45% on average.",
-        "items": [
-          {
-            "title": "Monthly active users",
-            "metric": "100000",
-            "delta": "10",
-            "type": "unit"
-          },
-          {
-            "title": "Daily active users",
-            "metric": "10000",
-            "delta": "-5",
-            "type": "unit"
-          },
-          {
-            "title": "Monthly recurring revenue",
-            "metric": "100000",
-            "delta": "20",
-            "type": "currency"
-          },
-          {
-            "title": "Cost per acquisition",
-            "metric": "100",
-            "delta": "-10",
-            "type": "currency"
-          }
-        ]
-      },
-      "testimonials": {
-        "title": "Hear from Our Thriving Community",
-        "items": [
-          {
-            "title": "Best decision",
-            "description": "Our goal was to streamline SMB trade, making it easier and faster than ever and we did it together.",
-            "author": {
-              "name": "Hayden Bleasel",
-              "image": "https://github.com/haydenbleasel.png"
-            }
-          },
-          {
-            "title": "Game changer",
-            "description": "This platform revolutionized how we handle our day-to-day operations. The efficiency gains have been remarkable.",
-            "author": {
-              "name": "Lee Robinson",
-              "image": "https://github.com/leerob.png"
-            }
-          },
-          {
-            "title": "Exceeded expectations",
-            "description": "Implementation was smooth and the results were immediate. Our team adapted quickly and productivity soared.",
-            "author": {
-              "name": "shadcn",
-              "image": "https://github.com/shadcn.png"
-            }
-          },
-          {
-            "title": "Outstanding support",
-            "description": "Not only is the platform powerful, but the customer support team has been exceptional in helping us maximize its potential.",
-            "author": {
-              "name": "Pontus Abrahamsson",
-              "image": "https://github.com/pontusab.png"
-            }
-          }
-        ]
-      },
-      "faq": {
-        "title": "Common Questions, Expert Answers",
-        "description": "Get quick answers to your most pressing questions about our platform. We've compiled everything you need to know about transforming your business operations and getting started with modern trading solutions.",
-        "cta": "Any questions? Reach out",
-        "items": [
-          {
-            "question": "What is the platform?",
-            "answer": "The platform is a trading platform that allows you to trade with confidence."
-          },
-          {
-            "question": "How secure is the platform?",
-            "answer": "Our platform employs enterprise-grade security measures, including end-to-end encryption and multi-factor authentication, to ensure your trading activities remain completely secure."
-          },
-          {
-            "question": "What trading features are available?",
-            "answer": "The platform offers comprehensive trading tools including real-time market data, advanced charting, automated trading strategies, and detailed analytics to support informed decision-making."
-          },
-          {
-            "question": "How does pricing work?",
-            "answer": "We offer flexible pricing tiers designed to scale with your business needs, from starter plans for individual traders to enterprise solutions for large organizations."
-          },
-          {
-            "question": "What kind of support do you provide?",
-            "answer": "Our dedicated support team is available 24/7 through multiple channels including live chat, email, and phone. We also provide extensive documentation and training resources."
-          }
-        ]
-      },
-      "cta": {
-        "title": "Start Your Business Transformation",
-        "description": "Join thousands of forward-thinking businesses who have already modernized their operations. Our platform offers the tools, support, and efficiency you need to succeed in today's competitive market. Get started in minutes."
-      }
+    "realValuationSection": {
+      "realValuationTitle": "Real valuation. Tailored for each stock",
+      "realValuationSubtitle": "Finranks calculates fair value using a custom DCF model for each company — reflecting its unique financials, risk profile, and future potential.",
+      "dcfModelTitle": "DCF model",
+      "dcfModelDescription": "The DCF (Discounted Cash Flow) model estimates a company's true value based on its future cash flows, adjusted for risk and time",
+      "dcfPeriod": "DCF Model Period",
+      "dcfPeriodValue": "5 years",
+      "discountRate": "Discount Rate (WACC)",
+      "discountRateValue": "12.79%",
+      "perpetualGrowth": "Perpetual Growth Rate",
+      "perpetualGrowthValue": "3.00%",
+      "revenueCagr": "Revenue 5 Year CAGR",
+      "revenueCagrValue": "14.00%",
+      "fcfCagr": "FCF 5 Year CAGR",
+      "fcfCagrValue": "5%",
+      "calculatedFairValue": "Calculated Fair Value",
+      "calculatedFairValueAmount": "353.69$",
+      "currentStockPrice": "Current Stock Price",
+      "currentStockPriceAmount": "412.23$",
+      "fairValueCardTitle": "Fair value",
+      "fairValueCardDescription": "Our proprietary valuation gauge instantly shows whether a stock is undervalued, fairly priced, or overvalued compared to its calculated fair value.",
+      "undervaluedLabel": "Undervalued",
+      "fairlyPricedLabel": "Fairly priced",
+      "overvaluedLabel": "Overvalued",
+      "stockPriceLabel": "Stock Price"
     },
-    "blog": {
-      "meta": {
-        "title": "Blog",
-        "description": "Thoughts, ideas, and opinions."
-      }
-    },
-    "contact": {
-      "meta": {
-        "title": "Let's Talk About Your Business",
-        "description": "Schedule a consultation with our team to discuss how we can help streamline your operations and drive growth for your business."
-      },
-      "hero": {
-        "benefits": [
-          {
-            "title": "Personalized Consultation",
-            "description": "Get tailored solutions and expert advice specific to your business needs."
+    "ctaTitle": "Get all premium features to the best stock analysis tool",
+    "ctaButtonBtn": "Get started for free"
+  },
+  "newsPage": {
+    "searchNews": "Search News",
+    "searchPlaceholder": "Search any stock",
+    "loadMoreBtn": "Load More",
+    "trendingHeadlinesTitle": "Trending headlines",
+    "newsTableTitle": "Top mentioned stocks",
+    "symbol": "Symbol",
+    "sentiment": "Sentiment",
+    "latestNewsTitle": "Latest news sentiment",
+    "positiveCount": "Positive count",
+    "negativeCount": "Negative count",
+    "neaturalCount": "Neatural count"
+  },
+  "stock": {
+    "stockMain": {
+      "stockBtns": {
+        "compare": "Compare",
+        "addWatchList": "Add to Watchlist",
+        "comparePage": {
+          "compareStocksTitle": "Compare stocks",
+          "compareStocksHelpText1": "Compare up to three stocks to ",
+          "compareStocksHelpText2": " by adding the symbol or company name.",
+          "addStockLabel": "Add Stock",
+          "addCompanyModal": {
+            "modalTitle": "Add stock to compare",
+            "similarCompanies": "Similar companies",
+            "searchPlaceholder": "Search any stock"
           },
-          {
-            "title": "Seamless Integration",
-            "description": "We seamlessly integrate with your existing systems to ensure a smooth transition and minimal disruption."
-          },
-          {
-            "title": "Expert Guidance",
-            "description": "Our team of experts will guide you through the process, ensuring you get the most out of our platform."
+          "compareTable": {
+            "metricsColumn": "Metrics"
           }
-        ],
-        "form": {
-          "title": "Book a meeting",
-          "date": "Date",
-          "firstName": "First name",
-          "lastName": "Last name",
-          "resume": "Upload resume",
-          "cta": "Book the meeting"
+        }
+      },
+      "stockTabs": {
+        "summary": "Summary",
+        "news": "News",
+        "chart": "Chart",
+        "financial": "Financial",
+        "dividends": "Dividends",
+        "forecast": "Forecast",
+        "ownership": "Ownership",
+        "profile": "Profile"
+      },
+      "summaryTab": {
+        "stockDetailsCard": {
+          "stockDetailsTitle": "Stock details",
+          "previousCloseLabel": "Previous close",
+          "dayRangeLabel": "Day's range",
+          "week52RangeLabel": "52-week range",
+          "volumeLabel": "Volume",
+          "averageVolumeLabel": "Average volume",
+          "betaLabel": "Beta",
+          "epsTtmLabel": "EPS (TTM)",
+          "peRatioTtmLabel": "PE ratio (TTM)",
+          "marketCapLabel": "Market cap",
+          "sharesOutstandingLabel": "Shares outstanding",
+          "dividendYieldLabel": "Dividend yield",
+          "nextEarningsDateLabel": "Next earnings date",
+          "sectorLabel": "Sector",
+          "industryLabel": "Industry",
+          "na": "N/A"
+        },
+        "aboutCompany": {
+          "aboutCompanyTitle": "About the company",
+          "ceoLabel": "CEO",
+          "countryLabel": "Country",
+          "ipoDateLabel": "IPO Date",
+          "employeesLabel": "Employees",
+          "fiscalYearEndLabel": "Fiscal Year End",
+          "websiteLabel": "Website",
+          "na": "N/A"
+        },
+        "revenueBreakdown": {
+          "revenueBreakdownTitle": "Revenue Breakdown"
+        },
+        "news": "News",
+        "chart": "Chart",
+        "showMoreBtn": "Show More",
+        "overallScore": {
+          "overallScoretitle": "Overall Score"
+        },
+        "octagonView": {
+          "octagonViewTitle": "Octagon View"
+        },
+        "strengthWeekness": {
+          "strengthWeeknessTitle": "Strength & Weekness"
+        },
+        "financialStrengthTable": {
+          "financialStrengthTitle": "Financial Strength",
+          "name": "NAME",
+          "ratio": "RATIO",
+          "industry": "INDUSTRY",
+          "trnd": "5y TREND",
+          "score": "SCORE",
+          "weightedAverageScore": "Weighted average score"
+        },
+        "debtAssets": {
+          "debtAssetsTitle": "Debt to Assets",
+          "debtAssetsLabel": {
+            "totalAsets": "Total Assets",
+            "totalDebt": "Total Debt",
+            "debtAssets": "Debt to Assets"
+          }
+        },
+        "financialTable": {
+          "financialTableTitle": "Financial",
+          "values": "Values in USD",
+          "billions": "B=Billions",
+          "millions": "M=Millions",
+          "thousands": " K=Thousands",
+          "select": {
+            "annual": "Annual",
+            "quarterly": "Quarterly"
+          },
+          "tabs": {
+            "incomeStatement": "Income Statement",
+            "balanceSheet": "Balance Sheet",
+            "cashFlow": "Cash Flow"
+          },
+          "incomeStatementTab": {
+            "metric": "METRIC",
+            "totalRevenueLabel": "Total Revenue",
+            "grossProfitLabel": "Gross Profit",
+            "operatingIncomeLabel": "Operating Income",
+            "netIncomeLabel": "Net Income",
+            "ebitdaLabel": "EBITDA"
+          },
+          "balanceSheetTab": {
+            "totalAssetsLabel": "Total Assets",
+            "totalLiabilitiesLabel": "Total Liabilities",
+            "totalEquityLabel": "Total Equity",
+            "totalDebtLabel": "Total Debt"
+          },
+          "cashFlowTab": {
+            "operatingCashFlowLabel": "Operating Cash Flow",
+            "financingCashFlowLabel": "Financing Cash Flow",
+            "investingCashFlowLabel": "Investing Cash Flow",
+            "freeCashFlowLabel": "Free Cash Flow"
+          }
+        },
+        "currentRatio": {
+          "currentRatioTitle": "Current Ratio",
+          "currentAssets": "Current Assets",
+          "currentLiabilities": "Current Liabilities",
+          "currentRatio": "Current Ratio"
+        },
+        "revenueNetIncome": {
+          "revenueNetIncomeTitle": "Revenue & Net Income",
+          "revenue": "Revenue",
+          "netIncome": "Net Income"
+        },
+        "cashflow": {
+          "cashflowTitle": "Cashflow",
+          "operatingCashFlow": "Operating Cash Flow",
+          "financingCashFlow": "Financing Cash Flow",
+          "freeCashFlow": "Free Cash Flow",
+          "investingCashFlow": "Investing Cash Flow"
+        },
+        "marginRatios": {
+          "marginRatiosTitle": "Margin Ratios",
+          "grossMargin": "Gross margin",
+          "operatingmargin": "Operating margin",
+          "netmargin": "Net margin"
+        },
+        "profitabilityTable": {
+          "profitabilityTitle": "Profitability",
+          "nameColumn": "NAME",
+          "ratioColumn": "RATIO",
+          "industryColumn": "INDUSTRY",
+          "trend5yColumn": "5Y TREND",
+          "scoreColumn": "SCORE",
+          "grossMarginLabel": "Gross margin %",
+          "operatingMarginLabel": "Operating margin %",
+          "netMarginLabel": "Net margin %",
+          "ebitdaMarginLabel": "EBITDA margin %",
+          "cashFlowMarginLabel": "Cash flow margin %",
+          "weightedAverageScoreLabel": "Weighted average score"
+        },
+        "netMargin": {
+          "netMarginTitle": "Net Margin",
+          "revenue": "Revenue",
+          "netIncome": "Net Income",
+          "netMargin": "Net Margin"
+        },
+        "effectivenessTable": {
+          "effectivenessTitle": "Effectiveness",
+          "nameColumn": "NAME",
+          "ratioColumn": "RATIO",
+          "industryColumn": "INDUSTRY",
+          "trend5yColumn": "5Y TREND",
+          "scoreColumn": "SCORE",
+          "roaLabel": "ROA",
+          "roeLabel": "ROE",
+          "roicLabel": "ROIC",
+          "roceLabel": "ROCE",
+          "weightedAverageScore": "Weighted average score"
+        },
+        "epsComparison": {
+          "epsComparisonTitle": "Estimated EPS vs Actual EPS",
+          "estimateLabel": "Estimate",
+          "actualLabel": "Actual"
+        },
+        "forecastTable": {
+          "forecastTitle": "Forecast",
+          "nameColumn": "Name",
+          "revenueGrowthColumn": "REVENUE GROWTH",
+          "epsGrowthColumn": "EPS GROWTH",
+          "scoreColumn": "SCORE",
+          "currentQuarterLabel": "Current quarter",
+          "nextQuarterLabel": "Next quarter",
+          "currentYearLabel": "Current year",
+          "nextYearLabel": "Next year",
+          "weightedAverageScoreLabel": "Weighted average score"
+        },
+        "analystRating": {
+          "analystRatingTitle": "Analyst Rating",
+          "strongBuyLabel": "Strong buy",
+          "buyLabel": "Buy",
+          "holdLabel": "Hold",
+          "sellLabel": "Sell",
+          "strongSellLabel": "Strong sell"
+        },
+        "growth": {
+          "growthTitle": "Growth",
+          "nameColumn": "NAME",
+          "revenueColumn": "REVENUE",
+          "netIncomeColumn": "NET INCOME",
+          "epsColumn": "EPS",
+          "fcfColumn": "FCF",
+          "scoreColumn": "SCORE",
+          "qoqLabel": "Q/Q",
+          "yoyLabel": "Y/Y",
+          "avg3yLabel": "3y average",
+          "avg5yLabel": "5y average",
+          "weightedAverageScoreLabel": "Weighted average score"
+        },
+        "revenueGrowthVsIndustry": {
+          "revenueGrowthVsIndustryTitle": "Revenue Growth Rate vs. Industry",
+          "companyLabel": "Company",
+          "industryLabel": "Industry"
+        },
+        "valuation": {
+          "valuationTitle": "Valuation",
+          "nameColumn": "NAME",
+          "ratioColumn": "RATIO",
+          "industryColumn": "INDUSTRY",
+          "trend5yColumn": "5Q TREND",
+          "scoreColumn": "SCORE",
+          "peLabel": "P/E",
+          "pegExpectedLabel": "PEG (5yr expected)",
+          "psLabel": "P/S",
+          "pbLabel": "P/B",
+          "weightedAverageScoreLabel": "Weighted average score"
+        },
+        "dcfModel": {
+          "dcfPeriodLabel": "DCF Model",
+          "discountRateLabel": "Discount rate",
+          "perpetualGrowthLabel": "Perpetual growth rate",
+          "revenueCagrLabel": "Revenue 5 year CAGR",
+          "fcfCagrLabel": "FCF 5 year CAGR",
+          "fairValueLabel": "Fair value",
+          "stockPriceLabel": "Stock price"
+        },
+        "dividend": {
+          "dividendTitle": "Dividend",
+          "nameColumn": "NAME",
+          "currentColumn": "CURRENT",
+          "industryColumn": "INDUSTRY",
+          "scoreColumn": "SCORE",
+          "dividendYieldLabel": "Dividend yield",
+          "payoutRatioLabel": "Payout ratio",
+          "dividendGrowth5yLabel": "5-year dividend growth rate",
+          "dividendIncreaseYearsLabel": "Years of dividend increase",
+          "weightedAverageScoreLabel": "Weighted average score"
+        },
+        "fairValue": {
+          "fairValueCardTitle": "Fair Value",
+          "undervaluedLabel": "Undervalued",
+          "stockPriceLabel": "Stock price",
+          "overvaluedLabel": "Overvalued"
+        },
+        "economicMoatTable": {
+          "economicMoatTitle": "Economic Moat",
+          "nameColumn": "NAME",
+          "scaleColumn": "SCALE",
+          "scoreColumn": "SCORE",
+          "marketShareLabel": "Market share",
+          "intangibleAssetsLabel": "Intangible assets",
+          "switchingCostsLabel": "Switching costs",
+          "networkEffectLabel": "Network effect",
+          "economiesOfScaleLabel": "Economies of scale",
+          "weightedAverageScoreLabel": "Weighted average score"
+        }
+      },
+      "newsTab": {
+        "videos": "Videos",
+        "loadMoreBtn": "Load More",
+        "newsTable": {
+          "newsTableTitle": "Upgrades / Downgrades",
+          "tickerColumn": "Ticker",
+          "brokerageFirmColumn": "Brokerage Firm",
+          "ratingsChangeColumn": "Ratings Change",
+          "priceTargetColumn": "Price Target",
+          "dateColumn": "Date"
+        },
+        "pressReleases": "Press releases"
+      },
+      "chartTab": {
+        "chart": "Chart"
+      },
+      "financialTab": {
+        "tabs": {
+          "incomeStatementTab": "Income Statement",
+          "balanceSheetTab": "Balance Sheet",
+          "cashFlowTab": "Cash Flow"
+        },
+        "incomeStatementTab": {
+          "incomeStatementTabChart": {
+            "revenueLabel": "Revenue",
+            "grossProfitLabel": "Gross Profit",
+            "operatingIncomeLabel": "Operating Income",
+            "netIncomeLabel": "Net Income"
+          },
+          "incomeStatementTabTable": {
+            "incomeStatementAnnualTitle": "Income Statement (Annual)",
+            "financialsNote": "Financials in millions USD. Fiscal year is January – December.",
+            "tableTabs": {
+              "annual": "Annual",
+              "quarterly": "Quarterly"
+            },
+            "totalRevenueLabel": "Total Revenue",
+            "costOfGoodsSoldLabel": "Cost of goods sold",
+            "depreciationAmortizationLabel": "Depreciation and amortization",
+            "otherCogsLabel": "Other cost of goods sold",
+            "grossProfitLabel": "Gross Profit",
+            "operatingExpensesLabel": "Operating expenses (excl. COGS)",
+            "sgnaTotalLabel": "Selling/general/admin expenses, total",
+            "researchDevelopmentLabel": "Research & development",
+            "sgnaOtherLabel": "Selling/general/admin expenses, other",
+            "otherOperatingExpensesLabel": "Other operating expenses, total",
+            "operatingIncomeLabel": "Operating Income",
+            "nonOperatingIncomeTotalLabel": "Non-operating income, total",
+            "interestExpenseNetLabel": "Interest expense, net of interest capitalized",
+            "interestExpenseDebtLabel": "Interest expense on debt",
+            "interestCapitalizedLabel": "Interest capitalized",
+            "nonOperatingIncomeLabel": "Non-operating income, excl. interest expenses",
+            "nonOperatingInterestIncomeLabel": "Non-operating interest income",
+            "pretaxEquityEarningsLabel": "Pretax equity in earnings",
+            "miscNonOperatingExpenseLabel": "Miscellaneous non-operating expense",
+            "unusualIncomeExpenseLabel": "Unusual income/expense",
+            "pretaxIncomeLabel": "Pretax income",
+            "equityInEarningsLabel": "Equity in earnings",
+            "taxesLabel": "Taxes",
+            "minorityInterestLabel": "Non-controlling/minority interest",
+            "afterTaxOtherIncomeLabel": "After tax other income/expense",
+            "netIncomeBeforeDiscOpsLabel": "Net income before discontinued operations",
+            "discontinuedOperationsLabel": "Discontinued operations",
+            "netIncomeLabel": "Net income",
+            "dilutionAdjustmentLabel": "Dilution adjustment",
+            "preferredDividendsLabel": "Preferred dividends",
+            "dilutedNetIncomeLabel": "Diluted net income available to common stockholders",
+            "basicEpsLabel": "Basic earnings per share (Basic EPS)",
+            "dilutedEpsLabel": "Diluted earnings per share (Diluted EPS)",
+            "basicSharesOutstandingLabel": "Average basic shares outstanding",
+            "dilutedSharesOutstandingLabel": "Diluted shares outstanding",
+            "ebitdaLabel": "EBITDA",
+            "ebitLabel": "EBIT",
+            "totalOperatingExpensesLabel": "Total operating expenses"
+          }
+        },
+        "balanceSheetTab": {
+          "balanceSheetTabChart": {
+            "totalAssetsLabel": "Total Assets",
+            "totalLiabilities": "Total Liabilities",
+            "stockholdersEquity": "Stockholders Equity",
+            "totalDebt": "Total Debt"
+          },
+          "balanceSheetTabTable": {
+            "totalAssetsLabel": "Total assets",
+            "totalCurrentAssetsLabel": "Total current assets",
+            "cashShortTermInvestmentsLabel": "Cash and short term investments",
+            "cashEquivalentsLabel": "Cash & equivalents",
+            "shortTermInvestmentsLabel": "Short term investments",
+            "totalReceivablesNetLabel": "Total receivables, net",
+            "accountsReceivableTradeNetLabel": "Accounts receivable - trade, net",
+            "otherReceivablesLabel": "Other receivables",
+            "totalInventoryLabel": "Total inventory",
+            "inventoryWorkInProgressLabel": "Inventories - work in progress",
+            "inventoryProgressPaymentsLabel": "Inventories - progress payments & other",
+            "inventoryFinishedGoodsLabel": "Inventories - finished goods",
+            "inventoryRawMaterialsLabel": "Inventories - raw materials",
+            "prepaidExpensesLabel": "Prepaid expenses",
+            "otherCurrentAssetsTotalLabel": "Other current assets, total",
+            "totalNonCurrentAssetsLabel": "Total non-current assets",
+            "longTermInvestmentsLabel": "Long term investments",
+            "noteReceivableLongTermLabel": "Note receivable - long term",
+            "investmentsUnconsolidatedSubsidiariesLabel": "Investments in unconsolidated subsidiaries",
+            "otherInvestmentsLabel": "Other investments",
+            "netPpeLabel": "Net property/plant/equipment",
+            "grossPpeLabel": "Gross property/plant/equipment",
+            "accumulatedDepreciationTotalLabel": "Accumulated depreciation, total",
+            "deferredTaxAssetsLabel": "Deferred tax assets",
+            "netIntangibleAssetsLabel": "Net intangible assets",
+            "goodwillNetLabel": "Goodwill, net",
+            "otherIntangiblesNetLabel": "Other intangibles, net",
+            "deferredChargesLabel": "Deferred charges",
+            "otherLongTermAssetsTotalLabel": "Other long term assets, total",
+            "totalLiabilitiesLabel": "Total liabilities",
+            "totalCurrentLiabilitiesLabel": "Total current liabilities",
+            "shortTermDebtLabel": "Short term debt",
+            "currentPortionLtDebtLeasesLabel": "Current portion of LT debt and capital leases",
+            "shortTermDebtExclCurrentPortionLabel": "Short term debt excl. current portion of LT debt",
+            "accountsPayableLabel": "Accounts payable",
+            "incomeTaxPayableLabel": "Income tax payable",
+            "accruedPayrollLabel": "Accrued payroll",
+            "deferredIncomeCurrentLabel": "Deferred income, current",
+            "otherCurrentLiabilitiesLabel": "Other current liabilities",
+            "totalNonCurrentLiabilitiesLabel": "Total non-current liabilities",
+            "longTermDebtLabel": "Long term debt",
+            "longTermDebtExclLeasesLabel": "Long term debt excl. lease liabilities",
+            "capitalOperatingLeaseObligationsLabel": "Capital and operating lease obligations",
+            "capitalLeaseObligationsLabel": "Capital lease obligations",
+            "operatingLeaseLiabilitiesLabel": "Operating lease liabilities",
+            "provisionRisksChargeLabel": "Provision for risks & charge",
+            "deferredTaxLiabilitiesLabel": "Deferred tax liabilities",
+            "deferredIncomeNonCurrentLabel": "Deferred income, non-current",
+            "otherNonCurrentLiabilitiesTotalLabel": "Other non-current liabilities, total",
+            "totalEquityLabel": "Total equity",
+            "shareholdersEquityLabel": "Shareholders' equity",
+            "commonEquityTotalLabel": "Common equity, total",
+            "retainedEarningsLabel": "Retained earnings",
+            "paidInCapitalLabel": "Paid in capital",
+            "commonStockParValueLabel": "Common stock par/Carrying value",
+            "additionalPaidInCapitalLabel": "Additional paid-in capital/Capital surplus",
+            "treasuryStockCommonLabel": "Treasury stock - common",
+            "otherCommonEquityLabel": "Other common equity",
+            "preferredStockCarryingValueLabel": "Preferred stock, carrying value",
+            "minorityInterestLabel": "Minority interest",
+            "totalLiabilitiesEquityLabel": "Total liabilities & shareholders' equities",
+            "totalDebtLabel": "Total debt"
+          }
+        },
+        "cashFlowTab": {
+          "cashFlowTabChart": {
+            "operatingCashFlowLabel": "Operating Cash Flow",
+            "investingCashFlowLabel": "Investing Cash Flow",
+            "financingCashFlowLabel": "Financing Cash Flow",
+            "freeCashFlowLabel": "Free Cash Flow"
+          },
+          "cashFlowTabTable": {
+            "cashFromOperatingActivitiesLabel": "Cash from operating activities",
+            "fundsFromOperationsLabel": "Funds from operations",
+            "netIncomeCashFlowLabel": "Net income (cash flow)",
+            "depreciationAmortizationCashFlowLabel": "Depreciation & amortization (cash flow)",
+            "depreciationDepletionLabel": "Depreciation/depletion",
+            "amortizationLabel": "Amortization",
+            "deferredTaxesCashFlowLabel": "Deferred taxes (cash flow)",
+            "nonCashItemsLabel": "Non-cash items",
+            "changesInWorkingCapitalLabel": "Changes in working capital",
+            "changeInAccountsReceivableLabel": "Change in accounts receivable",
+            "changeInTaxesPayableLabel": "Change in taxes payable",
+            "changeInAccountsPayableLabel": "Change in accounts payable",
+            "changeInAccruedExpensesLabel": "Change in accrued expenses",
+            "changeInInventoriesLabel": "Change in inventories",
+            "changeInOtherAssetsLiabilitiesLabel": "Change in other assets/liabilities",
+            "cashFromInvestingActivitiesLabel": "Cash from investing activities",
+            "purchaseSaleBusinessNetLabel": "Purchase/sale of business, net",
+            "saleOfFixedAssetsBusinessesLabel": "Sale of fixed assets & businesses",
+            "purchaseAcquisitionBusinessLabel": "Purchase/acquisition of business",
+            "purchaseSaleInvestmentsNetLabel": "Purchase/sale of investments, net",
+            "saleMaturityInvestmentsLabel": "Sale/maturity of investments",
+            "purchaseOfInvestmentsLabel": "Purchase of investments",
+            "capitalExpendituresLabel": "Capital expenditures",
+            "capitalExpendituresFixedAssetsLabel": "Capital expenditures - fixed assets",
+            "capitalExpendituresOtherAssetsLabel": "Capital expenditures - other assets",
+            "otherInvestingCashFlowItemsTotalLabel": "Other investing cash flow items, total",
+            "investingOtherSourcesLabel": "Investing activities – other sources",
+            "investingOtherUsesLabel": "Investing activities – other uses",
+            "cashFromFinancingActivitiesLabel": "Cash from financing activities",
+            "issuanceRetirementStockNetLabel": "Issuance/retirement of stock, net",
+            "saleOfCommonPreferredStockLabel": "Sale of common & preferred stock",
+            "repurchaseOfCommonPreferredStockLabel": "Repurchase of common & preferred stock",
+            "issuanceRetirementDebtNetLabel": "Issuance/retirement of debt, net",
+            "issuanceRetirementLongTermDebtLabel": "Issuance/retirement of long term debt",
+            "issuanceOfLongTermDebtLabel": "Issuance of long term debt",
+            "reductionOfLongTermDebtLabel": "Reduction of long term debt",
+            "issuanceRetirementShortTermDebtLabel": "Issuance/retirement of short term debt",
+            "issuanceRetirementOtherDebtLabel": "Issuance/retirement of other debt",
+            "totalCashDividendsPaidLabel": "Total cash dividends paid",
+            "commonDividendsPaidLabel": "Common dividends paid",
+            "preferredDividendsPaidLabel": "Preferred dividends paid",
+            "otherFinancingCashFlowItemsTotalLabel": "Other financing cash flow items, total",
+            "financingOtherSourcesLabel": "Financing activities – other sources",
+            "financingOtherUsesLabel": "Financing activities – other uses",
+            "freeCashFlowLabel": "Free cash flow"
+          }
+        }
+      },
+      "dividendsTab": {
+        "yearsDividendIncreaseLabel": "Years of dividend increase",
+        "exDividendDateLabel": "Ex-dividend date",
+        "dividendYieldLabel": "Dividend yield",
+        "payoutRatioLabel": "Payout ratio",
+        "dividendFrequencyLabel": "Dividend frequency",
+        "annualDividendLabel": "Annual dividend",
+        "DividendyieldovertimeTitle": "Dividend yield over time"
+      },
+      "forecastTab": {
+        "stockForecastTitle": "Stock Forecast",
+        "stockPriceForecastTitle": "Stock Price Forecast",
+        "stockPriceForecastDesc": "NVIDIA Corporation has a consensus price target of $254.92 based on the ratings of 36 analysts. The high is $352.00 issued by Evercore ISI Group on November 20, 2025. The low is $165.00 issued by Raymond James on May 29, 2025. The 3 most-recent analyst ratings were released by Morgan Stanley, Citigroup, and Barclays on December 1, 2025, respectively. The average target predicts a increase of 39.45% from the current stock price of $182.80.t",
+        "analystConsensus": "Analyst Consensus",
+        "priceHistoryForecastTitle": "Past 12 months + 12 Month forecast",
+        "lowestPriceTargetLabel": "Lowest Price Target",
+        "consensusPriceTargetLabel": "Consensus Price Target",
+        "highestPriceTargetLabel": "Highest Price Target",
+        "targetLabel": "Target",
+        "priceColumn": "Price",
+        "changeColumn": "Change",
+        "forecastTable": {
+          "latestForecastsTitle": "Latest Forecasts",
+          "dateColumn": "Date",
+          "upsideDownsideColumn": "Upside/Downside",
+          "analystFirmColumn": "Analyst Firm",
+          "priceTargetColumn": "Price Target",
+          "ratingChangeColumn": "Rating Change",
+          "ratingColumn": "Rating",
+          "hideAnalystRatingBtn": "Hide analyst rating",
+          "moreAnalystRaitingBtn": "More analyst raiting"
+        },
+        "select": {
+          "select": "Select",
+          "Annual": "annual",
+          "quarteryl": "Quarterly"
+        },
+        "eps-chart": {
+          "eps": "EPS",
+          "estimateLabel": "Estimate",
+          "reportedLabel": "Reported"
+        },
+        "revenue-chart": {
+          "revenue": "Revenue",
+          "reportedLabel": "Reported"
+        }
+      },
+      "ownershipTab": {
+        "ownershipTitle": "Ownership",
+        "majorHoldersTable": {
+          "breakdownColumn": "Breakdown"
+        },
+        "topInstitutionalHolders": {
+          "holdersColumn": "Holders",
+          "sharesColumn": "Shares",
+          "dateReportedColumn": "Date reported",
+          "percentOutstandingColumn": "% Out",
+          "valueColumn": "Value"
+        },
+        "topMutualFundHolders": {
+          "topMutualFundHolders": "Top Mutual Fund Holders"
+        }
+      },
+      "profileTab": {
+        "aboutCompany": {
+          "aboutCompanyTitle": "About the company"
+        },
+        "ExecutivesTable": {
+          "keyExecutivesTitle": "Key Executives",
+          "nameColumn": "Name",
+          "positionColumn": "Position"
+        },
+        "latestSecFilingsTable": {
+          "latestSecFilingsTableTitle": "Latest SEC Filings",
+          "dateColumn": "Date",
+          "typeColumn": "Type",
+          "documentColumn": "Document",
+          "viewAllSecFilingsButton": "View All SEC Filings"
+        },
+        "inc": {
+          "countryLabel": "Country",
+          "industryLabel": "Industry",
+          "sectorLabel": "Sector",
+          "ipoDateLabel": "IPO Date",
+          "ceoLabel": "CEO"
+        },
+        "contactDetails": {
+          "contactDetailsTitle": "Contact Details",
+          "noDataAvailableLabel": "No data available",
+          "addressLabel": "Address",
+          "phoneLabel": "Phone",
+          "websiteLabel": "Website"
+        },
+        "stockDetails": {
+          "stockDetailsTitle": "Stock Details",
+          "tickerSymbolLabel": "Ticker Symbol",
+          "exchangeLabel": "Exchange",
+          "fiscalYearLabel": "Fiscal Year",
+          "reportingCurrencyLabel": "Reporting Currency",
+          "cikCodeLabel": "CIK Code",
+          "cusipNumberLabel": "CUSIP Number",
+          "isinNumberLabel": "ISIN Number",
+          "employerIdLabel": "Employer ID",
+          "sicCodeLabel": "SIC Code"
         }
       }
     }
+  },
+  "auth": {
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter name",
+    "email": "Email",
+    "emailPlaceholder": "Enter",
+    "emailValidation": "Enter a valid email address.",
+    "password": "Password",
+    "passwordPlaceholder": "Password",
+    "passwordValidation": "Password is required",
+    "or": "or",
+    "getStartedBtn": "Get Started",
+    "continueWithGoogle": "Continue with Google",
+    "signUpTitle": "Sign Up",
+    "signInTitle": "Sign In",
+    "registration": {
+      "registration": "Registration",
+      "registrationSubTitle": "Please, fill out the fields below to sign up",
+      "account": "Have an account?"
+    },
+    "signIn": {
+      "signIn": "Sign In",
+      "signInSubTitle": "Please, fill out the fields below to sign in",
+      "account": "Do you have not an account?",
+      "forgotPassword": "Forgot Password",
+      "rememberMe": "I agree to the Privacy Policy"
+    }
+  },
+  "profilePage": {
+    "profilePageHeader": {
+      "watchlist": "Watchlist",
+      "watchListBtn": "Add watchlist",
+      "manageWatchlist": "Manage watchlist"
+    },
+    "profilePageBody": {
+      "sideBar": {
+        "watchListBtn": "Add watchlist",
+        "profile": "Profile",
+        "dashboardLabel": "Dashboard",
+        "personalInformationLabel": "Personal information",
+        "subscriptionBillingLabel": "Subscription & Billing",
+        "transactionsLabel": "Transactions",
+        "settingsLabel": "Settings",
+        "helpSupportLabel": "Help & Support",
+        "logout": "Logout"
+      },
+      "listTable": {
+        "listTableTitle": "Watchlist Table Settings",
+        "companyLabel": "Company",
+        "companyNameLabel": "Company name",
+        "industryLabel": "Industry",
+        "lastPriceLabel": "Last price",
+        "change1dLabel": "1D %",
+        "change1mLabel": "1M %",
+        "change1yLabel": "1Y %",
+        "changeYtdLabel": "YTD %",
+        "volumeLabel": "Volume",
+        "marketCapLabel": "Market cap",
+        "peRatioLabel": "P/E",
+        "week52LowLabel": "52-week Low",
+        "week52HighLabel": "52-week High",
+        "action": "Action",
+        "saveBtn": "Save"
+      }
+    }
+  },
+  "footer": {
+    "company": "Company",
+    "aboutUs": "About us",
+    "contactUs": "Contactus",
+    "followUs": "Follow us",
+    "instagram": "Instagram",
+    "telegram": "Telegram",
+    "linkedIn": "LinkedIn",
+    "footerCopyright": "finranks.com. All rights reserved.",
+    "termsConditionsLabel": "Terms and Conditions Privacy Policy"
   }
 }

@@ -8,20 +8,23 @@ import { cn } from '@finranks/design-system/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const SideNav = () => {
+const SideNav = ({ dictionary }) => {
     const pathname = usePathname();
     const currentSlug = pathname.split('/')[2];
-    const confirm = useConfirm();
-    const { performLogout } = useLogout()
 
-    const handleSignout = async () => {
+    const confirm = useConfirm();
+    const { performLogout } = useLogout();
+
+    const sideBar = dictionary?.profilePage?.profilePageBody?.sideBar ?? {};
+
+    const handleSignout = async (e) => {
+        e.preventDefault(); // href="#" bo‘lsa sakramasin
+
         const result = await confirm({
             title: "Are you sure?",
             description: "Are you sure you want to logout?",
             confirmText: "Logout",
-            confirmButton: {
-                variant: "destructive",
-            },
+            confirmButton: { variant: "destructive" },
         });
 
         if (result.confirmed) {
@@ -37,12 +40,15 @@ const SideNav = () => {
             {NAV_ITEMS.map(({ label, href, slug, icon }) => {
                 const isActive = currentSlug === slug;
 
+                const text = sideBar[label] ?? label; // fallback: label
+
                 return (
-                    <TooltipWrapper content={label} classNames={{
-                        content: "md:hidden"
-                    }}>
+                    <TooltipWrapper
+                        key={slug}
+                        content={text}
+                        classNames={{ content: 'md:hidden' }}
+                    >
                         <Link
-                            key={slug}
                             href={href}
                             prefetch
                             aria-current={isActive ? 'page' : undefined}
@@ -52,20 +58,20 @@ const SideNav = () => {
                                 isActive && 'bg-[#8b09d6f5]/10 text-white'
                             )}
                         >
-                            <div className="w-8 h-8  flex items-center justify-center bg-[#8b09d6f5] rounded-md mr-2.5 shrink-0">
+                            <div className="w-8 h-8 flex items-center justify-center bg-[#8b09d6f5] rounded-md mr-2.5 shrink-0">
                                 <img src={icon} alt="" />
                             </div>
 
-                            <span className="text-sm hidden md:block font-medium">{label}</span>
+                            <span className="text-sm hidden md:block font-medium">
+                                {text}
+                            </span>
                         </Link>
                     </TooltipWrapper>
                 );
             })}
 
             {/* Logout */}
-            <TooltipWrapper content={"Logout"} classNames={{
-                content: "md:hidden"
-            }}>
+            <TooltipWrapper content={"Logout"} classNames={{ content: "md:hidden" }}>
                 <Link
                     href="#"
                     className="flex items-center p-3 mt-2 rounded-lg cursor-pointer transition-all duration-200 ease-in-out hover:bg-[#8b09d6f5]/10"
@@ -74,7 +80,7 @@ const SideNav = () => {
                     <div className="w-8 h-8 flex items-center justify-center bg-red-500 rounded-md mr-2.5 shrink-0">
                         <img src="/icons/logout.svg" alt="" width={18} />
                     </div>
-                    <span className="text-sm font-medium hidden md:block">Logout</span>
+                    <span className="text-sm font-medium hidden md:block">{sideBar.logout}</span>
                 </Link>
             </TooltipWrapper>
         </nav>

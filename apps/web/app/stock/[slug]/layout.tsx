@@ -7,6 +7,7 @@ import { get } from "lodash";
 import { ReactNode } from "react";
 import { headers } from 'next/headers';
 import StockHeader from "@/views/stock/shared/stock-header";
+import { getDictionary } from "@finranks/internationalization";
 
 type TLayoutProperties = {
     readonly children: ReactNode;
@@ -17,6 +18,7 @@ type TLayoutProperties = {
 
 
 export default async function Layout({ children, params }: TLayoutProperties) {
+    const dic = await getDictionary("en")
     const param = await params;
     const deviceInfo = getDeviceType(await headers());
     const isMobile = deviceInfo.isMobile || deviceInfo.isTablet;
@@ -46,6 +48,7 @@ export default async function Layout({ children, params }: TLayoutProperties) {
                     changePercent={parseFloat(changePercent)}
                     displayTime={displayTime}
                     currentMarketState={currentMarketState}
+                    dictionary={dic}
                 />
             )}
             <main className="space-y-5 app-container">

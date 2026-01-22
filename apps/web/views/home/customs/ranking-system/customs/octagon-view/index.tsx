@@ -26,7 +26,7 @@ const generateData = () => [
         })),
     },
 ];
-const OctagonView = () => {
+const OctagonView = ({ dictionary }: { dictionary: any }) => {
     const isMobile = useMediaQuery('(max-width: 768px)');
     const [data, setData] = useState(generateData());
 
@@ -48,7 +48,7 @@ const OctagonView = () => {
 
     return (
         <Card className='space-y-6 relative p-4 md:p-6 overflow-hidden'>
-            <Typography variant="h3" className='text-[18px] md:text-inherit'>Octagon View</Typography>
+            <Typography variant="h3" className='text-[18px] md:text-inherit'>{dictionary.octagonViewTitle}</Typography>
             <div className='h-[380px]'>
                 <ResponsiveRadar
                     data={data[0].data}
