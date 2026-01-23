@@ -1,4 +1,7 @@
 import AboutPage from "@/views/about";
-export default function Page() {
-    return <AboutPage />;
+import { getDictionary } from "@finranks/internationalization";
+
+export default async function Page() {
+    const dic = await getDictionary("en");
+    return <AboutPage dictionary={dic} />;
 }

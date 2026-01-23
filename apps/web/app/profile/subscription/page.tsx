@@ -1,4 +1,7 @@
 import SubscriptionPage from "@/views/profile/subscription";
-export default function Page() {
-        return <SubscriptionPage />;   
-    }
+import { getDictionary } from "@finranks/internationalization";
+
+export default async function Page() {
+    const dic = await getDictionary("en");
+    return <SubscriptionPage dictionary={dic} />;
+}

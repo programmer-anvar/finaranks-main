@@ -1,4 +1,7 @@
 import HelpPage from "@/views/profile/help";
-export default function Page() {
-    return <HelpPage />;
+import { getDictionary } from "@finranks/internationalization";
+
+export default async function Page() {
+    const dic = await getDictionary("en");
+    return <HelpPage dictionary={dic} />;
 }

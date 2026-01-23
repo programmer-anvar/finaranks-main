@@ -4,71 +4,71 @@ import { convertToReadable } from '@finranks/design-system/lib/utils';
 import { get } from 'lodash';
 import { memo } from 'react';
 
+const StockDetails = memo(({ overview, dictionary }: any) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.stockDetailsCard || {};
+    const na = dic.na || "N/A";
 
-
-
-const StockDetails = memo(({ overview }: any) => {
     const OVERVIEW_FACTS = [
         {
-            label: "Previous close",
-            value: get(overview, 'previousClose', "N/A") ?? "N/A",
+            label: dic.previousCloseLabel,
+            value: get(overview, 'previousClose', na) ?? na,
         },
         {
-            label: "Day's range",
-            value: get(overview, 'dayRange', "N/A") ?? "N/A",
+            label: dic.dayRangeLabel,
+            value: get(overview, 'dayRange', na) ?? na,
         },
         {
-            label: "52-week range",
-            value: get(overview, '52weekRange', "N/A") ?? "N/A",
+            label: dic.week52RangeLabel || "52-week range",
+            value: get(overview, '52weekRange', na) ?? na,
         },
         {
-            label: "Volume",
-            value: convertToReadable({ number: get(overview, 'volume', 0) ?? 0 }) ?? "N/A",
+            label: dic.volumeLabel,
+            value: convertToReadable({ number: get(overview, 'volume', 0) ?? 0 }) ?? na,
         },
         {
-            label: "Average volume",
-            value: convertToReadable({ number: get(overview, 'averageVolume', 0) }) ?? "N/A",
+            label: dic.averageVolumeLabel,
+            value: convertToReadable({ number: get(overview, 'averageVolume', 0) }) ?? na,
         },
         {
-            label: "Beta",
-            value: get(overview, 'beta', "N/A") ?? "N/A",
+            label: dic.betaLabel,
+            value: get(overview, 'beta', na) ?? na,
         },
         {
-            label: "EPS (TTM)",
-            value: get(overview, 'EPSTTM', "N/A") ?? "N/A",
+            label: dic.epsTtmLabel,
+            value: get(overview, 'EPSTTM', na) ?? na,
         },
         {
-            label: "PE ratio (TTM)",
-            value: get(overview, 'PEratioTTM', "N/A") ?? "N/A",
+            label: dic.peRatioTtmLabel,
+            value: get(overview, 'PEratioTTM', na) ?? na,
         },
         {
-            label: "Market cap",
-            value: convertToReadable({ number: get(overview, 'marketCap', 0) }) ?? "N/A",
+            label: dic.marketCapLabel,
+            value: convertToReadable({ number: get(overview, 'marketCap', 0) }) ?? na,
         },
         {
-            label: "Shares outstanding",
-            value: convertToReadable({ number: get(overview, 'sharesOutstanding', 0) }) ?? "N/A",
+            label: dic.sharesOutstandingLabel,
+            value: convertToReadable({ number: get(overview, 'sharesOutstanding', 0) }) ?? na,
         },
         {
-            label: "Dividend yield",
-            value: get(overview, 'dividendYield', 'N/A') ?? "N/A",
+            label: dic.dividendYieldLabel,
+            value: get(overview, 'dividendYield', na) ?? na,
         },
         {
-            label: "Next earnings date",
-            value: get(overview, 'nextEarningsDate', 'N/A') ?? "N/A",
+            label: dic.nextEarningsDateLabel,
+            value: get(overview, 'nextEarningsDate', na) ?? na,
         },
         {
-            label: "Sector",
-            value: get(overview, 'sector', 'N/A') ?? "N/A",
+            label: dic.sectorLabel,
+            value: get(overview, 'sector', na) ?? na,
         },
         {
-            label: "Industry",
-            value: get(overview, 'industry', 'N/A') ?? "N/A",
+            label: dic.industryLabel,
+            value: get(overview, 'industry', na) ?? na,
         },
     ];
     return (
         <Card className='space-y-4 rounded-[20px] p-4 md:p-6'>
-            <Typography variant='h4'>Stock details</Typography>
+            <Typography variant='h4'>{dic.stockDetailsTitle}</Typography>
             <dl className="space-y-2">
                 {OVERVIEW_FACTS.map(({ label, value }) => (
                     <div

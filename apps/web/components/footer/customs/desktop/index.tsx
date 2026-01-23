@@ -28,36 +28,8 @@ interface Footer7Props {
         name: string;
         href: string;
     }>;
+    dictionary?: any;
 }
-
-const defaultSections = [
-    {
-        title: "Company",
-        links: [
-            { name: "About us", href: "#" },
-        ],
-    },
-    {
-        title: "Contact us",
-        links: [
-            { name: "info@finranks.com", href: "#" },
-        ],
-    },
-    {
-        title: "Follow us",
-        links: [
-            { name: "Instagram", href: "https://www.instagram.com/finranks" },
-            { name: "Telegram", href: "https://t.me/finranks" },
-            { name: "LinkedIn", href: "https://www.linkedin.com/company/finranks" },
-        ],
-    },
-];
-
-
-const defaultLegalLinks = [
-    { name: "Terms and Conditions", href: "/terms-of-service" },
-    { name: "Privacy Policy", href: "/privacy-policy" },
-];
 
 export const DesktopFooter = ({
     logo = {
@@ -66,11 +38,49 @@ export const DesktopFooter = ({
         alt: "Finranks",
         title: "Finranks",
     },
-    sections = defaultSections,
+    sections,
     description = "A collection of components for your startup business or side project.",
-    copyright = "© 2024 finranks.com. All rights reserved.",
-    legalLinks = defaultLegalLinks,
+    copyright,
+    legalLinks,
+    dictionary,
 }: Footer7Props) => {
+    const footerDic = dictionary?.footer || {};
+    const homePageDic = dictionary?.homePage || {};
+    
+    const defaultSections = [
+        {
+            title: footerDic.company || "Company",
+            links: [
+                { name: footerDic.aboutUs || "About us", href: "/about" },
+            ],
+        },
+        {
+            title: footerDic.contactUs || "Contact us",
+            links: [
+                { name: "info@finranks.com", href: "mailto:info@finranks.com" },
+            ],
+        },
+        {
+            title: footerDic.followUs || "Follow us",
+            links: [
+                { name: footerDic.instagram || "Instagram", href: "https://www.instagram.com/finranks" },
+                { name: footerDic.telegram || "Telegram", href: "https://t.me/finranks" },
+                { name: footerDic.linkedIn || "LinkedIn", href: "https://www.linkedin.com/company/finranks" },
+            ],
+        },
+    ];
+
+    const defaultLegalLinks = [
+        { name: "Terms and Conditions", href: "/terms-of-service" },
+        { name: "Privacy Policy", href: "/privacy-policy" },
+    ];
+
+    const finalSections = sections || defaultSections;
+    const finalCopyright = copyright || footerDic.footerCopyright || "© 2024 finranks.com. All rights reserved.";
+    const finalLegalLinks = legalLinks || defaultLegalLinks;
+    const ctaTitle = homePageDic.ctaTitle || "Get all premium features to the best stock analysis tool";
+    const ctaButtonText = homePageDic.ctaButtonBtn || "Get started for free";
+
     const { setModal } = useModals();
     const { isAuthenticated } = useAuth()
     return (
@@ -80,8 +90,8 @@ export const DesktopFooter = ({
 
                 <div className="relative z-10 pt-27">
                     <div className='flex flex-col items-center justify-center w-full gap-4'>
-                        <Typography variant="h1" align="center" className="text-center text-[32px] leading-[76px] font-bold!">Get all premium features to the best stock analysis tool</Typography>
-                        <Button onClick={() => setModal({ register: true })}>Get started for free</Button>
+                        <Typography variant="h1" align="center" className="text-center text-[32px] leading-[76px] font-bold!">{ctaTitle}</Typography>
+                        <Button onClick={() => setModal({ register: true })}>{ctaButtonText}</Button>
                     </div>
                 </div>
             </section>}
@@ -103,7 +113,7 @@ export const DesktopFooter = ({
                             </div>
                         </div>
                         <div className="grid w-full gap-6 md:grid-cols-3 lg:gap-20">
-                            {sections.map((section, sectionIdx) => (
+                            {finalSections.map((section, sectionIdx) => (
                                 <div key={sectionIdx}>
                                     <h3 className="mb-4 font-bold">{section.title}</h3>
                                     <ul className="space-y-3 text-sm text-muted-foreground">
@@ -121,9 +131,9 @@ export const DesktopFooter = ({
                         </div>
                     </div>
                     <div className="mt-8 flex flex-col justify-between gap-4 border-t py-8 text-xs font-medium text-muted-foreground md:flex-row md:items-center md:text-left">
-                        <p className="order-2 lg:order-1">{copyright}</p>
+                        <p className="order-2 lg:order-1">{finalCopyright}</p>
                         <ul className="order-1 flex flex-col gap-2 md:order-2 md:flex-row">
-                            {legalLinks.map((link, idx) => (
+                            {finalLegalLinks.map((link, idx) => (
                                 <li key={idx} className="hover:text-primary text-white">
                                     <a href={link.href}> {link.name}</a>
                                 </li>
@@ -135,4 +145,3 @@ export const DesktopFooter = ({
         </div>
     );
 };
-

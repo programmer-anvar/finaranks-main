@@ -1,4 +1,7 @@
 import PersonalInformationPage from "@/views/profile/personal-information";
-export default function Page() {
-    return <PersonalInformationPage />;
+import { getDictionary } from "@finranks/internationalization";
+
+export default async function Page() {
+    const dic = await getDictionary("en");
+    return <PersonalInformationPage dictionary={dic} />;
 }

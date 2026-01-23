@@ -4,12 +4,12 @@ import Providers from '@/lib/providers'
 import { Session } from 'next-auth'
 import { ReactNode } from 'react'
 
-const DesktopRootContent = ({ children, session }: { children: ReactNode, session: Session }) => {
+const DesktopRootContent = ({ children, session, dictionary }: { children: ReactNode, session: Session, dictionary: any }) => {
     return (
         <Providers session={session!}>
-            <Header />
+            <Header dictionary={dictionary} />
             {children}
-            <Footer />
+            <Footer dictionary={dictionary} />
         </Providers>
     )
 }

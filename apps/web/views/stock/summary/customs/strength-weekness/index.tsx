@@ -10,7 +10,8 @@ const formatLabel = (key: string) =>
         .replace(/\b\w/g, (c) => c.toUpperCase());
 
 
-const StrengthWeekness = memo(({ data }: Record<string, any[]>) => {
+const StrengthWeekness = memo(({ data, dictionary }: Record<string, any>) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.strengthWeekness || {};
     const scrollRef = useRef<HTMLUListElement | null>(null);
 
     const keys = useMemo(() => (data ? Object.keys(data) : []), [data]);
@@ -68,7 +69,7 @@ const StrengthWeekness = memo(({ data }: Record<string, any[]>) => {
 
     return (
         <Card className='rounded-[20px] p-4 md:p-6 space-y-4'>
-            <Typography variant="h4">Strength & Weekness</Typography>
+            <Typography variant="h4">{dic.strengthWeeknessTitle || "Strength & Weakness"}</Typography>
             <div className="flex items-center gap-2">
                 {showLeft && (
                     <button

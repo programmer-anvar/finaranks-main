@@ -90,6 +90,7 @@ const SummaryPage = async ({ params, dictionary }: any) => {
                                 ? "profitability.data"
                                 : "summary.data"
                         )}
+                        dictionary={dictionary}
                     />
                 </RevealOnScroll>
             ))}
@@ -101,37 +102,38 @@ const SummaryPage = async ({ params, dictionary }: any) => {
             {/* Top overview */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
                 <RevealOnScroll>
-                    <StockDetails overview={get(stocks, "overview.data")} dictionary={dictionary.stock} />
+                    <StockDetails overview={get(stocks, "overview.data")} dictionary={dictionary} />
                 </RevealOnScroll>
                 <RevealOnScroll delay={0.05}>
-                    <About info={get(stocks, "info.data")} />
+                    <About info={get(stocks, "info.data")} dictionary={dictionary} />
                 </RevealOnScroll>
                 <RevealOnScroll delay={0.1}>
-                    <RevenueChart revenue={get(stocks, "revenue.data")} />
+                    <RevenueChart revenue={get(stocks, "revenue.data")} dictionary={dictionary} />
                 </RevealOnScroll>
             </div>
 
             {/* News + Chart */}
             <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-2">
                 <RevealOnScroll delay={0.15}>
-                    <News />
+                    <News dictionary={dictionary} />
                 </RevealOnScroll>
                 <RevealOnScroll delay={0.2}>
-                    <TradeChartComponent slug={slug} />
+                    <TradeChartComponent slug={slug} dictionary={dictionary} />
                 </RevealOnScroll>
             </div>
 
             {/* Scores */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
                 <RevealOnScroll delay={0.3}>
-                    <OverAllScore data={get(analysis, "score.data")} />
+                    <OverAllScore data={get(analysis, "score.data")} dictionary={dictionary} />
                 </RevealOnScroll>
                 <RevealOnScroll delay={0.35}>
-                    <OctagonView data={get(analysis, "score.data")} />
+                    <OctagonView data={get(analysis, "score.data")} dictionary={dictionary} />
                 </RevealOnScroll>
                 <RevealOnScroll delay={0.4}>
                     <StrengthWeekness
                         data={get(analysis, "strength_weakness.data")}
+                        dictionary={dictionary}
                     />
                 </RevealOnScroll>
             </div>
@@ -141,46 +143,52 @@ const SummaryPage = async ({ params, dictionary }: any) => {
                 [
                     <FinancialStrength
                         data={get(analysis, "financialstrength.data")}
+                        dictionary={dictionary}
                     />,
-                    <DebtsAssets data={get(analysis, "summary.data")} />,
+                    <DebtsAssets data={get(analysis, "summary.data")} dictionary={dictionary} />,
                 ],
                 [
-                    <Financials data={get(analysis, "summary.data")} />,
+                    <Financials data={get(analysis, "summary.data")} dictionary={dictionary} />,
                     <CurrentRatio
                         data={get(analysis, "financialstrength.data")}
+                        dictionary={dictionary}
                     />,
                 ],
                 [
                     <Profitability
                         data={get(analysis, "profitability.data")}
+                        dictionary={dictionary}
                     />,
-                    <NetMargin data={get(analysis, "summary.data")} />,
+                    <NetMargin data={get(analysis, "summary.data")} dictionary={dictionary} />,
                 ],
                 [
                     <Effectiveness
                         data={get(analysis, "effectiveness.data")}
+                        dictionary={dictionary}
                     />,
                     <Estimated
                         data={get(analysis, "eps_comparison.data")}
+                        dictionary={dictionary}
                     />,
                 ],
                 [
-                    <Forecast data={get(analysis, "forecast.data")} />,
+                    <Forecast data={get(analysis, "forecast.data")} dictionary={dictionary} />,
                     <AnalystRating
                         data={get(analyst, "recommendation_trends.data")}
+                        dictionary={dictionary}
                     />,
                 ],
                 [
-                    <Growth data={get(analysis, "growth.data")} />,
-                    <GrowthRate data={get(analysis, "growth.data")} />,
+                    <Growth data={get(analysis, "growth.data")} dictionary={dictionary} />,
+                    <GrowthRate data={get(analysis, "growth.data")} dictionary={dictionary} />,
                 ],
                 [
-                    <Valuation data={get(analysis, "valuation.data")} />,
-                    <DcfModel data={get(analysis, "dcfmodel.data")} />,
+                    <Valuation data={get(analysis, "valuation.data")} dictionary={dictionary} />,
+                    <DcfModel data={get(analysis, "dcfmodel.data")} dictionary={dictionary} />,
                 ],
                 [
-                    <Dividend data={get(analysis, "dividends.data")} />,
-                    <FairValue data={get(analysis, "dcfmodel.data")} />,
+                    <Dividend data={get(analysis, "dividends.data")} dictionary={dictionary} />,
+                    <FairValue data={get(analysis, "dcfmodel.data")} dictionary={dictionary} />,
                 ],
             ].map((pair, idx) => {
                 const baseDelay = idx * 0.03
@@ -207,6 +215,7 @@ const SummaryPage = async ({ params, dictionary }: any) => {
                 <RevealOnScroll>
                     <EconomicMoat
                         data={get(analysis, "economicmoat.data")}
+                        dictionary={dictionary}
                     />
                 </RevealOnScroll>
             </div>

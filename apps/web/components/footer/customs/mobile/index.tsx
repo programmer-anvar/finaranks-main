@@ -6,10 +6,17 @@ import { useModals } from '@/stores/modal';
 import { Button } from '@finranks/design-system/components/Button';
 import { useAuth } from '@/hooks/useAuth';
 
-const MobileFooter = () => {
+const MobileFooter = ({ dictionary }: { dictionary?: any }) => {
     const pathname = usePathname();
     const { setModal } = useModals();
     const { isAuthenticated } = useAuth()
+    
+    const footerDic = dictionary?.footer || {};
+    const homePageDic = dictionary?.homePage || {};
+    
+    const ctaTitle = homePageDic.ctaTitle || "Get all premium features to the best stock analysis tool";
+    const ctaButtonText = homePageDic.ctaButtonBtn || "Get started";
+    
     // Hide footer on /account/*
     const isAccountPage = pathname.startsWith('/account');
 
@@ -22,7 +29,7 @@ const MobileFooter = () => {
                     {/* CTA */}
                     {!isAuthenticated && <div className="mobile-footer__cta">
                         <h3 className="mobile-footer__title">
-                            Get all premium features to the best stock analysis tool
+                            {ctaTitle}
                         </h3>
 
                         <div className="mobile-footer__buttons">
@@ -32,7 +39,7 @@ const MobileFooter = () => {
                                     setModal({ register: true })
                                 }
                             >
-                                <span>Get started</span>
+                                <span>{ctaButtonText}</span>
                             </Button>
                         </div>
                     </div>}
@@ -48,16 +55,16 @@ const MobileFooter = () => {
 
                         <div className="mobile-footer__nav">
                             <div className="mobile-footer__col">
-                                <h4>Company</h4>
+                                <h4>{footerDic.company || "Company"}</h4>
                                 <ul>
                                     <li>
-                                        <Link href="/about">About us</Link>
+                                        <Link href="/about">{footerDic.aboutUs || "About us"}</Link>
                                     </li>
                                 </ul>
                             </div>
 
                             <div className="mobile-footer__col">
-                                <h4>Contact us</h4>
+                                <h4>{footerDic.contactUs || "Contact us"}</h4>
                                 <ul>
                                     <li>
                                         <a href="mailto:info@finranks.com">info@finranks.com</a>
@@ -66,7 +73,7 @@ const MobileFooter = () => {
                             </div>
 
                             <div className="mobile-footer__col">
-                                <h4>Follow us</h4>
+                                <h4>{footerDic.followUs || "Follow us"}</h4>
                                 <ul>
                                     <li>
                                         <a
@@ -74,7 +81,7 @@ const MobileFooter = () => {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
-                                            Instagram
+                                            {footerDic.instagram || "Instagram"}
                                         </a>
                                     </li>
                                     <li>
@@ -83,7 +90,7 @@ const MobileFooter = () => {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
-                                            Telegram
+                                            {footerDic.telegram || "Telegram"}
                                         </a>
                                     </li>
                                     <li>
@@ -92,7 +99,7 @@ const MobileFooter = () => {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
-                                            LinkedIn
+                                            {footerDic.linkedIn || "LinkedIn"}
                                         </a>
                                     </li>
                                 </ul>
@@ -103,7 +110,7 @@ const MobileFooter = () => {
                     {/* Bottom */}
                     <div className="mobile-footer__bottom">
                         <ul className="mobile-footer__legal">
-                            <li><span>All rights reserved.</span></li>
+                            <li><span>{footerDic.footerCopyright || "All rights reserved."}</span></li>
                             <li><Link href="/privacy-policy">Privacy Policy</Link></li>
                             <li><Link href="/terms-of-service">Terms of Service</Link></li>
                         </ul>

@@ -6,7 +6,6 @@ import { useEffect, useState, useRef } from 'react';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@finranks/design-system/components/navigation-menu';
 
 import { Button } from '@finranks/design-system/components/Button';
-import { Dictionary } from '@finranks/internationalization';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -15,7 +14,7 @@ import { useModals } from '@/stores/modal';
 import { User } from 'lucide-react';
 import SearchBar from '../../search';
 
-// Simple logo component for the navbar
+// Simple logo component for the di
 const Logo = () => {
     return (
         <Link href="/" className="header-logo">
@@ -71,19 +70,9 @@ export interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
     ctaHref?: string;
     onSignInClick?: () => void;
     onCtaClick?: () => void;
-    dictionary?: Dictionary;
+    dictionary?: any;
     authState: any
 }
-
-// Default navigation links
-const defaultNavigationLinks: NavbarNavItem[] = [
-    { href: '/', label: 'Home', active: true },
-    { href: '/screener', label: 'Screener' },
-    { href: '/news', label: 'News' },
-    { href: '/about', label: 'About' },
-];
-
-
 
 export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
     (
@@ -91,18 +80,32 @@ export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
             className,
             logo = <Logo />,
             logoHref = '#',
-            navigationLinks = defaultNavigationLinks,
-            signInText = 'Sign In',
+            navigationLinks,
+            signInText,
             signInHref = '#signin',
-            ctaText = 'Get Started',
+            ctaText,
             ctaHref = '#get-started',
             onSignInClick,
             onCtaClick,
             authState,
+            dictionary,
             ...props
         },
         ref
     ) => {
+        const headerDic = dictionary?.header || {};
+
+        // Use dictionary values or fallbacks
+        const navLinks = navigationLinks || [
+            { href: '/', label: headerDic.home, active: true },
+            { href: '/screener', label: headerDic.screener },
+            { href: '/news', label: headerDic.news },
+            { href: '/about', label: headerDic.about },
+        ];
+
+        const signInLabel = signInText || headerDic.signInBtn || 'Sign In';
+        const ctaLabel = ctaText || headerDic.getStartedBtn || 'Get Started';
+
         const pathname = usePathname();
         const isActiveLink = (href?: string): boolean => {
             if (!href) return false;
@@ -179,7 +182,7 @@ export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
                             {!isMobile && (
                                 <NavigationMenu className="flex">
                                     <NavigationMenuList className="gap-1">
-                                        {navigationLinks.map((link, index) => {
+                                        {navLinks.map((link, index) => {
                                             const isActive = isActiveLink(link.href);
                                             return (
                                                 <NavigationMenuItem key={index}>
@@ -190,7 +193,7 @@ export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
                                                             router.push(String(link.href))
                                                         }}
                                                         className={cn(
-                                                            'group inline-flex h-16 w-max items-center justify-center rounded-md  px-3 py-2 text-[16px]! font-semibold transition-colors hover:text-accent-foreground  focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50  cursor-pointer relative',
+                                                            'group inline-flex h-16 w-max items-center justify-center rounded-md  px-3 py-2 text-[16px]! font-semibold transition-colors hover:text-accent-foreground  focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50  cursor-pointer relative',
                                                             'before:absolute before:bottom-0 before:left-0 before:right-0 before:h-0.5 before:scale-x-0 before:transition-transform before:duration-300 before:content-[""] before:w-full hover:before:scale-x-100 before:bg-[linear-gradient(89.98deg,rgba(255,255,255,0)_-0.08%,#FFFFFF_52.75%,rgba(255,255,255,0)_100.34%)]',
                                                             isActive && 'before:scale-x-100 text-primary'
                                                         )}
@@ -220,7 +223,7 @@ export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
                                     if (onSignInClick) onSignInClick();
                                 }}
                             >
-                                {signInText}
+                                {signInLabel}
                             </Button>
                             <Button
                                 className="text-sm  px-4 h-9 rounded-md shadow-sm"
@@ -231,7 +234,7 @@ export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
                                 }}
 
                             >
-                                {ctaText}
+                                {ctaLabel}
                             </Button>
                         </div> :
                             <Button
@@ -244,7 +247,7 @@ export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
                                 }}
 
                             >
-                                Profile
+                                {dictionary?.common?.profile}
                             </Button>}
                     </div>
                 </div>

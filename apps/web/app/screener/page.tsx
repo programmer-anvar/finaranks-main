@@ -1,4 +1,7 @@
 import ScreenerPage from "@/views/screener";
-export default function Page() {
-    return <ScreenerPage />;
+import { getDictionary } from "@finranks/internationalization";
+
+export default async function Page() {
+    const dic = await getDictionary("en");
+    return <ScreenerPage dictionary={dic} />;
 }

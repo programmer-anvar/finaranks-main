@@ -24,14 +24,15 @@ function Metric({ label, score, percentage, color }: MetricProps) {
     )
 }
 
-const OverAllScore = memo(({ data }: any) => {
+const OverAllScore = memo(({ data, dictionary }: any) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.overallScore || {};
     const { average, ...others } = data;
     const mainValue = average.weightedAverageScore;
     const mainColor = average.weightedAverageScoreColor;
     const mainPercent = mainValue * 100 / 10;
     return (
         <Card className='space-y-4 rounded-[20px] p-4 md:p-6'>
-            <Typography variant="h4">Overall Score</Typography>
+            <Typography variant="h4">{dic.overallScoretitle || "Overall Score"}</Typography>
             <div className="mb-8">
                 <div className="flex items-end justify-between mb-3">
                     <span className="text-white text-[20px] font-bold">{mainValue + " / 10"}</span>

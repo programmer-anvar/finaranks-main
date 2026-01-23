@@ -4,7 +4,6 @@ import { cn } from '@finranks/design-system/lib/utils';
 import * as React from 'react';
 import { useEffect, useState, useRef } from 'react';
 import { Button } from '@finranks/design-system/components/Button';
-import { Dictionary } from '@finranks/internationalization';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -68,19 +67,9 @@ export interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
     ctaHref?: string;
     onSignInClick?: () => void;
     onCtaClick?: () => void;
-    dictionary?: Dictionary;
+    dictionary?: any;
     authState: any
 }
-
-// Default navigation links
-const defaultNavigationLinks: NavbarNavItem[] = [
-    { href: '/', label: 'Home', active: true },
-    { href: '/screener', label: 'Screener' },
-    { href: '/news', label: 'News' },
-    { href: '/about', label: 'About' },
-];
-
-
 
 export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
     (
@@ -88,18 +77,24 @@ export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
             className,
             logo = <Logo />,
             logoHref = '#',
-            navigationLinks = defaultNavigationLinks,
-            signInText = 'Sign In',
+            navigationLinks,
+            signInText,
             signInHref = '#signin',
-            ctaText = 'Get Started',
+            ctaText,
             ctaHref = '#get-started',
             onSignInClick,
             onCtaClick,
             authState,
+            dictionary,
             ...props
         },
         ref
     ) => {
+        const headerDic = dictionary?.header || {};
+
+        // Use dictionary values or fallbacks
+        const ctaLabel = ctaText || headerDic.getStartedBtn || 'Get Started';
+
         const { isAuthenticated } = useAuth(authState);
         const { setModal } = useModals()
 
@@ -179,7 +174,7 @@ export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
                                 }}
 
                             >
-                                {ctaText}
+                                {ctaLabel}
                             </Button>
                         </div> :
                             <Button
@@ -193,7 +188,7 @@ export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
                                 }}
 
                             >
-                                Profile
+                                {dictionary?.common?.profile || "Profile"}
                             </Button>}
                     </div>
                 </div>

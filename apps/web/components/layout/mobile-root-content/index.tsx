@@ -6,12 +6,12 @@ import Header from '@/components/header'
 import AppNavigation from '@/components/app-navigation'
 import Footer from '@/components/footer'
 
-const MobileRootContent = ({ children, session }: { children: ReactNode, session: Session }) => {
+const MobileRootContent = ({ children, session, dictionary }: { children: ReactNode, session: Session, dictionary: any }) => {
     return (
         <Providers session={session!}>
-            <Header />
+            <Header dictionary={dictionary} />
             {children}
-            <Footer />
+            <Footer dictionary={dictionary} />
             <AppNavigation />
         </Providers>
     )

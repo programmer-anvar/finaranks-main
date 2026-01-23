@@ -7,7 +7,7 @@ import { getDeviceType } from "@/utils/get-device-type";
 
 export const dynamic = 'force-dynamic';
 
-const Header = async () => {
+const Header = async ({ dictionary }: { dictionary: any }) => {
     const headersList = await headers();
     const authDataHeader = headersList.get('x-auth-data');
     const deviceInfo = getDeviceType(await headers());
@@ -35,7 +35,7 @@ const Header = async () => {
         serverAuthState = await getServerAuthState();
     }
     return (
-        isMobile ? <HeaderMobile authState={serverAuthState} /> : <HeaderDesktop authState={serverAuthState} />
+        isMobile ? <HeaderMobile authState={serverAuthState} dictionary={dictionary} /> : <HeaderDesktop authState={serverAuthState} dictionary={dictionary} />
     )
 }
 

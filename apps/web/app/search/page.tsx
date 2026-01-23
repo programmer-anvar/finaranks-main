@@ -2,8 +2,10 @@ import SearchPage from "@/views/search-page";
 import { headers } from "next/headers";
 import { fetchHotStocks } from "@/services/hot-stocks";
 import { getDeviceType } from "@/utils/get-device-type";
+import { getDictionary } from "@finranks/internationalization";
 
 export default async function Page() {
+    const dic = await getDictionary("en");
     const deviceInfo = getDeviceType(await headers());
     let hotStocks = null;
     try {
@@ -15,7 +17,7 @@ export default async function Page() {
     }
 
     if (deviceInfo.isMobile) {
-        return <SearchPage hotStocks={hotStocks} />;
+        return <SearchPage hotStocks={hotStocks} dictionary={dic} />;
     }
     return null;
 }

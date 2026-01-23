@@ -1,10 +1,33 @@
 {
+  "common": {
+    "profile": "Profile",
+    "na": "N/A",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "all": "All",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No"
+  },
   "header": {
     "home": "Home",
     "screener": "Screener",
     "news": "News",
     "about": "About",
-    "signInBtn": "sign In",
+    "signInBtn": "Sign In",
     "getStartedBtn": "Get Started",
     "searchPlaceholder": "Search any stock"
   },
@@ -13,8 +36,10 @@
     "searchPlaceholder": "Search any stock for a free analysis",
     "searchBtn": "Search",
     "trading": "Trending",
+    "betaVersion": "Beta version",
+    "readMore": "read more",
     "featureOneSection": {
-      "featureOneTitle ": "One page. Total clarity",
+      "featureOneTitle": "One page. Total clarity",
       "featureOneDescription": "Finranks gives you a complete view of any stock on a single page with intuitive scores based on deep analysis of 70+ core data points across growth, valuation, competitive strength, and more"
     },
     "rankingSection": {
@@ -69,17 +94,26 @@
     "ctaButtonBtn": "Get started for free"
   },
   "newsPage": {
-    "searchNews": "Search News",
-    "searchPlaceholder": "Search any stock",
-    "loadMoreBtn": "Load More",
-    "trendingHeadlinesTitle": "Trending headlines",
-    "newsTableTitle": "Top mentioned stocks",
-    "symbol": "Symbol",
-    "sentiment": "Sentiment",
-    "latestNewsTitle": "Latest news sentiment",
-    "positiveCount": "Positive count",
-    "negativeCount": "Negative count",
-    "neaturalCount": "Neatural count"
+    "newsPageHeader": {
+      "home": "Home",
+      "news": "News",
+      "searchNews": "Search News"
+    },
+    "newsPageBody": {
+      "searchPlaceholder": "Search any stock",
+      "loadMoreBtn": "Load More",
+      "trendingHeadlinesTitle": "Trending headlines",
+      "newsTableTitle": "Top mentioned stocks",
+      "symbol": "Symbol",
+      "sentiment": "Sentiment",
+      "positive": "Positive",
+      "negative": "Negative",
+      "neutral": "Neutral",
+      "latestNewsTitle": "Latest news sentiment",
+      "positiveCount": "Positive count",
+      "negativeCount": "Negative count",
+      "neaturalCount": "Neutral count"
+    }
   },
   "stock": {
     "stockMain": {
@@ -87,7 +121,7 @@
         "compare": "Compare",
         "addWatchList": "Add to Watchlist",
         "comparePage": {
-          "compareStocksTitle": "Compare stocks",
+          "compareStocksTitle": "Compare",
           "compareStocksHelpText1": "Compare up to three stocks to ",
           "compareStocksHelpText2": " by adding the symbol or company name.",
           "addStockLabel": "Add Stock",
@@ -153,14 +187,14 @@
           "octagonViewTitle": "Octagon View"
         },
         "strengthWeekness": {
-          "strengthWeeknessTitle": "Strength & Weekness"
+          "strengthWeeknessTitle": "Strength & Weakness"
         },
         "financialStrengthTable": {
           "financialStrengthTitle": "Financial Strength",
           "name": "NAME",
           "ratio": "RATIO",
           "industry": "INDUSTRY",
-          "trnd": "5y TREND",
+          "trnd": "5Y TREND",
           "score": "SCORE",
           "weightedAverageScore": "Weighted average score"
         },
@@ -177,7 +211,7 @@
           "values": "Values in USD",
           "billions": "B=Billions",
           "millions": "M=Millions",
-          "thousands": " K=Thousands",
+          "thousands": "K=Thousands",
           "select": {
             "annual": "Annual",
             "quarterly": "Quarterly"
@@ -578,7 +612,7 @@
       "forecastTab": {
         "stockForecastTitle": "Stock Forecast",
         "stockPriceForecastTitle": "Stock Price Forecast",
-        "stockPriceForecastDesc": "NVIDIA Corporation has a consensus price target of $254.92 based on the ratings of 36 analysts. The high is $352.00 issued by Evercore ISI Group on November 20, 2025. The low is $165.00 issued by Raymond James on May 29, 2025. The 3 most-recent analyst ratings were released by Morgan Stanley, Citigroup, and Barclays on December 1, 2025, respectively. The average target predicts a increase of 39.45% from the current stock price of $182.80.t",
+        "stockPriceForecastDesc": "NVIDIA Corporation has a consensus price target of $254.92 based on the ratings of 36 analysts. The high is $352.00 issued by Evercore ISI Group on November 20, 2025. The low is $165.00 issued by Raymond James on May 29, 2025. The 3 most-recent analyst ratings were released by Morgan Stanley, Citigroup, and Barclays on December 1, 2025, respectively. The average target predicts a increase of 39.45% from the current stock price of $182.80.",
         "analystConsensus": "Analyst Consensus",
         "priceHistoryForecastTitle": "Past 12 months + 12 Month forecast",
         "lowestPriceTargetLabel": "Lowest Price Target",
@@ -596,11 +630,11 @@
           "ratingChangeColumn": "Rating Change",
           "ratingColumn": "Rating",
           "hideAnalystRatingBtn": "Hide analyst rating",
-          "moreAnalystRaitingBtn": "More analyst raiting"
+          "moreAnalystRaitingBtn": "More analyst rating"
         },
         "select": {
           "select": "Select",
-          "Annual": "annual",
+          "Annual": "Annual",
           "quarteryl": "Quarterly"
         },
         "eps-chart": {
@@ -678,7 +712,7 @@
     "fullName": "Full Name",
     "fullNamePlaceholder": "Enter name",
     "email": "Email",
-    "emailPlaceholder": "Enter",
+    "emailPlaceholder": "Enter email",
     "emailValidation": "Enter a valid email address.",
     "password": "Password",
     "passwordPlaceholder": "Password",
@@ -696,7 +730,7 @@
     "signIn": {
       "signIn": "Sign In",
       "signInSubTitle": "Please, fill out the fields below to sign in",
-      "account": "Do you have not an account?",
+      "account": "Don't have an account?",
       "forgotPassword": "Forgot Password",
       "rememberMe": "I agree to the Privacy Policy"
     }
@@ -742,7 +776,7 @@
   "footer": {
     "company": "Company",
     "aboutUs": "About us",
-    "contactUs": "Contactus",
+    "contactUs": "Contact us",
     "followUs": "Follow us",
     "instagram": "Instagram",
     "telegram": "Telegram",
