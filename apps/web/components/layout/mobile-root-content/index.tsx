@@ -12,7 +12,7 @@ const MobileRootContent = ({ children, session, dictionary }: { children: ReactN
             <Header dictionary={dictionary} />
             {children}
             <Footer dictionary={dictionary} />
-            <AppNavigation />
+            <AppNavigation dictionary={dictionary} />
         </Providers>
     )
 }

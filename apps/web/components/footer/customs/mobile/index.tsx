@@ -11,11 +11,12 @@ const MobileFooter = ({ dictionary }: { dictionary?: any }) => {
     const { setModal } = useModals();
     const { isAuthenticated } = useAuth()
     
-    const footerDic = dictionary?.footer || {};
-    const homePageDic = dictionary?.homePage || {};
+    const footerDic = dictionary?.footer;
+    const homePageDic = dictionary?.homePage;
+    const commonDic = dictionary?.common;
     
-    const ctaTitle = homePageDic.ctaTitle || "Get all premium features to the best stock analysis tool";
-    const ctaButtonText = homePageDic.ctaButtonBtn || "Get started";
+    const ctaTitle = homePageDic?.ctaTitle;
+    const ctaButtonText = homePageDic?.ctaButtonBtn;
     
     // Hide footer on /account/*
     const isAccountPage = pathname.startsWith('/account');
@@ -55,16 +56,16 @@ const MobileFooter = ({ dictionary }: { dictionary?: any }) => {
 
                         <div className="mobile-footer__nav">
                             <div className="mobile-footer__col">
-                                <h4>{footerDic.company || "Company"}</h4>
+                                <h4>{footerDic?.company}</h4>
                                 <ul>
                                     <li>
-                                        <Link href="/about">{footerDic.aboutUs || "About us"}</Link>
+                                        <Link href="/about">{footerDic?.aboutUs}</Link>
                                     </li>
                                 </ul>
                             </div>
 
                             <div className="mobile-footer__col">
-                                <h4>{footerDic.contactUs || "Contact us"}</h4>
+                                <h4>{footerDic?.contactUs}</h4>
                                 <ul>
                                     <li>
                                         <a href="mailto:info@finranks.com">info@finranks.com</a>
@@ -73,7 +74,7 @@ const MobileFooter = ({ dictionary }: { dictionary?: any }) => {
                             </div>
 
                             <div className="mobile-footer__col">
-                                <h4>{footerDic.followUs || "Follow us"}</h4>
+                                <h4>{footerDic?.followUs}</h4>
                                 <ul>
                                     <li>
                                         <a
@@ -81,7 +82,7 @@ const MobileFooter = ({ dictionary }: { dictionary?: any }) => {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
-                                            {footerDic.instagram || "Instagram"}
+                                            {footerDic?.instagram}
                                         </a>
                                     </li>
                                     <li>
@@ -90,7 +91,7 @@ const MobileFooter = ({ dictionary }: { dictionary?: any }) => {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
-                                            {footerDic.telegram || "Telegram"}
+                                            {footerDic?.telegram}
                                         </a>
                                     </li>
                                     <li>
@@ -99,7 +100,7 @@ const MobileFooter = ({ dictionary }: { dictionary?: any }) => {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
-                                            {footerDic.linkedIn || "LinkedIn"}
+                                            {footerDic?.linkedIn}
                                         </a>
                                     </li>
                                 </ul>
@@ -110,9 +111,9 @@ const MobileFooter = ({ dictionary }: { dictionary?: any }) => {
                     {/* Bottom */}
                     <div className="mobile-footer__bottom">
                         <ul className="mobile-footer__legal">
-                            <li><span>{footerDic.footerCopyright || "All rights reserved."}</span></li>
-                            <li><Link href="/privacy-policy">Privacy Policy</Link></li>
-                            <li><Link href="/terms-of-service">Terms of Service</Link></li>
+                            <li><span>{footerDic?.footerCopyright}</span></li>
+                            <li><Link href="/privacy-policy">{commonDic?.privacyPolicy}</Link></li>
+                            <li><Link href="/terms-of-service">{commonDic?.termsOfService}</Link></li>
                         </ul>
                     </div>
                 </div>

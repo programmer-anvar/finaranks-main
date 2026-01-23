@@ -15,21 +15,27 @@ import { memo } from "react"
 
 interface ForecastProps {
     data: Record<string, any>
+    dictionary?: any
 }
 
 const ROWS = ["currentQuarter", "nextQuarter", "currentYear", "nextYear"]
-const KEY_LABELS: Record<string, string> = {
-    currentQuarter: "Current quarter",
-    nextQuarter: "Next quarter",
-    currentYear: "Current year",
-    nextYear: "Next year",
-}
-const Forecast = memo(({ data }: ForecastProps) => {
+
+const Forecast = memo(({ data, dictionary }: ForecastProps) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.forecastTable;
+    const commonDic = dictionary?.common;
+    
+    const KEY_LABELS: Record<string, string> = {
+        currentQuarter: dic?.currentQuarterLabel,
+        nextQuarter: dic?.nextQuarterLabel,
+        currentYear: dic?.currentYearLabel,
+        nextYear: dic?.nextYearLabel,
+    }
+    
     return (
         <Card className="space-y-4 rounded-[20px] p-4 md:p-6">
             {/* HEADER */}
             <div className="flex items-center justify-between">
-                <Typography variant="h4">Forecast</Typography>
+                <Typography variant="h4">{dic?.forecastTitle}</Typography>
 
             </div>
 
@@ -39,16 +45,16 @@ const Forecast = memo(({ data }: ForecastProps) => {
                     <TableHeader>
                         <TableRow className="border-b border-[#353945]">
                             <TableHead className=" border-r border-[#353945] p-4 text-xs font-semibold uppercase text-[#777e90] text-center w-[220px]!">
-                                NAME
+                                {dic?.nameColumn}
                             </TableHead>
                             <TableHead className=" border-r border-[#353945] p-4 text-xs font-semibold uppercase text-[#777e90] text-center">
-                                Revenue growth
+                                {dic?.revenueGrowthColumn}
                             </TableHead>
                             <TableHead className=" border-r border-[#353945] p-4 text-xs font-semibold uppercase text-[#777e90] text-center">
-                                EPS growth
+                                {dic?.epsGrowthColumn}
                             </TableHead>
                             <TableHead className="p-4 text-xs font-semibold uppercase text-[#777e90] text-center w-[100px]!">
-                                SCORE
+                                {dic?.scoreColumn}
                             </TableHead>
                         </TableRow>
                     </TableHeader>
@@ -66,17 +72,17 @@ const Forecast = memo(({ data }: ForecastProps) => {
                                     </TableCell>
 
                                     <TableCell className="text-white text-center border-r border-[#353945] font-semibold">
-                                        {rowData.revenueGrowth ?? "N/A"}
+                                        {rowData.revenueGrowth ?? commonDic?.na}
                                     </TableCell>
 
                                     <TableCell className="text-white text-center border-r border-[#353945] font-semibold">
-                                        {rowData.EPSGrowth ?? "N/A"}
+                                        {rowData.EPSGrowth ?? commonDic?.na}
                                     </TableCell>
 
                                     <TableCell
                                         className="text-white text-center font-semibold "
                                     >
-                                        {rowData.weightedAverageScore ?? "N/A"}
+                                        {rowData.weightedAverageScore ?? commonDic?.na}
                                     </TableCell>
                                 </TableRow>
                             )
@@ -86,13 +92,13 @@ const Forecast = memo(({ data }: ForecastProps) => {
                                 colSpan={3}
                                 className="border-r border-[#353945] p-4 text-center text-lg font-semibold text-white"
                             >
-                                Weighted average score
+                                {dic?.weightedAverageScoreLabel}
                             </TableCell>
                             <TableCell
                                 className="p-4 text-center text-lg font-semibold text-white"
                                 style={{ backgroundColor: get(data, "avg.weightedAverageScoreColor") }}
                             >
-                                {get(data, "avg.weightedAverageScore") ?? "N/A"}
+                                {get(data, "avg.weightedAverageScore") ?? commonDic?.na}
                             </TableCell>
                         </TableRow>
                     </TableBody>

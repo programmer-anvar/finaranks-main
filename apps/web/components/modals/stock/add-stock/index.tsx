@@ -24,7 +24,7 @@ interface ICompany {
     exchange: string
 }
 
-const AddStockModal = () => {
+const AddStockModal = ({ dictionary }: { dictionary?: any }) => {
     const { state, setState } = useAppContext()
     const { addStock, setModal } = useModals()
     const access_token = state.access_token;
@@ -35,6 +35,9 @@ const AddStockModal = () => {
     const compareValueArr = compareValue ? compareValue.split(",") : [];
     const [searchValue, setSearchValue] = useState<string>("")
     const [debouncedSearchValue] = useDebounce(searchValue, 500)
+    
+    const dic = dictionary?.stock?.stockMain?.stockBtns?.comparePage?.addCompanyModal;
+    const commonDic = dictionary?.common;
 
     const [items, setItems] = useState<ICompany[]>([])
     const [similarItems, setSimilarItems] = useState<ICompany[]>([]);
@@ -159,8 +162,8 @@ const AddStockModal = () => {
             <ModalContent classNames={{ closeButton: "hidden" }}>
                 <ModalHeader>
                     <ModalTitle className="flex items-center justify-between">
-                        <span className="text-white">Add stock to compare</span>
-                        <Button onClick={closeModal} hasIconOnly iconDescription="Close" variant="outline">
+                        <span className="text-white">{dic?.modalTitle}</span>
+                        <Button onClick={closeModal} hasIconOnly iconDescription={commonDic?.close} variant="outline">
                             <X />
                         </Button>
                     </ModalTitle>
@@ -168,7 +171,7 @@ const AddStockModal = () => {
 
                 <div className="px-4 py-2 h-10">
                     <SearchInput
-                        placeholder="Search any stock"
+                        placeholder={dic?.searchPlaceholder}
                         value={searchValue}
                         size="md"
                         onChange={e => setSearchValue(e.target.value)}
@@ -178,8 +181,8 @@ const AddStockModal = () => {
                         onClear={() => setSearchValue("")}
                     />
                 </div>
-                {searchValue ? <div className="text-gray-300 my-2 pl-4">Search result</div> :
-                    <div className="text-gray-300 my-2 pl-4">Similar companies</div>}
+                {searchValue ? <div className="text-gray-300 my-2 pl-4">{commonDic?.searchResult}</div> :
+                    <div className="text-gray-300 my-2 pl-4">{dic?.similarCompanies}</div>}
                 <div className="m-4  border rounded-md overflow-hidden">
                     <ScrollArea className="min-h-[240px] max-h-[400px] overflow-y-auto scrollable">
                         {searchValue

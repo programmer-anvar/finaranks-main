@@ -28,12 +28,13 @@ interface CurrentRatioRow {
 
 interface CurrentRatioProps {
     data: any
+    dictionary?: any
 }
 
 /* -------------------------------------------------------------------------- */
 /*                              Custom Tooltip                                 */
 /* -------------------------------------------------------------------------- */
-const CustomTooltip = ({ payload, label }: any) => {
+const CustomTooltip = ({ payload, label, dic }: any) => {
     if (!payload || !payload.length) return null
 
     return (
@@ -47,7 +48,7 @@ const CustomTooltip = ({ payload, label }: any) => {
                     />
                     <span className="text-gray-700">
                         {item.name}:{" "}
-                        {item.name === "Current Ratio"
+                        {item.name === dic?.currentRatio
                             ? item.value.toFixed(2)
                             : formatToMillion(item.value)}
                     </span>
@@ -77,7 +78,9 @@ const CustomLegend = ({ payload }: any) => (
 /* -------------------------------------------------------------------------- */
 /*                               Component                                     */
 /* -------------------------------------------------------------------------- */
-const CurrentRatio = ({ data }: CurrentRatioProps) => {
+const CurrentRatio = ({ data, dictionary }: CurrentRatioProps) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.currentRatio;
+    
     // Format data
     const formattedData: CurrentRatioRow[] = Object.entries(data?.annual || {})
         .slice(0, 4)
@@ -91,7 +94,7 @@ const CurrentRatio = ({ data }: CurrentRatioProps) => {
     return (
         <Card className="rounded-xl p-4 md:p-6">
             <Typography variant="h4" className="mb-4">
-                Current Ratio
+                {dic?.currentRatioTitle}
             </Typography>
 
             <div className="h-[380px] w-full">
@@ -135,13 +138,13 @@ const CurrentRatio = ({ data }: CurrentRatioProps) => {
                             tickLine={false}
                         />
 
-                        <Tooltip content={<CustomTooltip />} />
+                        <Tooltip content={<CustomTooltip dic={dic} />} />
                         <Legend content={<CustomLegend />} />
 
                         <Bar
                             yAxisId="left"
                             dataKey="currentAssets"
-                            name="Current Assets"
+                            name={dic?.currentAssets}
                             fill="var(--primary-graph-color)"
                             radius={3.6}
                             barSize={18}
@@ -150,7 +153,7 @@ const CurrentRatio = ({ data }: CurrentRatioProps) => {
                         <Bar
                             yAxisId="left"
                             dataKey="currentLiabilities"
-                            name="Current Liabilities"
+                            name={dic?.currentLiabilities}
                             fill="var(--secondary-graph-color)"
                             radius={3.6}
                             barSize={18}
@@ -159,7 +162,7 @@ const CurrentRatio = ({ data }: CurrentRatioProps) => {
                         <Line
                             yAxisId="right"
                             dataKey="currentRatio"
-                            name="Current Ratio"
+                            name={dic?.currentRatio}
                             stroke="var(--tertiary-graph-color)"
                             strokeWidth={2}
                             dot={false}

@@ -14,41 +14,45 @@ import { get } from "lodash"
 
 interface DividendProps {
     data?: any
+    dictionary?: any
 }
 
-const METRICS = [
-    { key: "dividendYieldForward", label: "Dividend yield" },
-    { key: "payoutRatio", label: "Payout ratio" },
-    { key: "fiveYearDividendGrowthRate", label: "5-year dividend growth rate" },
-    { key: "yearsOfDividendIncrease", label: "Years of dividend increase" },
-]
-
 const formatNumber = (value?: number | null) =>
-    value !== undefined && value !== null ? Number(value).toFixed(2) : "N/A"
+    value !== undefined && value !== null ? Number(value).toFixed(2) : null
 
-const Dividend = ({ data }: DividendProps) => {
+const Dividend = ({ data, dictionary }: DividendProps) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.dividend;
+    const commonDic = dictionary?.common;
+    
+    const METRICS = [
+        { key: "dividendYieldForward", label: dic?.dividendYieldLabel },
+        { key: "payoutRatio", label: dic?.payoutRatioLabel },
+        { key: "fiveYearDividendGrowthRate", label: dic?.dividendGrowth5yLabel },
+        { key: "yearsOfDividendIncrease", label: dic?.dividendIncreaseYearsLabel },
+    ]
+    
     const overview = get(data, "overview", {})
     const industry = get(overview, "industry", {})
 
     return (
         <Card className="space-y-4 rounded-[20px] p-4 md:p-6">
-            <Typography variant="h4">Dividend</Typography>
+            <Typography variant="h4">{dic?.dividendTitle}</Typography>
 
             <div className="rounded-lg border border-[#353945] overflow-hidden">
                 <Table>
                     <TableHeader>
                         <TableRow className="border-b border-[#353945]">
                             <TableHead className="border-r border-[#353945] p-4 text-xs font-semibold uppercase text-[#777e90] text-center w-[220px]!">
-                                Name
+                                {dic?.nameColumn}
                             </TableHead>
                             <TableHead className="border-r border-[#353945] p-4 text-xs font-semibold uppercase text-[#777e90] text-center">
-                                Current
+                                {dic?.currentColumn}
                             </TableHead>
                             <TableHead className="border-r border-[#353945] p-4 text-xs font-semibold uppercase text-[#777e90] text-center">
-                                Industry
+                                {dic?.industryColumn}
                             </TableHead>
                             <TableHead className="p-4 text-xs font-semibold uppercase text-[#777e90] text-center w-[100px]!">
-                                Score
+                                {dic?.scoreColumn}
                             </TableHead>
                         </TableRow>
                     </TableHeader>
@@ -64,15 +68,15 @@ const Dividend = ({ data }: DividendProps) => {
                                 </TableCell>
 
                                 <TableCell className="border-r border-[#353945] text-center text-white font-semibold">
-                                    {formatNumber(get(overview, `${key}.current`))}
+                                    {formatNumber(get(overview, `${key}.current`)) ?? commonDic?.na}
                                 </TableCell>
 
                                 <TableCell className="border-r border-[#353945] text-center text-white font-semibold">
-                                    {formatNumber(get(industry, key))}
+                                    {formatNumber(get(industry, key)) ?? commonDic?.na}
                                 </TableCell>
 
                                 <TableCell className="text-center text-white font-semibold">
-                                    {get(overview, `${key}.score`) ?? "N/A"}
+                                    {get(overview, `${key}.score`) ?? commonDic?.na}
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -82,7 +86,7 @@ const Dividend = ({ data }: DividendProps) => {
                                 colSpan={3}
                                 className="border-r border-[#353945] p-4 text-center text-lg font-semibold text-white"
                             >
-                                Weighted average score
+                                {dic?.weightedAverageScoreLabel}
                             </TableCell>
                             <TableCell
                                 className="p-4 text-center text-lg font-semibold text-white"
@@ -91,7 +95,7 @@ const Dividend = ({ data }: DividendProps) => {
                                         get(overview, "weightedAverage.scoreColor") || "#000",
                                 }}
                             >
-                                {get(overview, "weightedAverage.score") ?? "N/A"}
+                                {get(overview, "weightedAverage.score") ?? commonDic?.na}
                             </TableCell>
                         </TableRow>
                     </TableBody>

@@ -25,10 +25,13 @@ type TForgotPasswordForm = {
 }
 
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ dictionary }: { dictionary: any }) => {
     const { setState, state } = useAppContext();
     const { forgotPassword, setModal } = useModals();
     const searchParams = useSearchParams();
+    
+    const dic = dictionary?.auth;
+    const commonDic = dictionary?.common;
 
 
     const redirectUrl = searchParams.get('redirect') || '/profile/dashboard';
@@ -69,7 +72,7 @@ const ForgotPassword = () => {
                 setSubmitting(false)
             })
             .catch(error => {
-                const message = get(error, 'response.data.message', 'Something went wrong!');
+                const message = get(error, 'response.data.message', commonDic?.somethingWentWrong);
                 toast.error(message)
                 setSubmitting(false)
             })
@@ -90,10 +93,10 @@ const ForgotPassword = () => {
                 <ModalHeader >
                     <ModalTitle className="flex items-center justify-between">
                         <div className="mt-2">
-                            <span className="text-white">Forgot Password</span>
-                            <Typography variant="small" color="helper">Don't worry! It happens. Please enter the email associated with your.</Typography>
+                            <span className="text-white">{dic?.forgotPassword?.forgotPasswordTitle}</span>
+                            <Typography variant="small" color="helper">{dic?.forgotPassword?.forgotPasswordSubTitle}</Typography>
                         </div>
-                        <Button type="button" onClick={() => setModal({ forgotPassword: false })} hasIconOnly iconDescription="Close" variant="outline"><X /></Button>
+                        <Button type="button" onClick={() => setModal({ forgotPassword: false })} hasIconOnly iconDescription={commonDic?.close} variant="outline"><X /></Button>
                     </ModalTitle>
                 </ModalHeader>
 
@@ -112,10 +115,10 @@ const ForgotPassword = () => {
                                             <FastField name="email">
                                                 {({ field, meta, form }: FieldProps) => (
                                                     <Input
-                                                        placeholder="Enter your email address"
+                                                        placeholder={dic?.emailPlaceholder}
                                                         {...field}
                                                         size="lg"
-                                                        label="Email"
+                                                        label={dic?.email}
                                                         prepend={<Mail />}
                                                         isClearable={!form.isSubmitting}
                                                         disabled={form.isSubmitting}
@@ -134,8 +137,8 @@ const ForgotPassword = () => {
                                                     />
                                                 )}
                                             </FastField>
-                                            <Button className="mt-5" isDisabled={!isValid || isSubmitting} isLoading={isSubmitting} type="submit">Send Code</Button>
-                                            <Typography variant="small" color="primary" align="center">Remember password? <Link href="#" className="underline text-blue-500! font-semibold" onClick={() => setModal({ signIn: true, forgotPassword: false })}>Sign In</Link></Typography>
+                                            <Button className="mt-5" isDisabled={!isValid || isSubmitting} isLoading={isSubmitting} type="submit">{dic?.forgotPassword?.sendCode}</Button>
+                                            <Typography variant="small" color="primary" align="center">{dic?.forgotPassword?.rememberPassword} <Link href="#" className="underline text-blue-500! font-semibold" onClick={() => setModal({ signIn: true, forgotPassword: false })}>{dic?.signIn?.signIn}</Link></Typography>
                                         </div>
                                     </div>
                                 </Form>

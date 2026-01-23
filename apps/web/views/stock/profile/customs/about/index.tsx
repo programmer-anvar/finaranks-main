@@ -2,11 +2,12 @@ import EmptyState from '@/components/empty-state'
 import { Card } from '@finranks/design-system/components/card'
 import { Typography } from '@finranks/design-system/components/typography'
 
-const About = ({ description }: { description: string }) => {
+const About = ({ description, dictionary }: { description: string, dictionary?: any }) => {
+    const dic = dictionary?.stock?.stockMain?.profileTab?.aboutCompany;
     const isEmpty = !description || description.trim().length === 0
 
     if (isEmpty) {
-        return <EmptyState title='About the company' />
+        return <EmptyState title={dic?.aboutCompanyTitle} dictionary={dictionary} />
     }
     return (
         <Card className="p-4 md:p-6 rounded-xl space-y-5">
@@ -15,7 +16,7 @@ const About = ({ description }: { description: string }) => {
                 className="text-[20px]!"
                 weight="semibold"
             >
-                About the company
+                {dic?.aboutCompanyTitle}
             </Typography>
 
             <Typography

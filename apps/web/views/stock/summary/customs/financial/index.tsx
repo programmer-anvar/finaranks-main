@@ -37,25 +37,28 @@ const MAIN_KEYS = {
     cashFlow: ["operatingCashFlow", "financingCashFlow", "investingCashFlow", "freeCashFlow"],
 }
 
-const KEY_LABELS: Record<string, string> = {
-    totalRevenue: "Total Revenue",
-    grossProfit: "Gross Profit",
-    operatingIncome: "Operating Income",
-    netIncome: "Net Income",
-    ebitda: "EBITDA",
-    totalAssets: "Total Assets",
-    totalLiabilities: "Total Liabilities",
-    totalEquity: "Total Equity",
-    totalDebt: "Total Debt",
-    operatingCashFlow: "Operating Cash Flow",
-    financingCashFlow: "Financing Cash Flow",
-    investingCashFlow: "Investing Cash Flow",
-    freeCashFlow: "Free Cash Flow",
-}
-
-const Financials = memo(({ data }: any) => {
+const Financials = memo(({ data, dictionary }: any) => {
     const [activeTab, setActiveTab] = useState<TabType>("income")
     const [period, setPeriod] = useState<PeriodType>("annual")
+    
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.financialTable;
+    const commonDic = dictionary?.common;
+
+    const KEY_LABELS: Record<string, string> = {
+        totalRevenue: dic?.incomeStatementTab?.totalRevenueLabel,
+        grossProfit: dic?.incomeStatementTab?.grossProfitLabel,
+        operatingIncome: dic?.incomeStatementTab?.operatingIncomeLabel,
+        netIncome: dic?.incomeStatementTab?.netIncomeLabel,
+        ebitda: dic?.incomeStatementTab?.ebitdaLabel,
+        totalAssets: dic?.balanceSheetTab?.totalAssetsLabel,
+        totalLiabilities: dic?.balanceSheetTab?.totalLiabilitiesLabel,
+        totalEquity: dic?.balanceSheetTab?.totalEquityLabel,
+        totalDebt: dic?.balanceSheetTab?.totalDebtLabel,
+        operatingCashFlow: dic?.cashFlowTab?.operatingCashFlowLabel,
+        financingCashFlow: dic?.cashFlowTab?.financingCashFlowLabel,
+        investingCashFlow: dic?.cashFlowTab?.investingCashFlowLabel,
+        freeCashFlow: dic?.cashFlowTab?.freeCashFlowLabel,
+    }
 
     const sectionKey = TAB_KEY_MAP[activeTab]
 
@@ -80,30 +83,30 @@ const Financials = memo(({ data }: any) => {
         <Card className="space-y-4 rounded-[20px] p-4 md:p-6">
             {/* HEADER */}
             <div className="flex items-center justify-between">
-                <Typography variant="h4">Financial</Typography>
+                <Typography variant="h4">{dic?.financialTableTitle}</Typography>
 
                 <div className="flex items-center gap-2">
-                    <small className="text-white hidden md:block" style={{ fontSize: 11, marginRight: 16 }}>Values in USD <br /> (B=Billions, M=Millions, K=Thousands)</small>
+                    <small className="text-white hidden md:block" style={{ fontSize: 11, marginRight: 16 }}>{dic?.valuesInfo}</small>
                     <Select value={period} onValueChange={(v) => setPeriod(v as PeriodType)}>
                         <SelectTrigger className="w-[180px]">
                             <SelectValue className="text-white" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="annual">Annual</SelectItem>
-                            <SelectItem value="quarterly">Quarterly</SelectItem>
+                            <SelectItem value="annual">{dic?.select?.annual}</SelectItem>
+                            <SelectItem value="quarterly">{dic?.select?.quarterly}</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
 
             </div>
-            <small className="text-white block md:hidden" style={{ fontSize: 11, marginRight: 16 }}>Values in USD <br /> (B=Billions, M=Millions, K=Thousands)</small>
+            <small className="text-white block md:hidden" style={{ fontSize: 11, marginRight: 16 }}>{dic?.valuesInfo}</small>
 
             {/* TABS */}
             <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as TabType)}>
                 <TabsList variant="line">
-                    <TabsTrigger value="income">Income Statement</TabsTrigger>
-                    <TabsTrigger value="balance">Balance Sheet</TabsTrigger>
-                    <TabsTrigger value="cash">Cash Flow</TabsTrigger>
+                    <TabsTrigger value="income">{dic?.tabs?.incomeStatement}</TabsTrigger>
+                    <TabsTrigger value="balance">{dic?.tabs?.balanceSheet}</TabsTrigger>
+                    <TabsTrigger value="cash">{dic?.tabs?.cashFlow}</TabsTrigger>
                 </TabsList>
             </Tabs>
 
@@ -114,7 +117,7 @@ const Financials = memo(({ data }: any) => {
                         <TableRow className="border-b border-[#353945]">
 
                             <TableHead className=" text-[#777e90] uppercase border-r border-[#353945] p-4 text-center w-[220px]!">
-                                Metric
+                                {dic?.metric}
                             </TableHead>
 
                             {dateValues.map((date) => (
@@ -127,7 +130,7 @@ const Financials = memo(({ data }: any) => {
                             ))}
 
                             <TableHead className=" text-[#777e90] uppercase text-center w-[100px]!">
-                                TTM
+                                {commonDic?.ttm}
                             </TableHead>
                         </TableRow>
                     </TableHeader>
@@ -152,13 +155,13 @@ const Financials = memo(({ data }: any) => {
                                                 key={date}
                                                 className="text-white text-center border-r border-[#353945] font-semibold"
                                             >
-                                                {val ? formatToMillion(val) : "N/A"}
+                                                {val ? formatToMillion(val) : commonDic?.na}
                                             </TableCell>
                                         )
                                     })}
 
                                     <TableCell className="text-white text-center font-semibold">
-                                        {ttm ? formatToMillion(ttm) : "N/A"}
+                                        {ttm ? formatToMillion(ttm) : commonDic?.na}
                                     </TableCell>
                                 </TableRow>
                             )

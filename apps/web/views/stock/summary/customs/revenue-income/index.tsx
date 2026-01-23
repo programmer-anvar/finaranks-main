@@ -18,6 +18,7 @@ import { formatToMillion } from "@finranks/design-system/lib/utils"
 
 interface RevenueIncomeProps {
     data: any
+    dictionary?: any
 }
 
 // Custom axis tick
@@ -37,7 +38,7 @@ const CustomizedAxisTick = ({ x, y, payload }: any) => (
 )
 
 // Custom tooltip
-const CustomTooltip = ({ payload, label }: any) => {
+const CustomTooltip = ({ payload, label, dictionary }: any) => {
     if (!payload || !payload.length) return null
 
     return (
@@ -50,7 +51,7 @@ const CustomTooltip = ({ payload, label }: any) => {
                         style={{ backgroundColor: item.color }}
                     />
                     <span className="text-gray-700">
-                        {item.dataKey}: {formatToMillion(item.value)}
+                        {item.name}: {formatToMillion(item.value)}
                     </span>
                 </div>
             ))}
@@ -88,17 +89,19 @@ const CustomLegend = ({ payload }: any) => (
     </div>
 )
 
-const RevenueIncome = memo(({ data }: RevenueIncomeProps) => {
+const RevenueIncome = memo(({ data, dictionary }: RevenueIncomeProps) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.revenueNetIncome;
+    
     const formatData = Object.entries(data?.incomeStatement?.annual || {}).map(([year, val]: any) => ({
         year,
-        Revenue: val.totalRevenue,
-        "Net Income": val.netIncome,
+        [dic?.revenue]: val.totalRevenue,
+        [dic?.netIncome]: val.netIncome,
     }))
 
     return (
         <Card className="rounded-xl p-4 md:p-6">
             <Typography variant="h4" className="mb-4">
-                Revenue & Net Income
+                {dic?.revenueNetIncomeTitle}
             </Typography>
 
             <div className="h-[345px] w-full">
@@ -124,10 +127,10 @@ const RevenueIncome = memo(({ data }: RevenueIncomeProps) => {
                             tick={{ fill: "#8D9092", fontSize: 10 }}
                         />
                         <ReferenceLine y={0} stroke="#ccc" strokeWidth={1} />
-                        <Tooltip content={<CustomTooltip />} cursor={<BGHighlighter numOfData={formatData.length} />} />
+                        <Tooltip content={<CustomTooltip dictionary={dictionary} />} cursor={<BGHighlighter numOfData={formatData.length} />} />
                         <Legend content={CustomLegend} />
-                        <Bar dataKey="Revenue" fill="var(--primary-graph-color)" radius={3.6} barSize={18} />
-                        <Bar dataKey="Net Income" fill="var(--secondary-graph-color)" radius={3.6} barSize={18} />
+                        <Bar dataKey={dic?.revenue} fill="var(--primary-graph-color)" radius={3.6} barSize={18} />
+                        <Bar dataKey={dic?.netIncome} fill="var(--secondary-graph-color)" radius={3.6} barSize={18} />
                     </ComposedChart>
                 </ResponsiveContainer>
             </div>

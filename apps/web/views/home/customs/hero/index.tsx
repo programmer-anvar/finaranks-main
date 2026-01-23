@@ -4,6 +4,10 @@ import { Typography } from "@finranks/design-system/components/typography";
 import SearchBar from "./customs/searchbar";
 
 const Hero = ({ dictionary }: { dictionary: any }) => {
+    const dic = dictionary?.homePage;
+    console.log('dic', dic);
+
+
     return (
         <section id="hero" className="h-[630px]">
             <img src="/images/home-top-lines.svg" alt="" className='absolute top-0 left-0  w-full opacity-30' />
@@ -37,11 +41,11 @@ const Hero = ({ dictionary }: { dictionary: any }) => {
                     />
                     <div className="absolute top-[60px] md:top-[150px] w-full right-0 left-0 flex justify-center">
                         <button className=" home-search__btn">
-                            <span>{dictionary.betaVersion || "Beta version"}</span>
+                            <span>{dic?.betaVersion}</span>
                         </button>
                     </div>
-                    <Typography variant="h1" align="center" className=" text-white! w-full text-center text-[25px]  md:text-[62px] md:leading-[76px] font-bold! absolute top-[25px] md:top-[250px] right-0 left-0 ">{dictionary.heroTitle}</Typography>
-                    <SearchBar dictionary={dictionary} />
+                    <Typography variant="h1" align="center" className=" text-white! text-center text-[25px] max-w-[780px]  md:text-[62px] md:leading-[76px] font-bold! absolute top-[25px] md:top-[250px] right-0 left-0 m-auto">{dic?.heroTitle}</Typography>
+                    <SearchBar dictionary={dic} />
                 </div>
             </div>
         </section>

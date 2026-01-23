@@ -16,10 +16,13 @@ interface IWatchlistSetting {
     show: boolean
 }
 
-const ManageWatchListModal = () => {
+const ManageWatchListModal = ({ dictionary }: { dictionary?: any }) => {
     const { state, setState } = useAppContext()
     const { manageWatchList, setModal } = useModals()
     const [items, setItems] = useState<IWatchlistSetting[]>([])
+    
+    const dic = dictionary?.profilePage?.profilePageBody?.listTable;
+    const commonDic = dictionary?.common;
 
     const closeModal = () => setModal({ manageWatchList: false })
 
@@ -55,8 +58,8 @@ const ManageWatchListModal = () => {
             <ModalContent classNames={{ closeButton: "hidden" }}>
                 <ModalHeader>
                     <ModalTitle className="flex items-center justify-between">
-                        <span className="text-white text-lg font-semibold">Watchlist Table Settings</span>
-                        <Button onClick={closeModal} hasIconOnly iconDescription="Close" variant="outline">
+                        <span className="text-white text-lg font-semibold">{dic?.listTableTitle}</span>
+                        <Button onClick={closeModal} hasIconOnly iconDescription={commonDic?.close} variant="outline">
                             <X />
                         </Button>
                     </ModalTitle>
@@ -75,7 +78,7 @@ const ManageWatchListModal = () => {
                 </div>
 
                 <div className="px-4 py-3 flex justify-end">
-                    <Button onClick={handleSave}>Save</Button>
+                    <Button onClick={handleSave}>{commonDic?.save}</Button>
                 </div>
             </ModalContent>
         </Modal>

@@ -7,7 +7,7 @@ import RealValuation from '../customs/real-valuation'
 const HomePage = ({ dictionary }: { dictionary: any }) => {
     return (
         <main>
-            <Hero dictionary={dictionary.homePage} />
+            <Hero dictionary={dictionary} />
             <Clarity dictionary={dictionary.homePage.featureOneSection} />
             <RankingSystem dictionary={dictionary.homePage.rankingSection} />
             <RealValuation dictionary={dictionary.homePage.realValuationSection} />

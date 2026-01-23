@@ -15,7 +15,9 @@ type Company = {
     exchange: string;
 };
 
-const SearchBar: React.FC = () => {
+const SearchBar: React.FC<{ dictionary?: any }> = ({ dictionary }) => {
+    const headerDic = dictionary?.header;
+    
     const [searchValue, setSearchValue] = useState('');
     const [items, setItems] = useState<Company[]>([]);
     const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
@@ -71,7 +73,7 @@ const SearchBar: React.FC = () => {
     return (
         <div className="relative min-w-[150px]">
             <SearchInput
-                placeholder="Search any stock"
+                placeholder={headerDic?.searchPlaceholder}
                 value={searchValue}
                 size="lg"
                 onChange={(e) => setSearchValue(e.target.value)}

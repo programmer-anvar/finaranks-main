@@ -8,22 +8,23 @@ import { cn } from '@finranks/design-system/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const SideNav = ({ dictionary }) => {
+const SideNav = ({ dictionary }: { dictionary: any }) => {
     const pathname = usePathname();
     const currentSlug = pathname.split('/')[2];
 
     const confirm = useConfirm();
     const { performLogout } = useLogout();
 
-    const sideBar = dictionary?.profilePage?.profilePageBody?.sideBar ?? {};
+    const sideBar = dictionary?.profilePage?.profilePageBody?.sideBar;
+    const commonDic = dictionary?.common;
 
-    const handleSignout = async (e) => {
-        e.preventDefault(); // href="#" bo‘lsa sakramasin
+    const handleSignout = async (e: React.MouseEvent) => {
+        e.preventDefault();
 
         const result = await confirm({
-            title: "Are you sure?",
-            description: "Are you sure you want to logout?",
-            confirmText: "Logout",
+            title: commonDic?.areYouSure,
+            description: commonDic?.areYouSureLogout,
+            confirmText: sideBar?.logout,
             confirmButton: { variant: "destructive" },
         });
 
@@ -40,7 +41,7 @@ const SideNav = ({ dictionary }) => {
             {NAV_ITEMS.map(({ label, href, slug, icon }) => {
                 const isActive = currentSlug === slug;
 
-                const text = sideBar[label] ?? label; // fallback: label
+                const text = sideBar?.[label];
 
                 return (
                     <TooltipWrapper
@@ -71,7 +72,7 @@ const SideNav = ({ dictionary }) => {
             })}
 
             {/* Logout */}
-            <TooltipWrapper content={"Logout"} classNames={{ content: "md:hidden" }}>
+            <TooltipWrapper content={sideBar?.logout} classNames={{ content: "md:hidden" }}>
                 <Link
                     href="#"
                     className="flex items-center p-3 mt-2 rounded-lg cursor-pointer transition-all duration-200 ease-in-out hover:bg-[#8b09d6f5]/10"
@@ -80,7 +81,7 @@ const SideNav = ({ dictionary }) => {
                     <div className="w-8 h-8 flex items-center justify-center bg-red-500 rounded-md mr-2.5 shrink-0">
                         <img src="/icons/logout.svg" alt="" width={18} />
                     </div>
-                    <span className="text-sm font-medium hidden md:block">{sideBar.logout}</span>
+                    <span className="text-sm font-medium hidden md:block">{sideBar?.logout}</span>
                 </Link>
             </TooltipWrapper>
         </nav>

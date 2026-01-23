@@ -11,10 +11,13 @@ import { env } from '@/env';
 const GOOGLE_CLIENT_ID = env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 const AUTH_TIMEOUT_MS = 30000; // 30 seconds
 
-const GoogleSignInButton: React.FC = () => {
+const GoogleSignInButton: React.FC<{ dictionary?: any }> = ({ dictionary }) => {
     const { state, setState } = useAppContext();
     const searchParams = useSearchParams();
     const uniqueId = useId();
+    
+    const dic = dictionary?.auth;
+    const commonDic = dictionary?.common;
 
     const buttonId = `google-signin-${uniqueId.replace(/:/g, '-')}`;
     const hiddenButtonId = `${buttonId}-hidden`;
@@ -81,12 +84,12 @@ const GoogleSignInButton: React.FC = () => {
         } catch (error: any) {
             clearTimeout(timeoutId);
             const msg = error.name === 'AbortError'
-                ? 'Authentication timeout. Please try again.'
-                : error.message || 'An error occurred during Google sign-in.';
+                ? commonDic?.authTimeout
+                : error.message || commonDic?.googleSignInError;
             toast.error(msg);
             setIsLoading(false);
         }
-    }, [isLoading, redirectUrl, setState]);
+    }, [isLoading, redirectUrl, setState, commonDic]);
 
     /** Load Google Identity Services script */
     useEffect(() => {
@@ -104,7 +107,7 @@ const GoogleSignInButton: React.FC = () => {
 
         script.onload = () => setScriptLoaded(true);
         script.onerror = () => {
-            const error = 'Failed to load Google sign-in script.';
+            const error = commonDic?.failedToLoadGoogleScript;
             console.error(error);
             setRenderError(error);
             toast.error(error);
@@ -119,14 +122,14 @@ const GoogleSignInButton: React.FC = () => {
             abortControllerRef.current?.abort();
             delete (window as any).handleCredentialResponse;
         };
-    }, []);
+    }, [commonDic]);
 
     /** Initialize hidden Google button */
     useEffect(() => {
         // @ts-expect-error
         if (!isScriptLoaded || !window.google?.accounts?.id) return;
         if (!GOOGLE_CLIENT_ID) {
-            const error = 'NEXT_PUBLIC_GOOGLE_CLIENT_ID not configured.';
+            const error = commonDic?.googleClientIdNotConfigured;
             setRenderError(error);
             return;
         }
@@ -158,11 +161,11 @@ const GoogleSignInButton: React.FC = () => {
         setTimeout(() => {
             setButtonRendered(hiddenButton.children.length > 0);
             if (hiddenButton.children.length === 0) {
-                setRenderError('Failed to render Google button');
+                setRenderError(commonDic?.failedToRenderGoogleButton);
             }
         }, 100);
 
-    }, [isScriptLoaded, hiddenButtonId, handleCredentialResponse]);
+    }, [isScriptLoaded, hiddenButtonId, handleCredentialResponse, commonDic]);
 
     /** Trigger hidden button */
     const handleCustomButtonClick = () => {
@@ -170,7 +173,7 @@ const GoogleSignInButton: React.FC = () => {
         const hiddenButton = document.getElementById(hiddenButtonId);
         const googleBtn = hiddenButton?.querySelector('div[role="button"]');
         if (googleBtn) (googleBtn as HTMLElement).click();
-        else toast.error('Google button not found. Please refresh.');
+        else toast.error(commonDic?.googleButtonNotFound);
     };
 
     if (renderError) return <div className="text-center text-red-500">{renderError}</div>;
@@ -210,7 +213,7 @@ const GoogleSignInButton: React.FC = () => {
                         <path d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.428 0 9.002 0 5.485 0 2.44 2.017.96 4.958L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z" fill="#EA4335" />
                     </g>
                 </svg>
-                <span>{isLoading ? 'Signing in...' : !isButtonRendered ? 'Loading...' : 'Continue with Google'}</span>
+                <span>{isLoading ? commonDic?.signingIn : !isButtonRendered ? commonDic?.loading : dic?.continueWithGoogle}</span>
             </button>
         </>
     );

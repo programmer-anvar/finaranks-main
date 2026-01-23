@@ -22,10 +22,13 @@ type TSignInForm = {
 }
 
 
-const SignInModal = () => {
+const SignInModal = ({ dictionary }: { dictionary: any }) => {
     const { setState } = useAppContext();
     const { signIn, setModal } = useModals();
     const searchParams = useSearchParams();
+    
+    const dic = dictionary?.auth;
+    const commonDic = dictionary?.common;
 
 
     const redirectUrl = searchParams.get('redirect') || '/profile/dashboard';
@@ -83,15 +86,15 @@ const SignInModal = () => {
                     window.location.href = redirectUrl;
                 } else {
                     console.error('[SIGNIN-CLIENT] Failed to set auth data');
-                    toast.error('Failed to complete login. Please try again.');
+                    toast.error(commonDic?.failedToLogin);
                 }
             } else {
-                const errorMessage = responseData?.message || responseData?.error || 'Login failed';
+                const errorMessage = responseData?.message || responseData?.error || commonDic?.loginFailed;
                 toast.error(errorMessage);
             }
         } catch (error: any) {
             console.error('[SIGNIN-CLIENT] Login failed:', error);
-            toast.error(error?.message || 'Something went wrong!');
+            toast.error(error?.message || commonDic?.somethingWentWrong);
         } finally {
             setSubmitting(false);
         }
@@ -113,10 +116,10 @@ const SignInModal = () => {
                 <ModalHeader >
                     <ModalTitle className="flex items-center justify-between">
                         <div className="mt-2">
-                            <span className="text-white">Sign in</span>
-                            <Typography variant="small" color="helper">Please, fill out the fields below to sign in</Typography>
+                            <span className="text-white">{dic?.signIn?.signIn}</span>
+                            <Typography variant="small" color="helper">{dic?.signIn?.signInSubTitle}</Typography>
                         </div>
-                        <Button onClick={() => setModal({ signIn: false })} hasIconOnly iconDescription="Close" variant="outline"><X /></Button>
+                        <Button onClick={() => setModal({ signIn: false })} hasIconOnly iconDescription={commonDic?.close} variant="outline"><X /></Button>
                     </ModalTitle>
                 </ModalHeader>
 
@@ -135,10 +138,10 @@ const SignInModal = () => {
                                             <FastField name="email">
                                                 {({ field, meta, form }: FieldProps) => (
                                                     <Input
-                                                        placeholder="Enter your email address"
+                                                        placeholder={dic?.emailPlaceholder}
                                                         {...field}
                                                         size="lg"
-                                                        label="Email"
+                                                        label={dic?.email}
                                                         prepend={<Mail />}
                                                         isClearable={!form.isSubmitting}
                                                         disabled={form.isSubmitting}
@@ -162,8 +165,8 @@ const SignInModal = () => {
                                                     <div className="relative">
                                                         <PasswordInput
                                                             inputProps={{
-                                                                placeholder: "Password",
-                                                                label: "Password",
+                                                                placeholder: dic?.passwordPlaceholder,
+                                                                label: dic?.password,
                                                                 ...field,
                                                                 maxLength: 128,
                                                                 isInvalid: meta.touched && !!meta.error,
@@ -172,14 +175,14 @@ const SignInModal = () => {
                                                                 size: "lg"
                                                             }}
                                                         />
-                                                        <button className="text-blue-500 absolute right-0 top-0 cursor-pointer text-sm" onClick={() => setModal({ forgotPassword: true, signIn: false })}>Forgot Password</button>
+                                                        <button className="text-blue-500 absolute right-0 top-0 cursor-pointer text-sm" onClick={() => setModal({ forgotPassword: true, signIn: false })}>{dic?.signIn?.forgotPassword}</button>
                                                     </div>
                                                 )}
                                             </FastField>
 
-                                            <Button className="mt-5" isDisabled={!isValid || isSubmitting} isLoading={isSubmitting} type="submit">Get Started</Button>
+                                            <Button className="mt-5" isDisabled={!isValid || isSubmitting} isLoading={isSubmitting} type="submit">{dic?.getStartedBtn}</Button>
 
-                                            <Typography variant="small" color="primary">Do you have not an account? <Link href="#" className="underline text-blue-500! font-semibold" onClick={() => setModal({ register: true, signIn: false })}>Sign Up</Link></Typography>
+                                            <Typography variant="small" color="primary">{dic?.signIn?.account} <Link href="#" className="underline text-blue-500! font-semibold" onClick={() => setModal({ register: true, signIn: false })}>{dic?.signUpTitle}</Link></Typography>
                                         </div>
                                     </div>
                                 </Form>
@@ -187,8 +190,8 @@ const SignInModal = () => {
                         }}
                     </Formik>
                     <div className="px-4 pb-4">
-                        <div className="modal-form__or">or</div>
-                        <GoogleSignInButton />
+                        <div className="modal-form__or">{dic?.or}</div>
+                        <GoogleSignInButton dictionary={dictionary} />
                     </div>
                 </div>
             </ModalContent>

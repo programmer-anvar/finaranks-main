@@ -28,10 +28,13 @@ type TRegisterForm = {
 }
 
 
-const RegisterModal = () => {
+const RegisterModal = ({ dictionary }: { dictionary: any }) => {
     const { setState, state } = useAppContext();
     const router = useRouter();
     const { register, setModal } = useModals();
+    
+    const dic = dictionary?.auth;
+    const commonDic = dictionary?.common;
 
 
     const handleSubmit = async (
@@ -71,7 +74,7 @@ const RegisterModal = () => {
             const message = get(
                 error,
                 'response.data.message',
-                'Something went wrong!'
+                commonDic?.somethingWentWrong
             );
             toast.error(message);
         } finally {
@@ -97,10 +100,10 @@ const RegisterModal = () => {
                 <ModalHeader >
                     <ModalTitle className="flex items-center justify-between">
                         <div className="mt-2">
-                            <span className="text-white">Registration</span>
-                            <Typography variant="small" color="helper">Please, fill out the fields below to sign up</Typography>
+                            <span className="text-white">{dic?.registration?.registration}</span>
+                            <Typography variant="small" color="helper">{dic?.registration?.registrationSubTitle}</Typography>
                         </div>
-                        <Button onClick={() => setModal({ register: false })} hasIconOnly iconDescription="Close" variant="outline"><X /></Button>
+                        <Button onClick={() => setModal({ register: false })} hasIconOnly iconDescription={commonDic?.close} variant="outline"><X /></Button>
                     </ModalTitle>
                 </ModalHeader>
 
@@ -119,10 +122,10 @@ const RegisterModal = () => {
                                             <FastField name="full_name">
                                                 {({ field, meta, form }: FieldProps) => (
                                                     <Input
-                                                        placeholder="Enter name"
+                                                        placeholder={dic?.fullNamePlaceholder}
                                                         {...field}
                                                         size="lg"
-                                                        label="Full Name"
+                                                        label={dic?.fullName}
                                                         prepend={<User />}
                                                         isClearable={!form.isSubmitting}
                                                         disabled={form.isSubmitting}
@@ -144,10 +147,10 @@ const RegisterModal = () => {
                                             <FastField name="email">
                                                 {({ field, meta, form }: FieldProps) => (
                                                     <Input
-                                                        placeholder="Enter your email address"
+                                                        placeholder={dic?.emailPlaceholder}
                                                         {...field}
                                                         size="lg"
-                                                        label="Email"
+                                                        label={dic?.email}
                                                         prepend={<Mail />}
                                                         isClearable={!form.isSubmitting}
                                                         disabled={form.isSubmitting}
@@ -170,8 +173,8 @@ const RegisterModal = () => {
                                                 {({ field, meta }: FieldProps) => (
                                                     <PasswordInput
                                                         inputProps={{
-                                                            placeholder: "Password",
-                                                            label: "Password",
+                                                            placeholder: dic?.passwordPlaceholder,
+                                                            label: dic?.password,
                                                             ...field,
                                                             maxLength: 128,
                                                             isInvalid: meta.touched && !!meta.error,
@@ -187,18 +190,18 @@ const RegisterModal = () => {
                                                     <Label>
                                                         <div className="flex items-center gap-2">
                                                             <Checkbox checked={field.value} onCheckedChange={(e) => form.setFieldValue(field.name, e)} />
-                                                            <span>I  agree to the <button type="button" className="underline" onClick={() => {
+                                                            <span>{dic?.iAgreeToThe} <button type="button" className="underline" onClick={() => {
                                                                 router.push('/privacy-policy');
                                                                 setModal({ register: false })
-                                                            }}>Privacy Policy</button></span>
+                                                            }}>{commonDic?.privacyPolicy}</button></span>
                                                         </div>
                                                     </Label>
                                                 )}
                                             </FastField>
 
-                                            <Button className="mt-5" isDisabled={!isValid || isSubmitting} isLoading={isSubmitting} type="submit">Get Started</Button>
+                                            <Button className="mt-5" isDisabled={!isValid || isSubmitting} isLoading={isSubmitting} type="submit">{dic?.getStartedBtn}</Button>
 
-                                            <Typography variant="small" color="primary">Have an account? <Link href="#" className="underline text-blue-500! font-semibold" onClick={() => setModal({ signIn: true, register: false })} >Sign In</Link></Typography>
+                                            <Typography variant="small" color="primary">{dic?.registration?.account} <Link href="#" className="underline text-blue-500! font-semibold" onClick={() => setModal({ signIn: true, register: false })} >{dic?.signIn?.signIn}</Link></Typography>
                                         </div>
                                     </div>
                                 </Form>
@@ -206,8 +209,8 @@ const RegisterModal = () => {
                         }}
                     </Formik>
                     <div className="px-4 pb-4">
-                        <div className="modal-form__or">or</div>
-                        <GoogleSignInButton />
+                        <div className="modal-form__or">{dic?.or}</div>
+                        <GoogleSignInButton dictionary={dictionary} />
                     </div>
                 </div>
             </ModalContent>

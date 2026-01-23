@@ -6,34 +6,37 @@ import { useMediaQuery } from '@uidotdev/usehooks';
 import { useEffect, useMemo, useState } from 'react';
 import { BorderBeam } from '@finranks/design-system/components/border-beam';
 
-const CATEGORIES = [
-    "Financial Strength",
-    "Profitability",
-    "Effectiveness",
-    "Growth",
-    "Forecast",
-    "Valuation",
-    "Dividend",
-    "Economic Moat",
-];
-
-const generateData = () => [
-    {
-        id: "Score",
-        data: CATEGORIES.map((key) => ({
-            category: key,
-            value: Math.floor(Math.random() * 80) + 20, // 20–100
-        })),
-    },
-];
 const OctagonView = ({ dictionary }: { dictionary: any }) => {
+    const dic = dictionary?.homePage?.rankingSection;
+    
+    const CATEGORIES = [
+        dic?.financialStrengthTitle,
+        dic?.profitabilityTitle,
+        dic?.effectivenessTitle,
+        dic?.growthTitle,
+        dic?.forecastTitle,
+        dic?.valuationTitle,
+        dic?.dividendTitle,
+        dic?.economicMoatTitle,
+    ];
+
+    const generateData = () => [
+        {
+            id: "Score",
+            data: CATEGORIES.map((key) => ({
+                category: key,
+                value: Math.floor(Math.random() * 80) + 20, // 20–100
+            })),
+        },
+    ];
+    
     const isMobile = useMediaQuery('(max-width: 768px)');
     const [data, setData] = useState(generateData());
 
     useEffect(() => {
         const interval = setInterval(() => {
             setData(generateData());
-        }, 5000); // animate every 2s
+        }, 5000); // animate every 5s
 
         return () => clearInterval(interval);
     }, []);
@@ -43,12 +46,11 @@ const OctagonView = ({ dictionary }: { dictionary: any }) => {
             ? { top: 20, right: 87, bottom: 20, left: 65 }
             : { top: 30, right: 86, bottom: 30, left: 72 };
     }, [isMobile]);
-    console.log('data', data)
 
 
     return (
         <Card className='space-y-6 relative p-4 md:p-6 overflow-hidden'>
-            <Typography variant="h3" className='text-[18px] md:text-inherit'>{dictionary.octagonViewTitle}</Typography>
+            <Typography variant="h3" className='text-[18px] md:text-inherit'>{dic?.octagonViewTitle}</Typography>
             <div className='h-[380px]'>
                 <ResponsiveRadar
                     data={data[0].data}

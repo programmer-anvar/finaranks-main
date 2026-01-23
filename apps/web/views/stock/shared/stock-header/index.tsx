@@ -15,23 +15,13 @@ interface StockHeaderProps {
     exchange?: string;
     displayTime?: string;
     currentMarketState?: MarketState;
+    dictionary?: any;
 }
 
 interface TabItem {
     label: string;
     link: string;
 }
-
-const tabsArray: TabItem[] = [
-    { label: 'Summary', link: 'summary' },
-    { label: 'News', link: 'news' },
-    { label: 'Chart', link: 'chart' },
-    { label: 'Financial', link: 'financial' },
-    { label: 'Dividends', link: 'dividends' },
-    { label: 'Forecast', link: 'forecast' },
-    { label: 'Ownership', link: 'ownership' },
-    { label: 'Profile', link: 'profile' },
-];
 
 const StockHeader: React.FC<StockHeaderProps> = ({
     ticker,
@@ -49,6 +39,20 @@ const StockHeader: React.FC<StockHeaderProps> = ({
 
     const { slug } = useParams<{ slug: string }>();
     const pathname = usePathname();
+    
+    const dic = dictionary?.stock?.stockMain?.stockTabs;
+    const commonDic = dictionary?.common;
+
+    const tabsArray: TabItem[] = [
+        { label: dic?.summary, link: 'summary' },
+        { label: dic?.news, link: 'news' },
+        { label: dic?.chart, link: 'chart' },
+        { label: dic?.financial, link: 'financial' },
+        { label: dic?.dividends, link: 'dividends' },
+        { label: dic?.forecast, link: 'forecast' },
+        { label: dic?.ownership, link: 'ownership' },
+        { label: dic?.profile, link: 'profile' },
+    ];
 
     // Active tab detection
     useEffect(() => {
@@ -93,8 +97,8 @@ const StockHeader: React.FC<StockHeaderProps> = ({
                     {displayTime && (
                         <div className="mobile-sticky-stock-header__time">
                             {currentMarketState === 'REGULAR'
-                                ? 'Market open: '
-                                : 'At close: '}
+                                ? commonDic?.marketOpen
+                                : commonDic?.atClose}
                             {displayTime}
                         </div>
                     )}

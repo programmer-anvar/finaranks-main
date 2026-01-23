@@ -90,10 +90,11 @@ export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
         },
         ref
     ) => {
-        const headerDic = dictionary?.header || {};
+        const headerDic = dictionary?.header;
+        const commonDic = dictionary?.common;
 
-        // Use dictionary values or fallbacks
-        const ctaLabel = ctaText || headerDic.getStartedBtn || 'Get Started';
+        // Use dictionary values
+        const ctaLabel = ctaText || headerDic?.getStartedBtn;
 
         const { isAuthenticated } = useAuth(authState);
         const { setModal } = useModals()
@@ -188,7 +189,7 @@ export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
                                 }}
 
                             >
-                                {dictionary?.common?.profile || "Profile"}
+                                {commonDic?.profile}
                             </Button>}
                     </div>
                 </div>

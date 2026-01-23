@@ -93,18 +93,19 @@ export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
         },
         ref
     ) => {
-        const headerDic = dictionary?.header || {};
+        const headerDic = dictionary?.header;
+        const commonDic = dictionary?.common;
 
-        // Use dictionary values or fallbacks
+        // Use dictionary values
         const navLinks = navigationLinks || [
-            { href: '/', label: headerDic.home, active: true },
-            { href: '/screener', label: headerDic.screener },
-            { href: '/news', label: headerDic.news },
-            { href: '/about', label: headerDic.about },
+            { href: '/', label: headerDic?.home, active: true },
+            { href: '/screener', label: headerDic?.screener },
+            { href: '/news', label: headerDic?.news },
+            { href: '/about', label: headerDic?.about },
         ];
 
-        const signInLabel = signInText || headerDic.signInBtn || 'Sign In';
-        const ctaLabel = ctaText || headerDic.getStartedBtn || 'Get Started';
+        const signInLabel = signInText || headerDic?.signInBtn;
+        const ctaLabel = ctaText || headerDic?.getStartedBtn;
 
         const pathname = usePathname();
         const isActiveLink = (href?: string): boolean => {
@@ -211,7 +212,7 @@ export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
                     </div>
 
                     <div className='flex items-center gap-4 ml-auto'>
-                        <SearchBar />
+                        <SearchBar dictionary={dictionary} />
                         {/* Right side */}
                         {!isAuthenticated ? <div className="flex items-center gap-3">
                             <Button
@@ -247,7 +248,7 @@ export const HeaderContent = React.forwardRef<HTMLElement, HeaderProps>(
                                 }}
 
                             >
-                                {dictionary?.common?.profile}
+                                {commonDic?.profile}
                             </Button>}
                     </div>
                 </div>

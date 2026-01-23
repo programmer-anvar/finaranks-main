@@ -1,22 +1,23 @@
 "use client"
 import { cn } from "@finranks/design-system/lib/utils";
-import { getDictionary } from "@finranks/internationalization";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const tabs = [
-    { label: 'Summary', link: 'summary' },
-    { label: 'News', link: 'news' },
-    { label: 'Chart', link: 'chart' },
-    { label: 'Financial', link: 'financial' },
-    { label: 'Dividends', link: 'dividends' },
-    { label: 'Forecast', link: 'forecast' },
-    { label: 'Ownership', link: 'ownership' },
-    { label: 'Profile', link: 'profile' },
-]
+const StockTabs = ({ dictionary }: { dictionary: any }) => {
+    const dic = dictionary?.stock?.stockMain?.stockTabs;
+    
+    const tabs = [
+        { label: dic?.summary, link: 'summary' },
+        { label: dic?.news, link: 'news' },
+        { label: dic?.chart, link: 'chart' },
+        { label: dic?.financial, link: 'financial' },
+        { label: dic?.dividends, link: 'dividends' },
+        { label: dic?.forecast, link: 'forecast' },
+        { label: dic?.ownership, link: 'ownership' },
+        { label: dic?.profile, link: 'profile' },
+    ];
 
-const StockTabs = async () => {
     const { slug } = useParams();
     const pathname = usePathname();
     const [activeTab, setActiveTab] = useState(pathname.split('/').pop());

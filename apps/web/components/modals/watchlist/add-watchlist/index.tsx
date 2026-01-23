@@ -22,11 +22,15 @@ interface ICompany {
     exchange: string
 }
 
-const AddWatchListModal = () => {
+const AddWatchListModal = ({ dictionary }: { dictionary?: any }) => {
     const { state, setState } = useAppContext()
     const { addWatchList, setModal } = useModals()
     const access_token = state.access_token;
     const slug = "AMZN"
+    
+    const dic = dictionary?.modals;
+    const commonDic = dictionary?.common;
+    const headerDic = dictionary?.header;
 
     const [searchValue, setSearchValue] = useState<string>("")
     const [debouncedSearchValue] = useDebounce(searchValue, 500)
@@ -123,8 +127,8 @@ const AddWatchListModal = () => {
             <ModalContent classNames={{ closeButton: "hidden" }}>
                 <ModalHeader>
                     <ModalTitle className="flex items-center justify-between">
-                        <span className="text-white">Add stock to watchlist</span>
-                        <Button onClick={closeModal} hasIconOnly iconDescription="Close" variant="outline">
+                        <span className="text-white">{dic?.addStockToWatchlist}</span>
+                        <Button onClick={closeModal} hasIconOnly iconDescription={commonDic?.close} variant="outline">
                             <X />
                         </Button>
                     </ModalTitle>
@@ -132,7 +136,7 @@ const AddWatchListModal = () => {
 
                 <div className="px-4 py-2 h-10">
                     <SearchInput
-                        placeholder="Search any stock"
+                        placeholder={headerDic?.searchPlaceholder}
                         value={searchValue}
                         size="md"
                         onChange={e => setSearchValue(e.target.value)}
@@ -142,8 +146,8 @@ const AddWatchListModal = () => {
                         onClear={() => setSearchValue("")}
                     />
                 </div>
-                {searchValue ? <div className="text-gray-300 my-2 pl-4">Search result</div> :
-                    <div className="text-gray-300 my-2 pl-4">Similar companies</div>}
+                {searchValue ? <div className="text-gray-300 my-2 pl-4">{commonDic?.searchResult}</div> :
+                    <div className="text-gray-300 my-2 pl-4">{commonDic?.similarCompanies}</div>}
                 <div className="m-4  border rounded-md overflow-hidden">
                     <ScrollArea className="min-h-[240px] max-h-[400px] overflow-y-auto scrollable">
                         {searchValue

@@ -39,47 +39,47 @@ export const DesktopFooter = ({
         title: "Finranks",
     },
     sections,
-    description = "A collection of components for your startup business or side project.",
     copyright,
     legalLinks,
     dictionary,
 }: Footer7Props) => {
-    const footerDic = dictionary?.footer || {};
-    const homePageDic = dictionary?.homePage || {};
+    const footerDic = dictionary?.footer;
+    const homePageDic = dictionary?.homePage;
+    const commonDic = dictionary?.common;
     
     const defaultSections = [
         {
-            title: footerDic.company || "Company",
+            title: footerDic?.company,
             links: [
-                { name: footerDic.aboutUs || "About us", href: "/about" },
+                { name: footerDic?.aboutUs, href: "/about" },
             ],
         },
         {
-            title: footerDic.contactUs || "Contact us",
+            title: footerDic?.contactUs,
             links: [
                 { name: "info@finranks.com", href: "mailto:info@finranks.com" },
             ],
         },
         {
-            title: footerDic.followUs || "Follow us",
+            title: footerDic?.followUs,
             links: [
-                { name: footerDic.instagram || "Instagram", href: "https://www.instagram.com/finranks" },
-                { name: footerDic.telegram || "Telegram", href: "https://t.me/finranks" },
-                { name: footerDic.linkedIn || "LinkedIn", href: "https://www.linkedin.com/company/finranks" },
+                { name: footerDic?.instagram, href: "https://www.instagram.com/finranks" },
+                { name: footerDic?.telegram, href: "https://t.me/finranks" },
+                { name: footerDic?.linkedIn, href: "https://www.linkedin.com/company/finranks" },
             ],
         },
     ];
 
     const defaultLegalLinks = [
-        { name: "Terms and Conditions", href: "/terms-of-service" },
-        { name: "Privacy Policy", href: "/privacy-policy" },
+        { name: commonDic?.termsAndConditions, href: "/terms-of-service" },
+        { name: commonDic?.privacyPolicy, href: "/privacy-policy" },
     ];
 
     const finalSections = sections || defaultSections;
-    const finalCopyright = copyright || footerDic.footerCopyright || "© 2024 finranks.com. All rights reserved.";
+    const finalCopyright = copyright || footerDic?.footerCopyright;
     const finalLegalLinks = legalLinks || defaultLegalLinks;
-    const ctaTitle = homePageDic.ctaTitle || "Get all premium features to the best stock analysis tool";
-    const ctaButtonText = homePageDic.ctaButtonBtn || "Get started for free";
+    const ctaTitle = homePageDic?.ctaTitle;
+    const ctaButtonText = homePageDic?.ctaButtonBtn;
 
     const { setModal } = useModals();
     const { isAuthenticated } = useAuth()

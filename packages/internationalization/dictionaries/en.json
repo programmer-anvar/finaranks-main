@@ -20,7 +20,33 @@
     "all": "All",
     "none": "None",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "dataUnavailable": "Data Unavailable",
+    "noData": "No Data",
+    "noDataDescription": "There is no data to display",
+    "comingSoon": "Coming Soon",
+    "searchResult": "Search result",
+    "similarCompanies": "Similar companies",
+    "removeFromWatchlist": "Remove from watchlist",
+    "areYouSure": "Are you sure?",
+    "areYouSureLogout": "Are you sure you want to logout?",
+    "menu": "Menu",
+    "marketOpen": "Market open:",
+    "atClose": "At close:",
+    "ttm": "TTM",
+    "signingIn": "Signing in...",
+    "somethingWentWrong": "Something went wrong!",
+    "failedToLogin": "Failed to complete login. Please try again.",
+    "loginFailed": "Login failed",
+    "authTimeout": "Authentication timeout. Please try again.",
+    "googleSignInError": "An error occurred during Google sign-in.",
+    "failedToLoadGoogleScript": "Failed to load Google sign-in script.",
+    "googleClientIdNotConfigured": "NEXT_PUBLIC_GOOGLE_CLIENT_ID not configured.",
+    "failedToRenderGoogleButton": "Failed to render Google button",
+    "googleButtonNotFound": "Google button not found. Please refresh.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "termsAndConditions": "Terms and Conditions"
   },
   "header": {
     "home": "Home",
@@ -115,13 +141,19 @@
       "neaturalCount": "Neutral count"
     }
   },
+  "navigation": {
+    "search": "Search",
+    "news": "News",
+    "profile": "Profile",
+    "screener": "Screener"
+  },
   "stock": {
     "stockMain": {
       "stockBtns": {
         "compare": "Compare",
         "addWatchList": "Add to Watchlist",
         "comparePage": {
-          "compareStocksTitle": "Compare",
+          "compareStocksTitle": "Compare stocks",
           "compareStocksHelpText1": "Compare up to three stocks to ",
           "compareStocksHelpText2": " by adding the symbol or company name.",
           "addStockLabel": "Add Stock",
@@ -201,7 +233,7 @@
         "debtAssets": {
           "debtAssetsTitle": "Debt to Assets",
           "debtAssetsLabel": {
-            "totalAsets": "Total Assets",
+            "totalAssets": "Total Assets",
             "totalDebt": "Total Debt",
             "debtAssets": "Debt to Assets"
           }
@@ -212,6 +244,8 @@
           "billions": "B=Billions",
           "millions": "M=Millions",
           "thousands": "K=Thousands",
+          "valuesInfo": "Values in USD (B=Billions, M=Millions, K=Thousands)",
+          "metric": "Metric",
           "select": {
             "annual": "Annual",
             "quarterly": "Quarterly"
@@ -263,8 +297,8 @@
         "marginRatios": {
           "marginRatiosTitle": "Margin Ratios",
           "grossMargin": "Gross margin",
-          "operatingmargin": "Operating margin",
-          "netmargin": "Net margin"
+          "operatingMargin": "Operating margin",
+          "netMargin": "Net margin"
         },
         "profitabilityTable": {
           "profitabilityTitle": "Profitability",
@@ -306,7 +340,7 @@
         },
         "forecastTable": {
           "forecastTitle": "Forecast",
-          "nameColumn": "Name",
+          "nameColumn": "NAME",
           "revenueGrowthColumn": "REVENUE GROWTH",
           "epsGrowthColumn": "EPS GROWTH",
           "scoreColumn": "SCORE",
@@ -357,7 +391,8 @@
           "weightedAverageScoreLabel": "Weighted average score"
         },
         "dcfModel": {
-          "dcfPeriodLabel": "DCF Model",
+          "dcfModelTitle": "DCF Model",
+          "dcfPeriodLabel": "DCF Model Period",
           "discountRateLabel": "Discount rate",
           "perpetualGrowthLabel": "Perpetual growth rate",
           "revenueCagrLabel": "Revenue 5 year CAGR",
@@ -418,6 +453,7 @@
           "balanceSheetTab": "Balance Sheet",
           "cashFlowTab": "Cash Flow"
         },
+        "searchMetrics": "Search metrics",
         "incomeStatementTab": {
           "incomeStatementTabChart": {
             "revenueLabel": "Revenue",
@@ -475,9 +511,9 @@
         "balanceSheetTab": {
           "balanceSheetTabChart": {
             "totalAssetsLabel": "Total Assets",
-            "totalLiabilities": "Total Liabilities",
-            "stockholdersEquity": "Stockholders Equity",
-            "totalDebt": "Total Debt"
+            "totalLiabilitiesLabel": "Total Liabilities",
+            "stockholdersEquityLabel": "Stockholders Equity",
+            "totalDebtLabel": "Total Debt"
           },
           "balanceSheetTabTable": {
             "totalAssetsLabel": "Total assets",
@@ -634,17 +670,32 @@
         },
         "select": {
           "select": "Select",
-          "Annual": "Annual",
-          "quarteryl": "Quarterly"
+          "annual": "Annual",
+          "quarterly": "Quarterly"
         },
-        "eps-chart": {
+        "epsChart": {
           "eps": "EPS",
           "estimateLabel": "Estimate",
           "reportedLabel": "Reported"
         },
-        "revenue-chart": {
+        "revenueChart": {
           "revenue": "Revenue",
           "reportedLabel": "Reported"
+        },
+        "ratingLabels": {
+          "sell": "Sell",
+          "underweight": "Underweight",
+          "underperform": "Underperform",
+          "hold": "Hold",
+          "neutral": "Neutral",
+          "equalWeight": "Equal-Weight",
+          "marketPerform": "Market Perform",
+          "buy": "Buy",
+          "accumulate": "Accumulate",
+          "overweight": "Overweight",
+          "outperform": "Outperform",
+          "marketOutperform": "Market Outperform",
+          "strongBuy": "Strong Buy"
         }
       },
       "ownershipTab": {
@@ -653,6 +704,7 @@
           "breakdownColumn": "Breakdown"
         },
         "topInstitutionalHolders": {
+          "topInstitutionalHoldersTitle": "Top Institutional Holders",
           "holdersColumn": "Holders",
           "sharesColumn": "Shares",
           "dateReportedColumn": "Date reported",
@@ -660,7 +712,7 @@
           "valueColumn": "Value"
         },
         "topMutualFundHolders": {
-          "topMutualFundHolders": "Top Mutual Fund Holders"
+          "topMutualFundHoldersTitle": "Top Mutual Fund Holders"
         }
       },
       "profileTab": {
@@ -712,7 +764,7 @@
     "fullName": "Full Name",
     "fullNamePlaceholder": "Enter name",
     "email": "Email",
-    "emailPlaceholder": "Enter email",
+    "emailPlaceholder": "Enter your email address",
     "emailValidation": "Enter a valid email address.",
     "password": "Password",
     "passwordPlaceholder": "Password",
@@ -722,6 +774,7 @@
     "continueWithGoogle": "Continue with Google",
     "signUpTitle": "Sign Up",
     "signInTitle": "Sign In",
+    "iAgreeToThe": "I agree to the",
     "registration": {
       "registration": "Registration",
       "registrationSubTitle": "Please, fill out the fields below to sign up",
@@ -733,7 +786,17 @@
       "account": "Don't have an account?",
       "forgotPassword": "Forgot Password",
       "rememberMe": "I agree to the Privacy Policy"
+    },
+    "forgotPassword": {
+      "forgotPasswordTitle": "Forgot Password",
+      "forgotPasswordSubTitle": "Don't worry! It happens. Please enter the email associated with your account.",
+      "sendCode": "Send Code",
+      "rememberPassword": "Remember password?"
     }
+  },
+  "modals": {
+    "addStockToWatchlist": "Add stock to watchlist",
+    "addStockToCompare": "Add stock to compare"
   },
   "profilePage": {
     "profilePageHeader": {

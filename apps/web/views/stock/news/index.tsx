@@ -8,19 +8,21 @@ import PressReleaseCard from "@/views/stock/news/customs/press-release-card";
 import NewsList from "./customs/news-list";
 import EmptyState from "@/components/empty-state";
 
-const StockNewsPage = async ({ params }: any) => {
+const StockNewsPage = async ({ params, dictionary }: any) => {
     const { slug } = await params;
     const { data: newsList } = await getNewsList(slug);
     const { data: videoNewsList } = await getVideoNewsList(slug);
     const { data: upgradeDowngradesList } = await getUpgradesDowngrades(slug);
     const { data: pressReleaseList } = await getPressRelease(slug);
+    
+    const dic = dictionary?.stock?.stockMain?.newsTab;
 
     return (
         <div className="container space-y-4">
             <div className="grid gap-4 md:grid-cols-[2fr_1fr] items-baseline">
-                <NewsList initialNews={newsList} slug={slug} />
+                <NewsList initialNews={newsList} slug={slug} dictionary={dictionary} />
                 {Boolean(videoNewsList.length) && <Card className='space-y-4 p-4 rounded-xl sticky top-18 mb-auto'>
-                    <Typography variant="h4">Videos</Typography>
+                    <Typography variant="h4">{dic?.videos}</Typography>
                     {videoNewsList.map((item, i: number) => {
                         return (
                             <VideoNewsCard item={item} key={i} />
@@ -29,7 +31,7 @@ const StockNewsPage = async ({ params }: any) => {
                 </Card>}
 
                 {!Boolean(videoNewsList.length) && (
-                    <EmptyState title="Videos" className="space-y-4 p-4 rounded-xl sticky top-18 mb-auto"/>
+                    <EmptyState title={dic?.videos} className="space-y-4 p-4 rounded-xl sticky top-18 mb-auto" dictionary={dictionary}/>
                 )}
 
             </div>
@@ -37,9 +39,9 @@ const StockNewsPage = async ({ params }: any) => {
             {
                 upgradeDowngradesList.length > 0 && (
                     <Card className="rounded-xl p-4 md:p-6">
-                        <Typography variant="h4">Upgrades / Downgrades</Typography>
+                        <Typography variant="h4">{dic?.newsTable?.newsTableTitle}</Typography>
                         <div className='mt-5'>
-                            <UpgradeDowngradeTable list={upgradeDowngradesList} />
+                            <UpgradeDowngradeTable list={upgradeDowngradesList} dictionary={dictionary} />
                         </div>
                     </Card>
                 )
@@ -48,7 +50,7 @@ const StockNewsPage = async ({ params }: any) => {
             {
                 pressReleaseList.length > 0 && (
                     <Card className="rounded-xl p-4 md:p-6">
-                        <Typography variant="h4">Press releases</Typography>
+                        <Typography variant="h4">{dic?.pressReleases}</Typography>
                         <div className='grid grid-cols-2 gap-4 mt-5'>
                             {pressReleaseList.length > 0 && pressReleaseList.map((item, i) => {
                                 return (

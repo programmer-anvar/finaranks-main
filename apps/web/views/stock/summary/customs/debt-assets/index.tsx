@@ -19,15 +19,9 @@ import { memo } from "react"
 /*                                  Types                                     */
 /* -------------------------------------------------------------------------- */
 
-interface ChartRow {
-    year: string
-    "Total Assets": number
-    "Total Debt": number
-    "Debt to Assets": number
-}
-
 interface DebtsAssetsProps {
     data: any
+    dictionary?: any
 }
 
 /* -------------------------------------------------------------------------- */
@@ -49,6 +43,7 @@ const CustomTooltip = ({
     active,
     payload,
     label,
+    dic,
 }: any) => {
     if (!active || !payload?.length) return null
 
@@ -64,7 +59,7 @@ const CustomTooltip = ({
                     />
                     <span className="text-gray-700">
                         {item.name}:{" "}
-                        {item.name === "Debt to Assets"
+                        {item.name === dic?.debtAssets
                             ? item.value.toFixed(2)
                             : formatBigNumber(item.value)}
                     </span>
@@ -96,10 +91,13 @@ const CustomLegend = ({ payload }: any) => (
 /*                              Component                                     */
 /* -------------------------------------------------------------------------- */
 
-const DebtsAssets = memo(({ data }: DebtsAssetsProps) => {
+const DebtsAssets = memo(({ data, dictionary }: DebtsAssetsProps) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.debtAssets?.debtAssetsLabel;
+    const titleDic = dictionary?.stock?.stockMain?.summaryTab?.debtAssets;
+    
     /* -------------------------- Normalize Data -------------------------- */
 
-    const formattedData: ChartRow[] = Object.entries(
+    const formattedData = Object.entries(
         data?.balanceSheet?.annual || {}
     )
         .map(([year, values]: any) => {
@@ -108,17 +106,17 @@ const DebtsAssets = memo(({ data }: DebtsAssetsProps) => {
 
             return {
                 year,
-                "Total Assets": assets,
-                "Total Debt": debt,
-                "Debt to Assets": assets ? +(debt / assets).toFixed(2) : 0,
+                [dic?.totalAssets]: assets,
+                [dic?.totalDebt]: debt,
+                [dic?.debtAssets]: assets ? +(debt / assets).toFixed(2) : 0,
             }
         })
         .sort((a, b) => Number(a.year) - Number(b.year))
 
     /* ---------------------------- Scales -------------------------------- */
 
-    const maxAssets = Math.max(...formattedData.map(d => d["Total Assets"]))
-    const maxRatio = Math.max(...formattedData.map(d => d["Debt to Assets"]))
+    const maxAssets = Math.max(...formattedData.map(d => d[dic?.totalAssets]))
+    const maxRatio = Math.max(...formattedData.map(d => d[dic?.debtAssets]))
 
     const assetsDomain: [number, number] = [0, maxAssets * 1.1]
     const ratioDomain: [number, number] = [
@@ -131,7 +129,7 @@ const DebtsAssets = memo(({ data }: DebtsAssetsProps) => {
     return (
         <Card className="rounded-xl p-4 md:p-6">
             <Typography variant="h4" className="mb-4">
-                Debt to Assets
+                {titleDic?.debtAssetsTitle}
             </Typography>
 
             <div className="h-[370px] w-full">
@@ -173,12 +171,12 @@ const DebtsAssets = memo(({ data }: DebtsAssetsProps) => {
                             tickLine={false}
                         />
 
-                        <Tooltip content={<CustomTooltip />} />
+                        <Tooltip content={<CustomTooltip dic={dic} />} />
                         <Legend content={<CustomLegend />} />
 
                         <Bar
                             yAxisId="left"
-                            dataKey="Total Assets"
+                            dataKey={dic?.totalAssets}
                             fill="var(--primary-graph-color)"
                             radius={[4, 4, 0, 0]}
                             barSize={18}
@@ -186,7 +184,7 @@ const DebtsAssets = memo(({ data }: DebtsAssetsProps) => {
 
                         <Bar
                             yAxisId="left"
-                            dataKey="Total Debt"
+                            dataKey={dic?.totalDebt}
                             fill="var(--secondary-graph-color)"
                             radius={[4, 4, 0, 0]}
                             barSize={18}
@@ -194,7 +192,7 @@ const DebtsAssets = memo(({ data }: DebtsAssetsProps) => {
 
                         <Line
                             yAxisId="right"
-                            dataKey="Debt to Assets"
+                            dataKey={dic?.debtAssets}
                             stroke="var(--tertiary-graph-color)"
                             strokeWidth={2}
                             dot={false}
