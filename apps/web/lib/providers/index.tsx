@@ -1,3 +1,5 @@
+'use client';
+
 import Modals from '@/components/modals'
 import { FpjsProvider } from '@fingerprintjs/fingerprintjs-pro-react'
 import { DesignSystemProvider } from '@finranks/design-system'
@@ -14,10 +16,11 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";;
 
 type TProvidersProps = {
     children: React.ReactNode;
-    session: Session
+    session: Session;
+    dictionary?: any;
 }
 
-const Providers = ({ children, session }: TProvidersProps) => {
+const Providers = ({ children, session, dictionary }: TProvidersProps) => {
     return (
         <FpjsProvider
             loadOptions={{
@@ -37,7 +40,7 @@ const Providers = ({ children, session }: TProvidersProps) => {
                             <AuthSync />
                             <VerifyAuthSync />
                             <DesignSystemProvider>
-                                <Modals />
+                                <Modals dictionary={dictionary} />
                                 <Suspense fallback={<></>}>
                                     {children}
                                 </Suspense>

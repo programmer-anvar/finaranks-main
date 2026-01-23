@@ -34,16 +34,20 @@ interface RevenueChartProps {
         annual: { revenue: RevenueDataPoint[] };
         quarterly: { revenue: RevenueDataPoint[] };
     };
+    dictionary?: any;
 }
 
 type SelectOption = { value: 'annual' | 'quarterly'; label: string };
 
-const RevenueChart: React.FC<RevenueChartProps> = ({ data }) => {
-    const [selectValue, setSelectValue] = useState<SelectOption>({ value: 'annual', label: "Annual" });
+const RevenueChart: React.FC<RevenueChartProps> = ({ data, dictionary }) => {
+    const dic = dictionary?.stock?.stockMain?.forecastTab;
+    const selectDic = dic?.select;
+    const revenueDic = dic?.revenueChart;
+    const [selectValue, setSelectValue] = useState<SelectOption>({ value: 'annual', label: selectDic?.annual });
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const chartData = data[selectValue.value].revenue;
     if (!data || !chartData || !Boolean(chartData.length)) {
-        return <EmptyState title="Revenue" />
+        return <EmptyState title={revenueDic?.revenue} />
     }
     useEffect(() => {
         const checkMobile = () => {
@@ -128,15 +132,15 @@ const RevenueChart: React.FC<RevenueChartProps> = ({ data }) => {
     return (
         <Card className='rounded-xl p-0 md:p-6'>
             <div className='flex justify-between items-center mb-6 p-3'>
-                <Typography variant="h2" className="text-[20px]!" weight="semibold">Revenue</Typography>
+                <Typography variant="h2" className="text-[20px]!" weight="semibold">{revenueDic?.revenue}</Typography>
                 <div>
-                    <Select onValueChange={(e: any) => setSelectValue({ value: e, label: e })}>
-                        <SelectTrigger className="w-[180px]" defaultValue="Annual">
-                            <SelectValue placeholder="Select" className='text-white' />
+                    <Select onValueChange={(e: any) => setSelectValue({ value: e, label: e === 'annual' ? selectDic?.annual : selectDic?.quarterly })}>
+                        <SelectTrigger className="w-[180px]" defaultValue={selectDic?.annual}>
+                            <SelectValue placeholder={selectDic?.select} className='text-white' />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="annual">Annual</SelectItem>
-                            <SelectItem value="quarterly">Quarteryl</SelectItem>
+                            <SelectItem value="annual">{selectDic?.annual}</SelectItem>
+                            <SelectItem value="quarterly">{selectDic?.quarterly}</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
@@ -171,10 +175,10 @@ const RevenueChart: React.FC<RevenueChartProps> = ({ data }) => {
                         domain={yAxisDomain}
                     />
                     <Tooltip
-                        content={<CustomTooltip titleKey='year' />}
+                        content={<CustomTooltip titleKey='year' dictionary={dictionary} />}
                         cursor={<BGHighlighter numOfData={chartData.length} />}
                     />
-                    <Legend content={<CustomLegend />} />
+                    <Legend content={<CustomLegend dictionary={dictionary} />} />
                     <Bar dataKey='chart_data.estimate' className="h-[100px] pt-[50px]" fill='var(--primary-graph-color, #6366f1)' radius={3.6} barSize={18} minPointSize={39} />
                     <Bar
                         dataKey='chart_data.reported'
@@ -227,18 +231,21 @@ const CustomizedAxisTick: React.FC<TickProps> = (props) => {
     );
 };
 
-const CustomTooltip = ({ active, payload, }: TooltipProps<number, string> & { titleKey?: string }) => {
+const CustomTooltip = ({ active, payload, dictionary }: TooltipProps<number, string> & { titleKey?: string; dictionary?: any }) => {
     if (!active || !payload || !payload.length) return null;
+    const revenueDic = dictionary?.stock?.stockMain?.forecastTab?.revenueChart;
+    const epsDic = dictionary?.stock?.stockMain?.forecastTab?.epsChart;
 
     return (
         <div className="bg-white p-4 rounded-md">
             <div className="flex flex-col gap-1">
                 {payload.map((item, i) => {
                     const formatValue = item.value ? formatToMillion(item.value) : '0';
+                    const isReported = item.dataKey?.includes('reported');
                     return (
                         <div key={i} className="flex items-center gap-2 text-[13px]">
                             <div style={{ background: item.color }} className="w-2 h-2 rounded-full" />
-                            <span className='text-black'>{item.dataKey === 'reported' ? "Reported" : "Estimate"}: {formatValue}</span>
+                            <span className='text-black'>{isReported ? revenueDic?.reportedLabel : epsDic?.estimateLabel}: {formatValue}</span>
                         </div>
                     );
                 })}
@@ -273,15 +280,17 @@ const BGHighlighter: React.FC<BGHighlighterProps> = (props) => {
     );
 };
 
-const CustomLegend = ({ payload }: any) => {
+const CustomLegend = ({ payload, dictionary }: any) => {
     if (!payload) return null;
+    const revenueDic = dictionary?.stock?.stockMain?.forecastTab?.revenueChart;
+    const epsDic = dictionary?.stock?.stockMain?.forecastTab?.epsChart;
     return (
         <div className='flex flex-wrap gap-4 mt-5 ml-8'>
             {payload.map((item: any, i: number) => (
                 <div className='flex items-center gap-2' key={i}>
                     <span className='w-3 h-3 rounded-xs' style={{ backgroundColor: item.color }}></span>
                     <span className='text-xs text-white capitalize'>
-                        {item.value === 'estimate' ? "Estimate" : 'Reported'}
+                        {item.value?.includes('estimate') ? epsDic?.estimateLabel : revenueDic?.reportedLabel}
                     </span>
                 </div>
             ))}

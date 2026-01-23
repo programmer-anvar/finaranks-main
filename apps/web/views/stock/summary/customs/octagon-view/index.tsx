@@ -94,9 +94,12 @@ const CustomRadar = ({ points }: { points: any[] }) => {
 
 interface OctagonViewProps {
     data: Record<string, any>;
+    dictionary?: any;
 }
 
-const OctagonView: React.FC<OctagonViewProps> = memo(({ data }) => {
+const OctagonView: React.FC<OctagonViewProps> = memo(({ data, dictionary }) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.octagonView;
+
     if (!data) return null;
 
     const { average, ...others } = data;
@@ -109,7 +112,7 @@ const OctagonView: React.FC<OctagonViewProps> = memo(({ data }) => {
 
     return (
         <Card className="space-y-4 rounded-[20px] p-0!">
-            <Typography variant="h4" className="px-4 pt-4 md:pt-6 md:px-6!">Octagon View</Typography>
+            <Typography variant="h4" className="px-4 pt-4 md:pt-6 md:px-6!">{dic?.octagonViewTitle}</Typography>
 
             <div className="w-full h-96 -translate-x-2 -translate-y-4">
                 <ResponsiveContainer width="100%" height={400}>

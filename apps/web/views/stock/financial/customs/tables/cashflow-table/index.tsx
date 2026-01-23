@@ -5,7 +5,7 @@ import { formatToMillion } from "@finranks/design-system/lib/utils";
 import { TreeState, TreeTable } from "cp-react-tree-table";
 import { useEffect, useState } from "react";
 
-const CashFlowTable = ({ _, view, newData }: any) => {
+const CashFlowTable = ({ _, view, newData, dictionary }: any) => {
     const [treeData, setTreeDataValue] = useState(
         {
             treeValue: TreeState.create(buildFromSchema(CashFlowSchema, newData.financial_data[view]))
@@ -84,7 +84,7 @@ const CashFlowTable = ({ _, view, newData }: any) => {
                             renderHeaderCell={() => (
                                 <div>
                                     <span>
-                                        Name
+                                        {dictionary?.stock?.stockMain?.financialTab?.cashFlowTab?.cashFlowTabTable?.nameColumn || dictionary?.common?.name || "Name"}
                                     </span>
                                 </div>
                             )}

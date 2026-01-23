@@ -345,8 +345,10 @@ const IncomeStatementSchema = [
     { data: { name: "Total operating expenses", key: "total_oper_expense" } }
 ];
 
-const MobileFinancialTable = ({ data, view, type = 'income', financialsNew }: any) => {
+const MobileFinancialTable = ({ data, view, type = 'income', financialsNew, dictionary }: any) => {
     const [searchTerm, setSearchTerm] = useState('');
+    const dic = dictionary?.stock?.stockMain?.financialTab;
+    const commonDic = dictionary?.common;
 
     // Get financial data and periods from the correct structure
     const financialData = financialsNew?.financial_data?.[view] || {};
@@ -502,7 +504,7 @@ const MobileFinancialTable = ({ data, view, type = 'income', financialsNew }: an
                         <thead>
                             <tr>
                                 <th className="mobile-fin-table__header-cell mobile-fin-table__header-cell--sticky">
-                                    Currency: USD
+                                    {commonDic?.currencyUSD || "Currency: USD"}
                                 </th>
                                 {displayPeriods.map((periodKey: any, idx: number) => (
                                     <th key={idx} className="mobile-fin-table__header-cell">

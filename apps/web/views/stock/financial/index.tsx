@@ -6,7 +6,7 @@ import Tables from './customs/tables';
 
 
 
-const FinancialPage = async ({ params }: { params: any, searchParams: Promise<SearchParams> }) => {
+const FinancialPage = async ({ params, dictionary }: { params: any, searchParams: Promise<SearchParams>, dictionary?: any }) => {
     const { slug } = await params;
     const { data: incomeStatement } = await getIncomestatement(slug);
     const { data: balanceSheet } = await getBalancesheet(slug);
@@ -14,9 +14,9 @@ const FinancialPage = async ({ params }: { params: any, searchParams: Promise<Se
     const { data: financialsNew } = await companyFinancials(slug);
     return (
         <div className='space-y-4'>
-            <Charts incomeStatement={incomeStatement} balanceSheet={balanceSheet} cashFlow={cashFlow} financialsNew={financialsNew} />
-            <TabsComponent />
-            <Tables financialsNew={financialsNew} incomeStatemen={incomeStatement} balanceSheet={balanceSheet} cashFlow={cashFlow} />
+            <Charts incomeStatement={incomeStatement} balanceSheet={balanceSheet} cashFlow={cashFlow} financialsNew={financialsNew} dictionary={dictionary} />
+            <TabsComponent dictionary={dictionary} />
+            <Tables financialsNew={financialsNew} incomeStatemen={incomeStatement} balanceSheet={balanceSheet} cashFlow={cashFlow} dictionary={dictionary} />
         </div>
     )
 }

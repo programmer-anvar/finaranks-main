@@ -55,9 +55,16 @@ function useIsMobile(breakpointPx = 768) {
     return isMobile;
 }
 
-const DividendYearChart = ({ data }: { data: any }) => {
+interface DividendYearChartProps {
+    data: any;
+    dictionary?: any;
+}
+
+const DividendYearChart = ({ data, dictionary }: DividendYearChartProps) => {
     const nivoData = formatDividendYieldData(data);
     const isMobile = useIsMobile(768);
+    const dic = dictionary?.stock?.stockMain?.dividendsTab;
+    const commonDic = dictionary?.common;
 
     const isEmpty =
         !data ||
@@ -72,11 +79,11 @@ const DividendYearChart = ({ data }: { data: any }) => {
                     className="text-[18px]"
                     weight="semibold"
                 >
-                    Dividend yield over time
+                    {dic?.DividendyieldovertimeTitle}
                 </Typography>
 
                 <div className="flex flex-1 items-center justify-center text-gray-400 text-sm">
-                    No dividend data available
+                    {commonDic?.noDividendData}
                 </div>
             </Card>
         );
@@ -86,7 +93,7 @@ const DividendYearChart = ({ data }: { data: any }) => {
     return (
         <Card className="p-0 h-[440px] rounded-xl">
             <Typography variant="h2" className="text-[18px]  px-6 py-4" weight="semibold">
-                Dividend yield over time
+                {dic?.DividendyieldovertimeTitle}
             </Typography>
             <div className=" h-[380px] md:h-[360px] w-full">
                 <ResponsiveLine

@@ -20,7 +20,7 @@ function useIsMobile(breakpoint = 640) {
     return isMobile;
 }
 
-const IncomeStatementTable = ({ _, view, newData }: any) => {
+const IncomeStatementTable = ({ _, view, newData, dictionary }: any) => {
     const isMobile = useIsMobile(768);
 
     const [treeData, setTreeDataValue] = useState(() => ({
@@ -107,7 +107,7 @@ const IncomeStatementTable = ({ _, view, newData }: any) => {
                             // @ts-expect-error
                             grow="1"
                             renderCell={renderIndexCell}
-                            renderHeaderCell={() => <span>Name</span>}
+                            renderHeaderCell={() => <span>{dictionary?.stock?.stockMain?.financialTab?.incomeStatementTab?.incomeStatementTabTable?.nameColumn || dictionary?.common?.name || "Name"}</span>}
                         />
 
                         {columnDefs.map((col: any, index: number) => (

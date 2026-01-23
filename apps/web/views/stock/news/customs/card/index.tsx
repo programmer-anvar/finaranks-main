@@ -16,7 +16,7 @@ export interface NewsCardProps {
     }
 }
 
-const NewsCard = ({ date, title, text, image_url, news_url, classNames }: NewsCardProps) => {
+const NewsCard = ({ date, title, text, image_url, news_url, classNames, dictionary }: NewsCardProps & { dictionary?: any }) => {
     return (
         <Link href={news_url} target='_blank'>
             <Card className={cn("p-2 md:p-3 rounded-[12px] mt-4 group cursor-pointer", classNames?.wrapper)}>

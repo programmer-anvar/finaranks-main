@@ -18,20 +18,24 @@ interface EffectivenessProps {
         TTM?: Record<string, any>
         industry?: Record<string, any>
         annual?: Record<string, Record<string, number>>
-    }
+    };
+    dictionary?: any;
 }
-
-const METRICS = [
-    { key: "ROA", label: "ROA" },
-    { key: "ROE", label: "ROE" },
-    { key: "ROIC", label: "ROIC" },
-    { key: "ROCE", label: "ROCE" },
-]
 
 const formatNumber = (value?: number | null) =>
     value !== null && value !== undefined ? Number(value).toFixed(2) : "N/A"
 
-const Effectiveness: React.FC<EffectivenessProps> = memo(({ data }) => {
+const Effectiveness: React.FC<EffectivenessProps> = memo(({ data, dictionary }) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.effectivenessTable;
+    const commonDic = dictionary?.common;
+
+    const METRICS = [
+        { key: "ROA", label: dic?.roaLabel || "ROA" },
+        { key: "ROE", label: dic?.roeLabel || "ROE" },
+        { key: "ROIC", label: dic?.roicLabel || "ROIC" },
+        { key: "ROCE", label: dic?.roceLabel || "ROCE" },
+    ]
+
     const TTM = data?.TTM || {}
     const industry = data?.industry || {}
     const annual = data?.annual || {}
@@ -45,26 +49,26 @@ const Effectiveness: React.FC<EffectivenessProps> = memo(({ data }) => {
 
     return (
         <Card className="space-y-4 p-4 md:p-6 rounded-xl">
-            <Typography variant="h4">Effectiveness</Typography>
+            <Typography variant="h4">{dic?.effectivenessTitle}</Typography>
 
             <div className="overflow-x-auto rounded-lg border border-[#353945]">
                 <Table className="min-w-full">
                     <TableHeader>
                         <TableRow className="border-b border-[#353945]">
                             <TableHead className="border-r border-[#353945] p-4 text-xs font-semibold uppercase text-[#777e90] text-center w-[220px]!">
-                                Name
+                                {dic?.nameColumn}
                             </TableHead>
                             <TableHead className="border-r border-[#353945] text-center text-xs font-semibold uppercase text-[#777e90]">
-                                Ratio
+                                {dic?.ratioColumn}
                             </TableHead>
                             <TableHead className="border-r border-[#353945] text-center text-xs font-semibold uppercase text-[#777e90]">
-                                Industry
+                                {dic?.industryColumn}
                             </TableHead>
                             <TableHead className="border-r border-[#353945] text-center text-xs font-semibold uppercase text-[#777e90]">
-                                5Y Trend
+                                {dic?.trend5yColumn}
                             </TableHead>
                             <TableHead className="text-center text-xs font-semibold uppercase text-[#777e90] w-[100px]!">
-                                Score
+                                {dic?.scoreColumn}
                             </TableHead>
                         </TableRow>
                     </TableHeader>
@@ -75,7 +79,7 @@ const Effectiveness: React.FC<EffectivenessProps> = memo(({ data }) => {
                                 TTM?.[key] ?? latestYearData?.[key] ?? null
                             const industryValue =
                                 industry?.[key] !== undefined ? industry[key] : null
-                            const scoreValue = TTM?.[`${key}Score`] ?? "N/A"
+                            const scoreValue = TTM?.[`${key}Score`] ?? (commonDic?.na || "N/A")
 
                             return (
                                 <TableRow
@@ -115,7 +119,7 @@ const Effectiveness: React.FC<EffectivenessProps> = memo(({ data }) => {
                                 colSpan={4}
                                 className="border-r border-[#353945] p-4 text-center text-lg font-semibold text-white"
                             >
-                                Weighted average score
+                                {dic?.weightedAverageScore}
                             </TableCell>
                             <TableCell
                                 className="p-4 text-center text-lg font-semibold text-white"
@@ -126,7 +130,7 @@ const Effectiveness: React.FC<EffectivenessProps> = memo(({ data }) => {
                             >
                                 {TTM?.weightedAverageScore !== undefined
                                     ? Number(TTM.weightedAverageScore).toFixed(1)
-                                    : "N/A"}
+                                    : (commonDic?.na || "N/A")}
                             </TableCell>
                         </TableRow>
                     </TableBody>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { formatDate } from "@finranks/design-system/lib/utils";
 import { Play } from "lucide-react";
 
-const VideoNewsCard = ({ item }: any) => {
+const VideoNewsCard = ({ item, dictionary }: { item: any, dictionary?: any }) => {
     return (
         <Link href={item.news_url} target="_blank" className="block mb-5 hover:via-violet-700">
             <div className="relative pb-[54.6%] mb-4 overflow-hidden">

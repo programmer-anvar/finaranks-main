@@ -1,7 +1,10 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from '@finranks/design-system/components/breadcrumb'
 import { Home } from 'lucide-react';
 
-const Header = () => {
+const Header = ({ dictionary }: { dictionary?: any }) => {
+    const headerDic = dictionary?.header;
+    const commonDic = dictionary?.common;
+    
     return (
         <div className='px-4 md:px-0'>
             <Breadcrumb>
@@ -9,13 +12,13 @@ const Header = () => {
                     <BreadcrumbItem>
                         <BreadcrumbLink href="/" className="inline-flex items-center gap-1.5">
                             <Home size={16} strokeWidth={2} aria-hidden="true" />
-                            Home
+                            {headerDic?.home}
                         </BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
                         <BreadcrumbLink href="#" className="inline-flex items-center gap-1.5">
-                            Profile
+                            {commonDic?.profile}
                         </BreadcrumbLink>
                     </BreadcrumbItem>
                 </BreadcrumbList>

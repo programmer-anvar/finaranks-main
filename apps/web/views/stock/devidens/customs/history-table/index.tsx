@@ -6,18 +6,21 @@ import { ChevronRight } from 'lucide-react';
 import React, { useState } from 'react';
 
 interface Props {
-    data: any
+    data: any;
+    dictionary?: any;
 }
 
-const HistoryTable = ({ data }: Props) => {
+const HistoryTable = ({ data, dictionary }: Props) => {
     const [openedYears, setOpenedYears] = useState<Set<number>>(new Set())
+    const dic = dictionary?.stock?.stockMain?.dividendsTab;
+    const commonDic = dictionary?.common;
 
     if (!data || !Array.isArray(data) || data.length === 0) {
         return (
             <div className="mt-8">
-                <h2 className="text-lg font-semibold mb-3">Dividend History</h2>
+                <h2 className="text-lg font-semibold mb-3">{dic?.dividendHistoryTitle}</h2>
                 <p className="text-sm text-muted-foreground">
-                    No dividend data available
+                    {commonDic?.noDividendData}
                 </p>
             </div>
         )
@@ -32,16 +35,16 @@ const HistoryTable = ({ data }: Props) => {
     }
     return (
         <Card className='p-4 md:p-6 space-y-4 rounded-xl'>
-            <Typography variant="h2" className="text-[18px]" weight="semibold">Dividend History</Typography>
+            <Typography variant="h2" className="text-[18px]" weight="semibold">{dic?.dividendHistoryTitle}</Typography>
             <div className='rounded-xl border border-[#d9d9d91a]  overflow-hidden'>
                 <Table>
                     <TableHeader className='rounded-t-md!'>
                         <TableRow className="border-b border-[#d9d9d91a] hover:bg-(--main-color) rounded-t-md! bg-(--main-color)">
-                            <TableHead className="text-white font-bold  text-base border-r border-[#d9d9d91a]   p-4">Ex-dividend date</TableHead>
-                            <TableHead className="text-white font-bold  text-base border-r border-[#d9d9d91a]   p-4">Declaration date</TableHead>
-                            <TableHead className="text-white font-bold  text-base border-r border-[#d9d9d91a]   p-4">Record date</TableHead>
-                            <TableHead className="text-white font-bold  text-base border-r border-[#d9d9d91a]   p-4">Payable date</TableHead>
-                            <TableHead className="text-white font-bold  text-base border-r border-[#d9d9d91a]   p-4 ">Amount</TableHead>
+                            <TableHead className="text-white font-bold  text-base border-r border-[#d9d9d91a]   p-4">{dic?.exDividendDateLabel}</TableHead>
+                            <TableHead className="text-white font-bold  text-base border-r border-[#d9d9d91a]   p-4">{dic?.declarationDateLabel}</TableHead>
+                            <TableHead className="text-white font-bold  text-base border-r border-[#d9d9d91a]   p-4">{dic?.recordDateLabel}</TableHead>
+                            <TableHead className="text-white font-bold  text-base border-r border-[#d9d9d91a]   p-4">{dic?.payableDateLabel}</TableHead>
+                            <TableHead className="text-white font-bold  text-base border-r border-[#d9d9d91a]   p-4 ">{commonDic?.amount}</TableHead>
                         </TableRow>
                     </TableHeader>
 

@@ -53,7 +53,7 @@ export default async function Layout({ children, params }: TLayoutProperties) {
             )}
             <main className="space-y-5 app-container">
                 <div className=" mt-5! space-y-4">
-                    <StockBreadCumb slug={param.slug} />
+                    <StockBreadCumb slug={param.slug} dictionary={dic} />
                     <CompanyInfo
                         slug={param?.slug}
                         company={{
@@ -65,8 +65,9 @@ export default async function Layout({ children, params }: TLayoutProperties) {
                         }}
                         market={get(company, 'market.data')}
                         quoteData={quote?.data}
+                        dictionary={dic}
                     />
-                    <Tabs />
+                    <Tabs dictionary={dic} />
                 </div>
                 {children}
             </main>

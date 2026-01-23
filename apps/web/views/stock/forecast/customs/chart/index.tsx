@@ -31,14 +31,16 @@ type PricePoint = {
 type MainChartProps = {
     data: Record<string, unknown>;
     prices: PricePoint[];
+    dictionary?: any;
 };
 
 /* --------------------------------------------
  * Component
  * ------------------------------------------ */
 
-const MainChart: React.FC<MainChartProps> = ({ data, prices }) => {
+const MainChart: React.FC<MainChartProps> = ({ data, prices, dictionary }) => {
     const currentPrice = prices.at(-1)?.price ?? 0;
+    const dic = dictionary?.stock?.stockMain?.forecastTab;
 
     const maxPrice = get(data, 'highest_target', 0);
     const minPrice = get(data, 'lowest_target', 0);
@@ -75,7 +77,7 @@ const MainChart: React.FC<MainChartProps> = ({ data, prices }) => {
 
     return (
         <div className='space-y-4'>
-            <Typography variant="h2" className="text-[20px]!" align='center' weight="semibold">Past 12 months + 12 Month forecast</Typography>
+            <Typography variant="h2" className="text-[20px]!" align='center' weight="semibold">{dic?.priceHistoryForecastTitle}</Typography>
 
             <div className="custom-forecast-chart">
                 <ResponsiveContainer width="100%" className="h-[320px]!">
@@ -149,22 +151,22 @@ const MainChart: React.FC<MainChartProps> = ({ data, prices }) => {
                 <Table >
                     <TableHeader className='rounded-t-md!'>
                         <TableRow className="border-b border-[#353945] hover:bg-purple-900/10 rounded-t-md!">
-                            <TableHead className="text-white font-bold  text-sm text-center  border-[#353945] p-4" >Target</TableHead>
+                            <TableHead className="text-white font-bold  text-sm text-center  border-[#353945] p-4" >{dic?.targetLabel}</TableHead>
                             <TableHead className="text-white font-bold  text-sm  border-[#353945]   p-4">
-                                Lowest Price Target
+                                {dic?.lowestPriceTargetLabel}
                             </TableHead>
                             <TableHead className="text-white font-bold  text-sm  border-[#353945]   p-4">
-                                Consensus Price Target
+                                {dic?.consensusPriceTargetLabel}
                             </TableHead>
                             <TableHead className="text-white font-bold  text-sm border-[#353945]   p-4">
-                                Highest Price Target
+                                {dic?.highestPriceTargetLabel}
                             </TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         <TableRow className="border-b border-[#353945]  hover:bg-purple-900/10">
                             <TableCell className="font-medium text-white  border-[#353945] p-3">
-                                Price
+                                {dic?.priceColumn}
                             </TableCell>
                             <TableCell className="font-medium text-white  border-[#353945] p-3">
                                 $ {Number(minPrice)}
@@ -179,7 +181,7 @@ const MainChart: React.FC<MainChartProps> = ({ data, prices }) => {
                         </TableRow>
                         <TableRow className="border-b border-[#353945]  hover:bg-purple-900/10">
                             <TableCell className="font-medium text-white  border-[#353945] p-3">
-                                Change
+                                {dic?.changeColumn}
                             </TableCell>
                             <TableCell className={cn("font-medium text-white  border-[#353945] p-3", {
                                 'text-[#ef4444]': minPercent < 0,

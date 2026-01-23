@@ -4,7 +4,7 @@ import { NewsEntity } from "@/services/stocks-news";
 import { formatDate } from "@finranks/design-system/lib/utils";
 import { Typography } from '@finranks/design-system/components/typography';
 
-const PressReleaseCard = ({ item }: { item: NewsEntity }) => {
+const PressReleaseCard = ({ item, dictionary }: { item: NewsEntity, dictionary?: any }) => {
     return (
         <Link href={item.news_url} target='_blank' className="mb-6 hover:via-violet-700 group">
             <div className="grid grid-cols-1">

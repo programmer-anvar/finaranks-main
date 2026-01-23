@@ -16,14 +16,8 @@ import { Card } from "@finranks/design-system/components/card"
 import { Typography } from "@finranks/design-system/components/typography"
 
 interface MarginRatiosProps {
-    data: any
-}
-
-interface ChartRow {
-    date: string
-    "Gross margin": number
-    "Operating margin": number
-    "Net margin": number
+    data: any;
+    dictionary?: any;
 }
 
 // Custom axis tick
@@ -42,28 +36,6 @@ const CustomizedAxisTick = ({ x, y, payload }: any) => (
     </g>
 )
 
-// Custom tooltip
-const CustomTooltip = ({ payload, label }: any) => {
-    if (!payload || !payload.length) return null
-
-    return (
-        <div className="rounded-lg bg-white p-3 shadow-lg border border-gray-200 text-xs space-y-1">
-            <div className="font-semibold text-gray-900">{label}</div>
-            {payload.map((item: any, i: number) => (
-                <div key={i} className="flex items-center gap-2">
-                    <span
-                        className="h-2.5 w-2.5 rounded-full"
-                        style={{ backgroundColor: item.color }}
-                    />
-                    <span className="text-gray-700">
-                        {item.dataKey}: {item.value}%
-                    </span>
-                </div>
-            ))}
-        </div>
-    )
-}
-
 // Custom legend
 const CustomLegend = ({ payload }: any) => (
     <div className="flex flex-wrap gap-3 mt-5 ml-10 text-xs text-zinc-400">
@@ -79,20 +51,50 @@ const CustomLegend = ({ payload }: any) => (
     </div>
 )
 
-const MarginRatios = memo(({ data }: MarginRatiosProps) => {
-    const formatData: ChartRow[] = Object.entries(data?.annual || {})
+const MarginRatios = memo(({ data, dictionary }: MarginRatiosProps) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.marginRatios;
+
+    const LABELS = {
+        grossMargin: dic?.grossMargin,
+        operatingMargin: dic?.operatingMargin,
+        netMargin: dic?.netMargin
+    };
+
+    const formatData = Object.entries(data?.annual || {})
         .slice(-4)
         .map(([date, val]: any) => ({
             date,
-            "Gross margin": Number(val?.grossMarginRatio?.toFixed(2)),
-            "Operating margin": Number(val?.operatingMarginRatio?.toFixed(2)),
-            "Net margin": Number(val?.netMarginRatio?.toFixed(2)),
+            [LABELS.grossMargin]: Number(val?.grossMarginRatio?.toFixed(2)),
+            [LABELS.operatingMargin]: Number(val?.operatingMarginRatio?.toFixed(2)),
+            [LABELS.netMargin]: Number(val?.netMarginRatio?.toFixed(2)),
         }))
+
+    // Custom tooltip
+    const CustomTooltip = ({ payload, label }: any) => {
+        if (!payload || !payload.length) return null
+
+        return (
+            <div className="rounded-lg bg-white p-3 shadow-lg border border-gray-200 text-xs space-y-1">
+                <div className="font-semibold text-gray-900">{label}</div>
+                {payload.map((item: any, i: number) => (
+                    <div key={i} className="flex items-center gap-2">
+                        <span
+                            className="h-2.5 w-2.5 rounded-full"
+                            style={{ backgroundColor: item.color }}
+                        />
+                        <span className="text-gray-700">
+                            {item.dataKey}: {item.value}%
+                        </span>
+                    </div>
+                ))}
+            </div>
+        )
+    }
 
     return (
         <Card className="rounded-xl p-4 md:p-6">
             <Typography variant="h4" className="mb-4">
-                Margin Ratios
+                {dic?.marginRatiosTitle}
             </Typography>
 
             <div className="h-[345px] w-full">
@@ -122,21 +124,21 @@ const MarginRatios = memo(({ data }: MarginRatiosProps) => {
 
                         <Line
                             type="monotone"
-                            dataKey="Gross margin"
+                            dataKey={LABELS.grossMargin}
                             stroke="var(--primary-graph-color)"
                             dot={false}
                             strokeWidth={2}
                         />
                         <Line
                             type="monotone"
-                            dataKey="Operating margin"
+                            dataKey={LABELS.operatingMargin}
                             stroke="var(--secondary-graph-color)"
                             dot={false}
                             strokeWidth={2}
                         />
                         <Line
                             type="monotone"
-                            dataKey="Net margin"
+                            dataKey={LABELS.netMargin}
                             stroke="var(--tertiary-graph-color)"
                             dot={false}
                             strokeWidth={2}

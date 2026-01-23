@@ -50,7 +50,10 @@ const calculateYDomain = (data: any[]) => {
 /* Component */
 /* -------------------------------------------------------------------------- */
 
-const GrowthRate = ({ data }: { data: any }) => {
+const GrowthRate = ({ data, dictionary }: { data: any; dictionary?: any }) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.revenueGrowthVsIndustry;
+    const commonDic = dictionary?.common;
+
     const chartData = useMemo(() => {
         return get(data, 'annual', [])
             .slice()
@@ -65,10 +68,53 @@ const GrowthRate = ({ data }: { data: any }) => {
 
     const yDomain = useMemo(() => calculateYDomain(chartData), [chartData])
 
+    const CustomTooltip = ({ active, payload, label }: any) => {
+        if (!active || !payload?.length) return null
+        const industryCompanyCount = payload[0]?.payload?.industryCompanyCount ?? 0
+
+        return (
+            <div className="bg-[#1D1A2F] border border-[#383838] p-3 rounded-md text-white text-sm max-w-[220px] space-y-1">
+                <div className="font-semibold">{`${commonDic?.year || 'Year'}: ${label}`}</div>
+                {payload.map((entry: any, i: number) => (
+                    <div key={i} className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color }} />
+                        <span className="text-sm">
+                            {entry.dataKey === 'Industry'
+                                ? `${dic?.industryLabel || 'Industry'} (${industryCompanyCount} ${commonDic?.companies || 'companies'})`
+                                : (dic?.companyLabel || entry.dataKey)}
+                            : <b>{entry.value.toFixed(2)}%</b>
+                        </span>
+                    </div>
+                ))}
+            </div>
+        )
+    }
+
+    const CustomLegend = ({ payload }: any) => {
+        if (!payload?.length) return null
+        const latest = chartData?.[chartData.length - 1]
+        const industryCompanyCount = latest?.industryCompanyCount ?? 0
+
+        return (
+            <div className="flex flex-wrap mt-4 ml-8 gap-4">
+                {payload.map((item: any, i: number) => (
+                    <div key={i} className="flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                        <span className="text-xs text-white">
+                            {item.value === 'Industry'
+                                ? `${dic?.industryLabel || 'Industry'} (${industryCompanyCount} ${commonDic?.companies || 'companies'})`
+                                : (dic?.companyLabel || item.value)}
+                        </span>
+                    </div>
+                ))}
+            </div>
+        )
+    }
+
     return (
         <Card className="space-y-4 rounded-[20px] p-4 md:p-6">
             <div className="flex items-center justify-between">
-                <Typography variant="h4">Revenue Growth Rate vs. Industry</Typography>
+                <Typography variant="h4">{dic?.revenueGrowthVsIndustryTitle}</Typography>
             </div>
 
             <ResponsiveContainer width="100%" height={338}>
@@ -103,11 +149,11 @@ const GrowthRate = ({ data }: { data: any }) => {
                         cursor={<BGHighlighter numOfData={chartData.length} />}
                     />
 
-                    <Legend content={<CustomLegend chartData={chartData} />} />
+                    <Legend content={<CustomLegend />} />
 
                     <Bar
                         dataKey="Company"
-                        fill="#6366F1" // Tailwind Indigo 500
+                        fill="#6366F1"
                         barSize={18}
                         radius={[4, 4, 0, 0]}
                         minPointSize={6}
@@ -116,7 +162,7 @@ const GrowthRate = ({ data }: { data: any }) => {
 
                     <Bar
                         dataKey="Industry"
-                        fill="#14B8A6" // Tailwind Teal 500
+                        fill="#14B8A6"
                         barSize={18}
                         radius={[4, 4, 0, 0]}
                         minPointSize={6}
@@ -134,30 +180,6 @@ export default GrowthRate
 /* Subcomponents */
 /* -------------------------------------------------------------------------- */
 
-const CustomTooltip = ({ active, payload, label }: any) => {
-    if (!active || !payload?.length) return null
-    const industryCompanyCount = payload[0]?.payload?.industryCompanyCount ?? 0
-
-    return (
-        <div className="bg-[#1D1A2F] border border-[#383838] p-3 rounded-md text-white text-sm max-w-[220px] space-y-1">
-            <div className="font-semibold">{`Year: ${label}`}</div>
-            {payload.map((entry: any, i: number) => (
-                <div key={i} className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color }} />
-                    <span className="text-sm">
-                        {entry.dataKey === 'Industry'
-                            ? `Industry (${industryCompanyCount} companies)`
-                            : entry.dataKey}
-                        : <b>{entry.value.toFixed(2)}%</b>
-                    </span>
-                </div>
-            ))}
-        </div>
-    )
-}
-
-
-
 const BGHighlighter = ({ height, width, points, numOfData = 1, x }: any) => {
     const barWidth = points ? width / numOfData : width
     const xCoord = points ? points[0].x - barWidth / 2 : x
@@ -172,26 +194,5 @@ const BGHighlighter = ({ height, width, points, numOfData = 1, x }: any) => {
             ry={10}
             className="fill-[#DCDBFC] opacity-20"
         />
-    )
-}
-
-const CustomLegend = ({ payload, chartData }: any) => {
-    if (!payload?.length) return null
-    const latest = chartData?.[chartData.length - 1]
-    const industryCompanyCount = latest?.industryCompanyCount ?? 0
-
-    return (
-        <div className="flex flex-wrap mt-4 ml-8 gap-4">
-            {payload.map((item: any, i: number) => (
-                <div key={i} className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
-                    <span className="text-xs text-white">
-                        {item.value === 'Industry'
-                            ? `Industry (${industryCompanyCount} companies)`
-                            : item.value}
-                    </span>
-                </div>
-            ))}
-        </div>
     )
 }

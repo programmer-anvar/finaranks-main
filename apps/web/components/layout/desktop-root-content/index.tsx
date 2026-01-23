@@ -6,7 +6,7 @@ import { ReactNode } from 'react'
 
 const DesktopRootContent = ({ children, session, dictionary }: { children: ReactNode, session: Session, dictionary: any }) => {
     return (
-        <Providers session={session!}>
+        <Providers session={session!} dictionary={dictionary}>
             <Header dictionary={dictionary} />
             {children}
             <Footer dictionary={dictionary} />

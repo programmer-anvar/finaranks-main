@@ -5,7 +5,7 @@ import { formatToMillion } from "@finranks/design-system/lib/utils";
 import { TreeState, TreeTable } from "cp-react-tree-table";
 import { useEffect, useState } from "react";
 
-const BalanceSheetTable = ({ _, view, newData }: any) => {
+const BalanceSheetTable = ({ _, view, newData, dictionary }: any) => {
     const [treeData, setTreeDataValue] = useState(
         {
             treeValue: TreeState.create(buildFromSchema(BalanceSheetSchema, newData.financial_data[view]))
@@ -83,7 +83,7 @@ const BalanceSheetTable = ({ _, view, newData }: any) => {
                             renderHeaderCell={() => (
                                 <div className="w-[750px]">
                                     <span >
-                                        Name
+                                        {dictionary?.stock?.stockMain?.financialTab?.balanceSheetTab?.balanceSheetTabTable?.nameColumn || dictionary?.common?.name || "Name"}
                                     </span>
                                 </div>
                             )}

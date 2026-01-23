@@ -12,28 +12,31 @@ const formatNumber = (value: number | null | undefined) => {
 };
 
 
-const CustomTooltip = ({ indexValue, data }: any) => (
-    <div
-        style={{
-            background: "#fff",
-            color: "#000",
-            padding: "12px 14px",
-            borderRadius: "8px",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
-            minWidth: 200,
-        }}
-    >
-        <div style={{ fontWeight: 600, marginBottom: 8 }}>{indexValue}</div>
-        {[
-            { label: "Total Assets", key: "Total Assets", color: "#5CC8FF" },
-            { label: "Total Liabilities", key: "Total Liabilities", color: "#FFC857" },
-            { label: "Stockholders Equity", key: "Stockholders Equity", color: "#FF6FAE" },
-            { label: "Total Debt", key: "Total Debt", color: "#6EE7B7" },
-        ].map(({ label, key, color }) => (
-            <TooltipRow key={key} color={color} label={label} value={data[key]} />
-        ))}
-    </div>
-);
+const CustomTooltip = ({ indexValue, data, dictionary }: any) => {
+    const dic = dictionary?.stock?.stockMain?.financialTab?.balanceSheetTab?.balanceSheetTabChart;
+    return (
+        <div
+            style={{
+                background: "#fff",
+                color: "#000",
+                padding: "12px 14px",
+                borderRadius: "8px",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
+                minWidth: 200,
+            }}
+        >
+            <div style={{ fontWeight: 600, marginBottom: 8 }}>{indexValue}</div>
+            {[
+                { label: dic?.totalAssetsLabel || "Total Assets", key: "Total Assets", color: "#5CC8FF" },
+                { label: dic?.totalLiabilitiesLabel || "Total Liabilities", key: "Total Liabilities", color: "#FFC857" },
+                { label: dic?.stockholdersEquityLabel || "Stockholders Equity", key: "Stockholders Equity", color: "#FF6FAE" },
+                { label: dic?.totalDebtLabel || "Total Debt", key: "Total Debt", color: "#6EE7B7" },
+            ].map(({ label, key, color }) => (
+                <TooltipRow key={key} color={color} label={label} value={data[key]} />
+            ))}
+        </div>
+    );
+};
 
 const TooltipRow = ({ color, label, value }: { color: string; label: string; value: number }) => (
     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
@@ -53,8 +56,14 @@ const TooltipRow = ({ color, label, value }: { color: string; label: string; val
 
 
 
-const formatBalanceSheetData = (data: any, financialsNew: any) => {
+const formatBalanceSheetData = (data: any, financialsNew: any, dictionary: any) => {
     const useNewAPI = financialsNew?.financial_data?.annual && financialsNew?.periods?.annual?.fiscal_periods;
+    const dic = dictionary?.stock?.stockMain?.financialTab?.balanceSheetTab?.balanceSheetTabChart;
+    
+    const totalAssetsLabel = dic?.totalAssetsLabel || "Total Assets";
+    const totalLiabilitiesLabel = dic?.totalLiabilitiesLabel || "Total Liabilities";
+    const stockholdersEquityLabel = dic?.stockholdersEquityLabel || "Stockholders Equity";
+    const totalDebtLabel = dic?.totalDebtLabel || "Total Debt";
 
     if (useNewAPI) {
         const periods = financialsNew.periods.annual.fiscal_periods || [];
@@ -62,10 +71,10 @@ const formatBalanceSheetData = (data: any, financialsNew: any) => {
 
         return periods.slice(0, 5).map((year: string, index: number) => ({
             year,
-            "Total Assets": formatNumber(financialData.total_assets?.[index]),
-            "Total Liabilities": formatNumber(financialData.total_liabilities?.[index]),
-            "Stockholders Equity": formatNumber(financialData.total_equity?.[index]),
-            "Total Debt": formatNumber(financialData.total_debt?.[index]),
+            [totalAssetsLabel]: formatNumber(financialData.total_assets?.[index]),
+            [totalLiabilitiesLabel]: formatNumber(financialData.total_liabilities?.[index]),
+            [stockholdersEquityLabel]: formatNumber(financialData.total_equity?.[index]),
+            [totalDebtLabel]: formatNumber(financialData.total_debt?.[index]),
         }));
     } else {
         const oldData = data?.balanceSheet?.annual || {};
@@ -74,24 +83,30 @@ const formatBalanceSheetData = (data: any, financialsNew: any) => {
             .slice(-5)
             .map(([year, val]: [string, any]) => ({
                 year,
-                "Total Assets": formatNumber(val.total_assets ?? val.totalAssets),
-                "Total Liabilities": formatNumber(val.total_liabilities ?? val.totalLiabilities),
-                "Stockholders Equity": formatNumber(val.total_equity ?? val.shrhldrs_equity ?? val.stockholdersEquity),
-                "Total Debt": formatNumber(val.total_debt ?? val.totalDebt),
+                [totalAssetsLabel]: formatNumber(val.total_assets ?? val.totalAssets),
+                [totalLiabilitiesLabel]: formatNumber(val.total_liabilities ?? val.totalLiabilities),
+                [stockholdersEquityLabel]: formatNumber(val.total_equity ?? val.shrhldrs_equity ?? val.stockholdersEquity),
+                [totalDebtLabel]: formatNumber(val.total_debt ?? val.totalDebt),
             }));
     }
-};;
+};
 
 
-const BalanceSheetChart = ({ chart_data, financialsNew }: { chart_data: any, financialsNew: any }) => {
-    const balanceSheetData = formatBalanceSheetData(chart_data, financialsNew);
+const BalanceSheetChart = ({ chart_data, financialsNew, dictionary }: { chart_data: any, financialsNew: any, dictionary?: any }) => {
+    const dic = dictionary?.stock?.stockMain?.financialTab?.balanceSheetTab?.balanceSheetTabChart;
+    const totalAssetsLabel = dic?.totalAssetsLabel || "Total Assets";
+    const totalLiabilitiesLabel = dic?.totalLiabilitiesLabel || "Total Liabilities";
+    const stockholdersEquityLabel = dic?.stockholdersEquityLabel || "Stockholders Equity";
+    const totalDebtLabel = dic?.totalDebtLabel || "Total Debt";
+    
+    const balanceSheetData = formatBalanceSheetData(chart_data, financialsNew, dictionary);
     const isMobile = useMediaQuery("(max-width: 768px)")
     const allValues = balanceSheetData
         .flatMap((d: any) => [
-            d["Total Assets"],
-            d["Total Liabilities"],
-            d["Stockholders Equity"],
-            d["Total Debt"],
+            d[totalAssetsLabel],
+            d[totalLiabilitiesLabel],
+            d[stockholdersEquityLabel],
+            d[totalDebtLabel],
         ])
         .filter((v: any) => typeof v === "number");
     const hasNegative = allValues.some((v: number) => v < 0);
@@ -101,7 +116,7 @@ const BalanceSheetChart = ({ chart_data, financialsNew }: { chart_data: any, fin
         <Card className='h-[450px] md:h-[400px] md:pb-4 p-0 pb-10 rounded-xl relative'>
             <ResponsiveBar
                 data={balanceSheetData}
-                keys={["Total Assets", "Total Liabilities", "Stockholders Equity", "Total Debt"]}
+                keys={[totalAssetsLabel, totalLiabilitiesLabel, stockholdersEquityLabel, totalDebtLabel]}
                 indexBy="year"
                 margin={{ top: 30, right: 20, bottom: 50, left: 50 }}
                 padding={isMobile ? 0.15 : 0.6}
@@ -122,7 +137,7 @@ const BalanceSheetChart = ({ chart_data, financialsNew }: { chart_data: any, fin
                         lineStyle: { stroke: 'rgba(255,255,255,0.3)', strokeWidth: 1 },
                     },
                 ]}
-                tooltip={CustomTooltip}
+                tooltip={(props: any) => <CustomTooltip {...props} dictionary={dictionary} />}
                 axisBottom={{
                     tickSize: 0,
                     tickPadding: 10,
@@ -149,7 +164,7 @@ const BalanceSheetChart = ({ chart_data, financialsNew }: { chart_data: any, fin
                 }}
 
             />
-            {(
+            {balanceSheetData.length > 0 && (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4 absolute bottom-4 right-0 left-10">
                     {Object.keys(balanceSheetData[0]).filter(key => key !== "year").map((item, index) => (
                         <div key={item} className="flex items-center gap-2">

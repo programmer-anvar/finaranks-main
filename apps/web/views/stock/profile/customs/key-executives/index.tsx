@@ -4,25 +4,26 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Typography } from '@finranks/design-system/components/typography';
 
 
-const KeyExecutives = ({ data }: any) => {
+const KeyExecutives = ({ data, dictionary }: { data: any, dictionary?: any }) => {
+    const dic = dictionary?.stock?.stockMain?.profileTab?.ExecutivesTable;
 
     if (!data || !Boolean(data?.length)) {
-        return <EmptyState title='Latest SEC Filings' />
+        return <EmptyState title={dic?.keyExecutivesTitle} dictionary={dictionary} />
     }
 
 
     return (
         <Card className='p-4 md:p-6 rounded-xl space-y-4'>
-            <Typography variant="h2" className="text-[20px]!" weight="semibold">Key Executives</Typography>
+            <Typography variant="h2" className="text-[20px]!" weight="semibold">{dic?.keyExecutivesTitle}</Typography>
             <div className='rounded-xl border border-[#d9d9d91a]  overflow-hidden'>
                 <Table >
                     <TableHeader className='rounded-t-md!'>
                         <TableRow className="border-b border-[#d9d9d91a] hover:bg-(--main-color) rounded-t-md! bg-(--main-color)">
                             <TableHead className="text-white font-bold  text-sm border-r border-[#d9d9d91a]   px-6 py-4">
-                                Name
+                                {dic?.nameColumn}
                             </TableHead>
                             <TableHead className="text-white font-bold  text-sm border-r border-[#d9d9d91a]   px-6 py-4">
-                                Position
+                                {dic?.positionColumn}
                             </TableHead>
                         </TableRow>
                     </TableHeader>

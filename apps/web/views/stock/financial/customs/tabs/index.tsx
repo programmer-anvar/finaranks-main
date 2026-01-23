@@ -3,15 +3,17 @@ import { useTabStore } from "@/stores/shared";
 import { cn } from "@finranks/design-system/lib/utils";
 import { parseAsString, useQueryState } from "nuqs";
 
-const tabs = [
-    { label: 'Income Statement', value: 'income-statement' },
-    { label: 'Balance Sheet', value: 'balance-sheet' },
-    { label: 'Cash Flow', value: 'cash-flow' },
-]
-
-const TabsComponent = () => {
+const TabsComponent = ({ dictionary }: { dictionary?: any }) => {
     const activeTab = useTabStore((state) => state.activeTab);
     const setActiveTab = useTabStore((state) => state.setActiveTab);
+
+    const dic = dictionary?.stock?.stockMain?.financialTab;
+
+    const tabs = [
+        { label: dic?.tabs?.incomeStatementTab, value: 'income-statement' },
+        { label: dic?.tabs?.balanceSheetTab || 'Balance Sheet', value: 'balance-sheet' },
+        { label: dic?.tabs?.cashFlowTab || 'Cash Flow', value: 'cash-flow' },
+    ]
 
     return (
         <ul className="flex items-center w-[375px] md:w-[400px] overflow-x-auto no-scrollbar bg-[linear-gradient(0deg,#12092C,#12092C),linear-gradient(331.86deg,rgba(35,18,51,0)_48.86%,rgba(35,18,51,0.1)_96.18%)]

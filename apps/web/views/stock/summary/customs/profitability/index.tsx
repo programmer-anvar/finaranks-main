@@ -12,9 +12,8 @@ import {
     TableRow,
 } from "@finranks/design-system/components/table"
 import { get } from "lodash";
-import ChartCard from "./customs/chart-card";;
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@finranks/design-system/components/hover-card"
 import TrendHoverModalEnhanced from "./customs/chart-card"
+
 const getTrendData = (annual: Record<string, any>, key: string): number[] => {
     if (!annual || typeof annual !== "object") return []
     return Object.values(annual)
@@ -26,70 +25,51 @@ interface ProfitabilityProps {
         TTM: Record<string, any>
         industry: Record<string, any>
         annual: Record<string, any>
-    }
-}
-
-interface Metric {
-    key: string
-    label: string
-}
-
-const METRICS: Metric[] = [
-    { key: "grossMarginRatio", label: "Gross margin %" },
-    { key: "operatingMarginRatio", label: "Operating margin %" },
-    { key: "netMarginRatio", label: "Net margin %" },
-    { key: "ebitdaMarginRatio", label: "EBITDA margin %" },
-    { key: "cashFlowMarginRatio", label: "Cash flow margin %" },
-]
-
-function MiniBarChart({ data }: { data: number[] }) {
-    const maxValue = Math.max(...data);
-
-    return (
-        <div className="flex items-end gap-1 justify-center h-8">
-            {data?.map((value, index) => (
-                <div
-                    key={index}
-                    className="w-2 bg-purple-500 rounded-sm"
-                    style={{
-                        height: `${(value / maxValue) * 100}%`,
-                    }}
-                />
-            ))}
-        </div>
-    )
+    };
+    dictionary?: any;
 }
 
 const formatNumber = (value?: number) =>
     value !== null && value !== undefined ? Number(value).toFixed(2) : "N/A"
 
-const Profitability = memo(({ data }: ProfitabilityProps) => {
+const Profitability = memo(({ data, dictionary }: ProfitabilityProps) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.profitabilityTable;
+    const commonDic = dictionary?.common;
+
+    const METRICS = [
+        { key: "grossMarginRatio", label: dic?.grossMarginLabel || "Gross margin %" },
+        { key: "operatingMarginRatio", label: dic?.operatingMarginLabel || "Operating margin %" },
+        { key: "netMarginRatio", label: dic?.netMarginLabel },
+        { key: "ebitdaMarginRatio", label: dic?.ebitdaMarginLabel || "EBITDA margin %" },
+        { key: "cashFlowMarginRatio", label: dic?.cashFlowMarginLabel || "Cash flow margin %" },
+    ]
+
     const TTM = get(data, "TTM")
     const industry = get(data, "industry")
     const annual = get(data, "annual")
 
     return (
         <Card className="space-y-4 p-4 md:p-6 rounded-xl">
-            <Typography variant="h4">Profitability</Typography>
+            <Typography variant="h4">{dic?.profitabilityTitle}</Typography>
 
             <div className="overflow-x-auto rounded-lg border border-[#353945]">
                 <Table className="min-w-full">
                     <TableHeader>
                         <TableRow className="border-b border-[#353945]">
                             <TableHead className="border-r border-[#353945] p-4 text-xs font-semibold uppercase text-[#777e90] text-center w-[220px]!">
-                                Name
+                                {dic?.nameColumn}
                             </TableHead>
                             <TableHead className="border-r border-[#353945] text-center text-xs font-semibold uppercase text-[#777e90]">
-                                Ratio
+                                {dic?.ratioColumn}
                             </TableHead>
                             <TableHead className="border-r border-[#353945] text-center text-xs font-semibold uppercase text-[#777e90]">
-                                Industry
+                                {dic?.industryColumn}
                             </TableHead>
                             <TableHead className="border-r border-[#353945] text-center text-xs font-semibold uppercase text-[#777e90]">
-                                5Y Trend
+                                {dic?.trend5yColumn}
                             </TableHead>
                             <TableHead className="text-center text-xs font-semibold uppercase text-[#777e90] w-[100px]!">
-                                Score
+                                {dic?.scoreColumn}
                             </TableHead>
                         </TableRow>
                     </TableHeader>
@@ -118,7 +98,7 @@ const Profitability = memo(({ data }: ProfitabilityProps) => {
                                 </TableCell>
 
                                 <TableCell className="text-center text-white font-semibold">
-                                    {TTM?.[`${key}Score`] ?? "N/A"}
+                                    {TTM?.[`${key}Score`] ?? (commonDic?.na || "N/A")}
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -129,7 +109,7 @@ const Profitability = memo(({ data }: ProfitabilityProps) => {
                                 colSpan={4}
                                 className="border-r border-[#353945] p-4 text-center text-lg font-semibold text-white"
                             >
-                                Weighted average score
+                                {dic?.weightedAverageScoreLabel}
                             </TableCell>
                             <TableCell
                                 className="p-4 text-center text-lg font-semibold text-white"
@@ -137,7 +117,7 @@ const Profitability = memo(({ data }: ProfitabilityProps) => {
                             >
                                 {TTM?.weightedAverageScore
                                     ? Number(TTM.weightedAverageScore).toFixed(1)
-                                    : "N/A"}
+                                    : (commonDic?.na || "N/A")}
                             </TableCell>
                         </TableRow>
                     </TableBody>

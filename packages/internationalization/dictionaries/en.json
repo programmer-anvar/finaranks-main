@@ -23,16 +23,21 @@
     "no": "No",
     "dataUnavailable": "Data Unavailable",
     "noData": "No Data",
+    "noDataFound": "No Data Found",
     "noDataDescription": "There is no data to display",
     "comingSoon": "Coming Soon",
     "searchResult": "Search result",
     "similarCompanies": "Similar companies",
     "removeFromWatchlist": "Remove from watchlist",
+    "removeWatchlist": "Remove Watchlist",
     "areYouSure": "Are you sure?",
     "areYouSureLogout": "Are you sure you want to logout?",
     "menu": "Menu",
     "marketOpen": "Market open:",
     "atClose": "At close:",
+    "preMarket": "Pre-market:",
+    "afterHours": "After-hours:",
+    "previousAfterHours": "Previous after-hours:",
     "ttm": "TTM",
     "signingIn": "Signing in...",
     "somethingWentWrong": "Something went wrong!",
@@ -46,7 +51,29 @@
     "googleButtonNotFound": "Google button not found. Please refresh.",
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
-    "termsAndConditions": "Terms and Conditions"
+    "termsAndConditions": "Terms and Conditions",
+    "readMore": "read more",
+    "showMore": "Show More",
+    "loadMore": "Load More",
+    "seeMore": "See more",
+    "hideMore": "Hide more",
+    "compare": "Compare",
+    "addToWatchlist": "Add to Watchlist",
+    "year": "Year",
+    "companies": "companies",
+    "name": "Name",
+    "value": "Value",
+    "date": "Date",
+    "amount": "Amount",
+    "annual": "Annual",
+    "quarterly": "Quarterly",
+    "select": "Select",
+    "dataNotAvailable": "Data not available.",
+    "dataNotCalculated": "Data has not been calculated yet.",
+    "weightedAverageScore": "Weighted average score",
+    "noDividendData": "No dividend data available",
+    "noNewsForStock": "There are no news for this stock.",
+    "currencyUSD": "Currency: USD"
   },
   "header": {
     "home": "Home",
@@ -643,7 +670,11 @@
         "payoutRatioLabel": "Payout ratio",
         "dividendFrequencyLabel": "Dividend frequency",
         "annualDividendLabel": "Annual dividend",
-        "DividendyieldovertimeTitle": "Dividend yield over time"
+        "DividendyieldovertimeTitle": "Dividend yield over time",
+        "declarationDateLabel": "Declaration date",
+        "recordDateLabel": "Record date",
+        "payableDateLabel": "Payable date",
+        "dividendHistoryTitle": "Dividend History"
       },
       "forecastTab": {
         "stockForecastTitle": "Stock Forecast",
@@ -712,7 +743,12 @@
           "valueColumn": "Value"
         },
         "topMutualFundHolders": {
-          "topMutualFundHoldersTitle": "Top Mutual Fund Holders"
+          "topMutualFundHoldersTitle": "Top Mutual Fund Holders",
+          "holdersColumn": "Holders",
+          "sharesColumn": "Shares",
+          "dateReportedColumn": "Date reported",
+          "percentOutstandingColumn": "% Out",
+          "valueColumn": "Value"
         }
       },
       "profileTab": {
@@ -819,7 +855,7 @@
       "listTable": {
         "listTableTitle": "Watchlist Table Settings",
         "companyLabel": "Company",
-        "companyNameLabel": "Company name",
+        "companyNameLabel": "Company name ",
         "industryLabel": "Industry",
         "lastPriceLabel": "Last price",
         "change1dLabel": "1D %",

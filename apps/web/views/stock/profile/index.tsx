@@ -7,7 +7,7 @@ import SecFilings from './customs/sec-fillings';
 import { Card } from '@finranks/design-system/components/card';
 import { Typography } from '@finranks/design-system/components/typography';
 
-const ProfilePage = async ({ params }: { params: any }) => {
+const ProfilePage = async ({ params, dictionary }: { params: any, dictionary?: any }) => {
     const { slug } = await params;
     const { data } = await getProfileData(slug);
     const { data: fillings } = await getFillings(slug);
@@ -55,8 +55,12 @@ const ProfilePage = async ({ params }: { params: any }) => {
         employer_id,
         sic_code,
     }
+    
+    const dic = dictionary?.stock?.stockMain?.profileTab;
+    const commonDic = dictionary?.common;
+    
     const show = (v: any) =>
-        v === undefined || v === null || String(v).trim() === '' ? 'N/A' : v
+        v === undefined || v === null || String(v).trim() === '' ? commonDic?.na : v
 
     const hasAnyWidgetValue =
         Object.values(widgets).some((v) => v !== undefined && v !== null && String(v).trim() !== '')
@@ -70,18 +74,18 @@ const ProfilePage = async ({ params }: { params: any }) => {
                     </Typography>
 
                     {!hasAnyWidgetValue ? (
-                        <div className="text-sm text-muted-foreground h-full w-full flex items-center justify-center">No Data Found</div>
+                        <div className="text-sm text-muted-foreground h-full w-full flex items-center justify-center">{dic?.contactDetails?.noDataAvailableLabel || commonDic?.noDataFound}</div>
                     ) : (
                         <div className="space-y-4">
                             <div className="flex items-center justify-between border-b pb-2">
-                                <span className="text-white text-sm">Country</span>
+                                <span className="text-white text-sm">{dic?.inc?.countryLabel}</span>
                                 <span className="text-white text-sm font-semibold">
                                     {show(widgets.country)}
                                 </span>
                             </div>
 
                             <div className="flex items-center justify-between border-b pb-2">
-                                <span className="text-white text-sm">Industry</span>
+                                <span className="text-white text-sm">{dic?.inc?.industryLabel}</span>
                                 <span className="text-white text-sm font-semibold">
                                     {show(widgets.industry)}
                                 </span>
@@ -89,21 +93,21 @@ const ProfilePage = async ({ params }: { params: any }) => {
 
 
                             <div className="flex items-center justify-between border-b pb-2">
-                                <span className="text-white text-sm">Sector</span>
+                                <span className="text-white text-sm">{dic?.inc?.sectorLabel}</span>
                                 <span className="text-white text-sm font-semibold">
                                     {show(widgets.sector)}
                                 </span>
                             </div>
 
                             <div className="flex items-center justify-between border-b pb-2">
-                                <span className="text-white text-sm">IPO Date</span>
+                                <span className="text-white text-sm">{dic?.inc?.ipoDateLabel}</span>
                                 <span className="text-white text-sm font-semibold">
                                     {show(widgets.ipoDate)}
                                 </span>
                             </div>
 
                             <div className="flex items-center justify-between border-b pb-2">
-                                <span className="text-white text-sm">CEO</span>
+                                <span className="text-white text-sm">{dic?.inc?.ceoLabel}</span>
                                 <span className="text-white text-sm font-semibold">
                                     {show(widgets.ceo)}
                                 </span>
@@ -112,14 +116,14 @@ const ProfilePage = async ({ params }: { params: any }) => {
                     )}
                 </Card>
                 <div className='space-y-4'>
-                    <About description={description} />
-                    <KeyExecutives data={officers} />
+                    <About description={description} dictionary={dictionary} />
+                    <KeyExecutives data={officers} dictionary={dictionary} />
                 </div>
                 <div>
-                    <Widgets data={widgets} />
+                    <Widgets data={widgets} dictionary={dictionary} />
                 </div>
             </div>
-            <SecFilings data={fillings} />
+            <SecFilings data={fillings} dictionary={dictionary} />
         </div>
     )
 }

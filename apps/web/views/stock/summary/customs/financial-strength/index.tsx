@@ -11,35 +11,22 @@ const TrendHoverModalEnhanced = dynamic(() => import("./customs/chart-card"), {
     ssr: false
 })
 
-const METRICS = [
-    {
-        key: "currentRatio",
-        label: "Current ratio",
-    },
-    {
-        key: "quickRatio",
-        label: "Quick ratio",
-    },
-    {
-        key: "debtToEquity",
-        label: "Debt to Equity",
-    },
-    {
-        key: "debtToAssets",
-        label: "Debt to Assets",
-    },
-    {
-        key: "interestCoverage",
-        label: "Interest coverage",
-    },
-];
-
-
 const formatNumber = (value?: number) =>
     value !== null && value !== undefined ? Number(value).toFixed(2) : "N/A";
 
 
-const FinancialStrength = memo(({ data }: any) => {
+const FinancialStrength = memo(({ data, dictionary }: { data: any; dictionary?: any }) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.financialStrengthTable;
+    const commonDic = dictionary?.common;
+
+    const METRICS = [
+        { key: "currentRatio", label: dic?.currentRatioLabel || "Current ratio" },
+        { key: "quickRatio", label: dic?.quickRatioLabel || "Quick ratio" },
+        { key: "debtToEquity", label: dic?.debtToEquityLabel || "Debt to Equity" },
+        { key: "debtToAssets", label: dic?.debtToAssetsLabel || "Debt to Assets" },
+        { key: "interestCoverage", label: dic?.interestCoverageLabel || "Interest coverage" },
+    ];
+
     const industry = get(data, "industry");
     const lastReport = get(data, "lastReport");
     const annual = get(data, "annual");
@@ -47,7 +34,7 @@ const FinancialStrength = memo(({ data }: any) => {
     return (
         <Card className="space-y-4 rounded-xl p-4 md:p-6">
             <div className="flex items-center justify-between">
-                <Typography variant="h4">Financial Strength</Typography>
+                <Typography variant="h4">{dic?.financialStrengthTitle}</Typography>
             </div>
 
             <div className="overflow-hidden rounded-lg border border-[#353945]">
@@ -55,19 +42,19 @@ const FinancialStrength = memo(({ data }: any) => {
                     <TableHeader>
                         <TableRow className="border-b border-[#353945]">
                             <TableHead className="border-r w-[220px]! border-[#353945] p-4 text-xs font-semibold uppercase text-[#777e90] text-center">
-                                Name
+                                {dic?.name}
                             </TableHead>
                             <TableHead className="border-r border-[#353945] text-center text-xs font-semibold uppercase text-[#777e90]">
-                                Ratio
+                                {dic?.ratio}
                             </TableHead>
                             <TableHead className="border-r border-[#353945] text-center text-xs font-semibold uppercase text-[#777e90]">
-                                Industry
+                                {dic?.industry}
                             </TableHead>
                             <TableHead className="border-r border-[#353945] text-center text-xs font-semibold uppercase text-[#777e90]">
-                                5Y Trend
+                                {dic?.trnd}
                             </TableHead>
                             <TableHead className="text-center text-xs font-semibold uppercase text-[#777e90] w-[100px]!">
-                                Score
+                                {dic?.score}
                             </TableHead>
                         </TableRow>
                     </TableHeader>
@@ -85,11 +72,11 @@ const FinancialStrength = memo(({ data }: any) => {
                                     </TableCell>
 
                                     <TableCell className="border-r border-[#353945] text-center text-white font-semibold">
-                                        {formatNumber(lastReport?.[key]) ?? "N/A"}
+                                        {formatNumber(lastReport?.[key]) ?? (commonDic?.na || "N/A")}
                                     </TableCell>
 
                                     <TableCell className="border-r border-[#353945] text-center text-white font-semibold">
-                                        {formatNumber(industry?.[key]) ?? "N/A"}
+                                        {formatNumber(industry?.[key]) ?? (commonDic?.na || "N/A")}
                                     </TableCell>
 
                                     <TableCell className="border-r border-[#353945] flex items-center justify-center">
@@ -101,7 +88,7 @@ const FinancialStrength = memo(({ data }: any) => {
                                     </TableCell>
 
                                     <TableCell className="text-center text-white font-semibold">
-                                        {lastReport?.[`${key}Score`] ?? "N/A"}
+                                        {lastReport?.[`${key}Score`] ?? (commonDic?.na || "N/A")}
                                     </TableCell>
                                 </TableRow>
                             );
@@ -113,7 +100,7 @@ const FinancialStrength = memo(({ data }: any) => {
                                 colSpan={4}
                                 className="border-r border-[#353945] p-4 text-center text-lg font-semibold text-white"
                             >
-                                Weighted average score
+                                {dic?.weightedAverageScore}
                             </TableCell>
                             <TableCell
                                 className="p-4 text-center text-lg font-semibold text-white"
@@ -123,7 +110,7 @@ const FinancialStrength = memo(({ data }: any) => {
                                     ),
                                 }}
                             >
-                                {lastReport?.weightedAverageScore ?? "N/A"}
+                                {lastReport?.weightedAverageScore ?? (commonDic?.na || "N/A")}
                             </TableCell>
                         </TableRow>
                     </TableBody>

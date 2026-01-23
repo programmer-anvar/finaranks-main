@@ -5,27 +5,9 @@ import { Typography } from "@finranks/design-system/components/typography"
 import { get } from "lodash"
 
 interface DcfModelProps {
-    data?: any
+    data?: any;
+    dictionary?: any;
 }
-
-const InfoRow = ({ label, value }: { label: string; value: any }) => (
-    <div className="flex items-center justify-between border-b border-[#353945] py-2 last:border-b-0">
-        <span className="text-sm text-white">{label}</span>
-        <span className="text-sm font-semibold text-white">
-            {value ?? "N/A"}
-        </span>
-    </div>
-)
-
-const DCF_FIELDS = [
-    'period',
-    'discountRate',
-    'perpetualGrowthRate',
-    'cagr.revenue_cagr',
-    'cagr.free_cash_flow_cagr_year',
-    'fairValue',
-    'stockPrice',
-];
 
 const DCF_VALUE_PATHS = [
     'discountRate',
@@ -37,7 +19,19 @@ const DCF_VALUE_PATHS = [
     'cagr.free_cash_flow_cagr',
 ];
 
-const DcfModel = ({ data }: DcfModelProps) => {
+const DcfModel = ({ data, dictionary }: DcfModelProps) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.dcfModel;
+    const commonDic = dictionary?.common;
+
+    const InfoRow = ({ label, value }: { label: string; value: any }) => (
+        <div className="flex items-center justify-between border-b border-[#353945] py-2 last:border-b-0">
+            <span className="text-sm text-white">{label}</span>
+            <span className="text-sm font-semibold text-white">
+                {value ?? (commonDic?.na || "N/A")}
+            </span>
+        </div>
+    )
+
     const isEmptyDcfModel = (data?: any): boolean => {
         if (!data) return true;
 
@@ -55,45 +49,45 @@ const DcfModel = ({ data }: DcfModelProps) => {
     if (isEmpty) {
         return (
             <Card className='w-full rounded-[20px] p-4 md:p-6'>
-                <Typography variant="h4" as="h2" className='pb-0'>DCF Model</Typography>
+                <Typography variant="h4" as="h2" className='pb-0'>{dic?.dcfModelTitle}</Typography>
                 <div className='w-full h-100 flex items-center justify-center flex-col'>
-                    <Typography variant="body" as="h2" color='helper' className='pb-0'>Data not available.</Typography>
-                    <Typography variant="small" as="p" color='helper' className='pb-0' align='center'>DCF model data has not been calculated yet.</Typography>
+                    <Typography variant="body" as="h2" color='helper' className='pb-0'>{commonDic?.dataNotAvailable}</Typography>
+                    <Typography variant="small" as="p" color='helper' className='pb-0' align='center'>{commonDic?.dataNotCalculated}</Typography>
                 </div>
             </Card>
         );
     }
     return (
         <Card className="space-y-4 rounded-[20px] p-4 md:p-6">
-            <Typography variant="h4">DCF Model</Typography>
+            <Typography variant="h4">{dic?.dcfModelTitle}</Typography>
 
             <div className="space-y-1">
                 <InfoRow
-                    label="DCF Model"
+                    label={dic?.dcfPeriodLabel}
                     value={get(data, "period")}
                 />
                 <InfoRow
-                    label="Discount rate"
+                    label={dic?.discountRateLabel}
                     value={get(data, "discountRate")}
                 />
                 <InfoRow
-                    label="Perpetual growth rate"
+                    label={dic?.perpetualGrowthLabel}
                     value={get(data, "perpetualGrowthRate")}
                 />
                 <InfoRow
-                    label="Revenue 5 year CAGR"
+                    label={dic?.revenueCagrLabel}
                     value={get(data, "cagr.revenue_cagr")}
                 />
                 <InfoRow
-                    label="FCF 5 year CAGR"
+                    label={dic?.fcfCagrLabel}
                     value={get(data, "cagr.free_cash_flow_cagr_year")}
                 />
                 <InfoRow
-                    label="Fair value"
+                    label={dic?.fairValueLabel}
                     value={get(data, "fairValue")}
                 />
                 <InfoRow
-                    label="Stock price"
+                    label={dic?.stockPriceLabel}
                     value={get(data, "stockPrice")}
                 />
             </div>

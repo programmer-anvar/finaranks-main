@@ -8,16 +8,16 @@ import AddWatchListModal from './watchlist/add-watchlist'
 import ManageWatchListModal from './watchlist/manage-watchlist'
 import AddStockModal from './stock/add-stock'
 
-const Modals = () => {
+const Modals = ({ dictionary }: { dictionary?: any }) => {
     const { register, signIn, forgotPassword, addWatchList, manageWatchList, addStock } = useModals()
     return (
         <>
-            {register && < RegisterModal />}
-            {signIn && <SignInModal />}
-            {forgotPassword && <ForgotPassword />}
-            {addWatchList && <AddWatchListModal />}
-            {manageWatchList && <ManageWatchListModal />}
-            {addStock && <AddStockModal />}
+            {register && <RegisterModal dictionary={dictionary} />}
+            {signIn && <SignInModal dictionary={dictionary} />}
+            {forgotPassword && <ForgotPassword dictionary={dictionary} />}
+            {addWatchList && <AddWatchListModal dictionary={dictionary} />}
+            {manageWatchList && <ManageWatchListModal dictionary={dictionary} />}
+            {addStock && <AddStockModal dictionary={dictionary} />}
         </>
     )
 }

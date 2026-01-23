@@ -8,34 +8,36 @@ import { Button } from '@finranks/design-system/components/Button';
 import EmptyState from '@/components/empty-state';
 
 
-const LatestForecast = ({ data }: any) => {
+const LatestForecast = ({ data, dictionary }: any) => {
     const [showAll, setShowAll] = useState(false);
+    const dic = dictionary?.stock?.stockMain?.forecastTab;
+    const tableDic = dic?.forecastTable;
 
     if (!data || !Boolean(data.length)) {
-        return <EmptyState title='Latest Forecasts' />
+        return <EmptyState title={tableDic?.latestForecastsTitle} />
     }
     return (
         <Card className='p-6 space-y-4 rounded-xl'>
-            <Typography variant="h2" className="text-[20px]!" weight="semibold">Latest Forecasts</Typography>
+            <Typography variant="h2" className="text-[20px]!" weight="semibold">{tableDic?.latestForecastsTitle}</Typography>
             <div className='rounded-xl  overflow-hidden'>
                 <Table >
                     <TableHeader className='rounded-t-md!'>
                         <TableRow className="border-b border-[#FFFFFF08] bg-[#FFFFFF05] hover:bg-purple-900/10 rounded-t-md!">
-                            <TableHead className="text-white font-bold  text-sm   border-[#353945] p-4" >Date</TableHead>
+                            <TableHead className="text-white font-bold  text-sm   border-[#353945] p-4" >{tableDic?.dateColumn}</TableHead>
                             <TableHead className="text-white font-bold  text-sm  border-[#353945]   p-4">
-                                Upside/Downside
+                                {tableDic?.upsideDownsideColumn}
                             </TableHead>
                             <TableHead className="text-white font-bold  text-sm  border-[#353945]   p-4">
-                                Analyst Firm
+                                {tableDic?.analystFirmColumn}
                             </TableHead>
                             <TableHead className="text-white font-bold  text-sm  border-[#353945]   p-4">
-                                Price Target
+                                {tableDic?.priceTargetColumn}
                             </TableHead>
                             <TableHead className="text-white font-bold  text-sm border-[#353945]   p-4">
-                                Rating Change
+                                {tableDic?.ratingChangeColumn}
                             </TableHead>
                             <TableHead className="text-white font-bold  text-sm border-[#353945]   p-4">
-                                Rating
+                                {tableDic?.ratingColumn}
                             </TableHead>
                         </TableRow>
                     </TableHeader>
@@ -111,7 +113,7 @@ const LatestForecast = ({ data }: any) => {
                     </TableBody>
                 </Table>
             </div>
-            <Button variant="outline" className='w-full text-[16px]! text-[#ffffffcc]!' onClick={() => setShowAll(!showAll)}>{showAll ? 'More analyst rating' : 'Hide analyst rating'}</Button>
+            <Button variant="outline" className='w-full text-[16px]! text-[#ffffffcc]!' onClick={() => setShowAll(!showAll)}>{showAll ? tableDic?.hideAnalystRatingBtn : tableDic?.moreAnalystRaitingBtn}</Button>
         </Card>
     )
 }

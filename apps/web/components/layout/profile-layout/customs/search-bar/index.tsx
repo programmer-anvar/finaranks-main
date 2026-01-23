@@ -18,8 +18,12 @@ type Company = {
     logo: string;
     exchange: string;
 };
-const SearchBar = () => {
+
+const SearchBar = ({ dictionary }: { dictionary?: any }) => {
     const router = useRouter();
+    const headerDic = dictionary?.header;
+    const homePageDic = dictionary?.homePage;
+    
     const [searchValue, setSearchValue] = useState('');
     const [items, setItems] = useState<Company[]>([]);
     const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
@@ -75,7 +79,7 @@ const SearchBar = () => {
             <Popover open={true}>
                 <PopoverTrigger className='w-full'>
                     <SearchInput
-                        placeholder="Search any stock"
+                        placeholder={headerDic?.searchPlaceholder}
                         value={searchValue}
                         size="lg"
                         onChange={(e) => setSearchValue(e.target.value)}
@@ -131,7 +135,7 @@ const SearchBar = () => {
             </Popover>
 
             <div className="flex items-center gap-2">
-                <Typography variant="body" className='font-bold!'>Trending:</Typography>
+                <Typography variant="body" className='font-bold!'>{homePageDic?.trading}:</Typography>
                 <ul className="flex items-center gap-2">
                     {
                         STOCK_BADGES.map((el) => {

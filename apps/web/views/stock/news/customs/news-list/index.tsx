@@ -4,7 +4,8 @@ import React, { useState } from 'react'
 import NewsCard from '../card';
 import { Button } from '@finranks/design-system/components/Button';
 
-const NewsList = ({ initialNews, slug }: any) => {
+const NewsList = ({ initialNews, slug, dictionary }: any) => {
+    const dic = dictionary?.stock?.stockMain?.newsTab;
     const [newsList, setNewsList] = useState(initialNews);
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +50,7 @@ const NewsList = ({ initialNews, slug }: any) => {
                         isLoading={isLoading}
                         disabled={isLoading}
                     >
-                        Load More
+                        {dic?.loadMoreBtn}
                     </Button>
                 </div>
             )}

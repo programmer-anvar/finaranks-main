@@ -14,17 +14,20 @@ export type StockBreadCrumbProps = {
         readonly title: string;
         readonly href: string;
     }[];
+    dictionary?: any;
 }
 
 
-const StockBreadCrumb = ({ locale, items, slug }: StockBreadCrumbProps) => {
+const StockBreadCrumb = ({ locale, items, slug, dictionary }: StockBreadCrumbProps) => {
+    const headerDic = dictionary?.header;
+    
     return (
         <Breadcrumb>
             <BreadcrumbList>
                 <BreadcrumbItem>
                     <BreadcrumbLink href="/" className="inline-flex items-center gap-1.5">
                         <Home size={16} strokeWidth={2} aria-hidden="true" />
-                        Home
+                        {headerDic?.home}
                     </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />

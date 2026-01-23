@@ -13,47 +13,51 @@ import {
 import { get } from "lodash"
 import TrendHoverModalEnhanced from "../effectiveness/customs/chart-card"
 
-const METRICS = [
-    { key: "P/E", label: "P/E" },
-    { key: "PEG", label: "PEG (5yr expected)" },
-    { key: "P/S", label: "P/S" },
-    { key: "P/B", label: "P/B" },
-]
-
 interface ValuationProps {
-    data?: any
+    data?: any;
+    dictionary?: any;
 }
 
 const formatNumber = (value?: number | null) =>
     value !== undefined && value !== null ? Number(value).toFixed(2) : "N/A"
 
-const Valuation = ({ data }: ValuationProps) => {
+const Valuation = ({ data, dictionary }: ValuationProps) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.valuation;
+    const commonDic = dictionary?.common;
+
+    const METRICS = [
+        { key: "P/E", label: dic?.peLabel || "P/E" },
+        { key: "PEG", label: dic?.pegExpectedLabel || "PEG (5yr expected)" },
+        { key: "P/S", label: dic?.psLabel || "P/S" },
+        { key: "P/B", label: dic?.pbLabel || "P/B" },
+    ]
+
     const current = get(data, "current", {})
     const industry = get(data, "industry", {})
     const quarterly = get(data, "quarterly", {})
 
     return (
         <Card className="space-y-4 rounded-[20px] p-4 md:p-6">
-            <Typography variant="h4">Valuation</Typography>
+            <Typography variant="h4">{dic?.valuationTitle}</Typography>
 
             <div className="rounded-lg border border-[#353945] overflow-hidden">
                 <Table>
                     <TableHeader>
                         <TableRow className="border-b border-[#353945]">
                             <TableHead className="border-r border-[#353945] p-4 text-xs font-semibold uppercase text-[#777e90] text-center w-[220px]!">
-                                Name
+                                {dic?.nameColumn}
                             </TableHead>
                             <TableHead className="border-r border-[#353945] p-4 text-xs font-semibold uppercase text-[#777e90] text-center">
-                                Ratio
+                                {dic?.ratioColumn}
                             </TableHead>
                             <TableHead className="border-r border-[#353945] p-4 text-xs font-semibold uppercase text-[#777e90] text-center">
-                                Industry
+                                {dic?.industryColumn}
                             </TableHead>
                             <TableHead className="border-r border-[#353945] p-4 text-xs font-semibold uppercase text-[#777e90] text-center">
-                                5Q Trend
+                                {dic?.trend5yColumn}
                             </TableHead>
                             <TableHead className="p-4 text-xs font-semibold uppercase text-[#777e90] text-center w-[100px]!">
-                                Score
+                                {dic?.scoreColumn}
                             </TableHead>
                         </TableRow>
                     </TableHeader>
@@ -87,7 +91,7 @@ const Valuation = ({ data }: ValuationProps) => {
                                     </TableCell>
 
                                     <TableCell className="text-center text-white font-semibold">
-                                        {current?.[scoreKey] ?? "N/A"}
+                                        {current?.[scoreKey] ?? (commonDic?.na || "N/A")}
                                     </TableCell>
                                 </TableRow>
                             )
@@ -98,7 +102,7 @@ const Valuation = ({ data }: ValuationProps) => {
                                 colSpan={4}
                                 className="border-r border-[#353945] p-4 text-center text-lg font-semibold text-white"
                             >
-                                Weighted average score
+                                {dic?.weightedAverageScoreLabel}
                             </TableCell>
                             <TableCell
                                 className="p-4 text-center text-lg font-semibold text-white"
@@ -110,7 +114,7 @@ const Valuation = ({ data }: ValuationProps) => {
                                 {current?.weightedAverageScore !== undefined &&
                                     current?.weightedAverageScore !== null
                                     ? Number(current.weightedAverageScore).toFixed(1)
-                                    : "N/A"}
+                                    : (commonDic?.na || "N/A")}
                             </TableCell>
                         </TableRow>
                     </TableBody>

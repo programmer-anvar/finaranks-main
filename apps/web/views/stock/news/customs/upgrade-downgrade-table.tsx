@@ -5,7 +5,8 @@ import { UpgradeDowngrade } from "@/services/stocks-news";
 
 
 
-const UpgradeDowngradeTable = ({ list }: { list: UpgradeDowngrade[] }) => {
+const UpgradeDowngradeTable = ({ list, dictionary }: { list: UpgradeDowngrade[], dictionary?: any }) => {
+    const dic = dictionary?.stock?.stockMain?.newsTab?.newsTable;
 
     return (
         <div className='rounded-xl border border-[#d9d9d91a]  overflow-hidden'>
@@ -13,19 +14,19 @@ const UpgradeDowngradeTable = ({ list }: { list: UpgradeDowngrade[] }) => {
                 <TableHeader className='rounded-t-md!'>
                     <TableRow className="border-b border-[#d9d9d91a] hover:bg-(--main-color) rounded-t-md! bg-(--main-color)">
                         <TableHead className="text-white font-bold  text-sm border-r border-[#d9d9d91a]   px-6 py-4">
-                            Ticker
+                            {dic?.tickerColumn}
                         </TableHead>
                         <TableHead className="text-white font-bold  text-sm border-r border-[#d9d9d91a]   px-6 py-4">
-                            Brokerage Firm
+                            {dic?.brokerageFirmColumn}
                         </TableHead>
                         <TableHead className="text-white font-bold  text-sm border-r border-[#d9d9d91a]   px-6 py-4">
-                            Ratings Change
+                            {dic?.ratingsChangeColumn}
                         </TableHead>
                         <TableHead className="text-white font-bold  text-sm border-r border-[#d9d9d91a]   px-6 py-4">
-                            Price Target
+                            {dic?.priceTargetColumn}
                         </TableHead>
                         <TableHead className="text-white font-bold  text-sm border-r border-[#d9d9d91a]   px-6 py-4">
-                            Date
+                            {dic?.dateColumn}
                         </TableHead>
                     </TableRow>
                 </TableHeader>

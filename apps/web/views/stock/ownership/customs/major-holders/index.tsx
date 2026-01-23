@@ -4,8 +4,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Typography } from '@finranks/design-system/components/typography';
 import { get } from 'lodash';
 
-const MajorHolders = ({ data }: any) => {
+const MajorHolders = ({ data, dictionary }: any) => {
     const majorHolders = get(data, 'major_holders.data', []);
+    const dic = dictionary?.stock?.stockMain?.ownershipTab?.majorHoldersTable;
     return (
         <Card className='md:p-6 p-5 rounded-xl space-y-4'>
             <Typography variant="h2" className="text-[20px]!" weight="semibold">Major holders</Typography>
@@ -14,7 +15,7 @@ const MajorHolders = ({ data }: any) => {
                     <TableHeader className='rounded-t-md!'>
                         <TableRow className="border-b border-[#d9d9d91a] hover:bg-(--main-color) rounded-t-md! bg-(--main-color)">
                             <TableHead className="text-white font-bold  text-sm border-r border-[#d9d9d91a]   px-6 py-4">
-                                Breakdown
+                                {dic?.breakdownColumn || "Breakdown"}
                             </TableHead>
                             <TableHead className="text-white font-bold  text-sm border-r border-[#d9d9d91a]   px-6 py-4">
 

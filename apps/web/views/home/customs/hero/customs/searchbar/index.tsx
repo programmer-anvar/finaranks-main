@@ -27,8 +27,9 @@ type CompaniesResponse = {
     data: Company[];
 };
 
-const SearchBar: React.FC = ({ dictionary }) => {
+const SearchBar: React.FC<{ dictionary: any }> = ({ dictionary }) => {
     const router = useRouter();
+    const homePageDic = dictionary;
 
     const [searchValue, setSearchValue] = useState<string>("");
     const [items, setItems] = useState<Company[]>([]);
@@ -80,24 +81,24 @@ const SearchBar: React.FC = ({ dictionary }) => {
                 >
                     {/* Search Input */}
                     <div className="gap-3 border rounded-2xl px-2 md:px-6 py-4 flex items-center hover:border-purple-500/70 transition-colors overflow-hidden w-[80%] md:w-full relative animated-border">
-                        <img src="/icons/search-big.svg" alt="Search" className="hidden md:block" />
+                        <img src="/icons/search-big.svg" alt="" className="hidden md:block" />
                         <input
                             type="text"
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
-                            placeholder={dictionary.searchPlaceholder}
+                            placeholder={homePageDic?.searchPlaceholder}
                             className="w-full  text-foreground placeholder-slate-500 outline-none text-lg"
                         />
 
-                        <Button className="absolute -right-2 top-[19px] -translate-y-1/2 hidden! md:block!">{dictionary.searchBtn}</Button>
+                        <Button className="absolute -right-2 top-[19px] -translate-y-1/2 hidden! md:block!">{homePageDic?.searchBtn}</Button>
 
 
                     </div>
-                    <Button className="size-15! absolute top-[35px] rounded-2xl! -translate-y-1/2 right-2 block!    md:hidden!"><img src="/icons/search-big.svg" alt="Search" /></Button>
+                    <Button className="size-15! absolute top-[35px] rounded-2xl! -translate-y-1/2 right-2 block!    md:hidden!"><img src="/icons/search-big.svg" alt="" /></Button>
                     {/* Trending */}
                     <div className=" flex items-center gap-2 overflow-hidden">
                         <Typography variant="body" className="font-bold!">
-                            {dictionary.trading}:
+                            {homePageDic?.trading}:
                         </Typography>
 
                         <ul className=" items-center gap-2 hidden md:flex">

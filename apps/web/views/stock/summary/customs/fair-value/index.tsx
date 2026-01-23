@@ -43,7 +43,10 @@ const calcFairPercent = ({ fairValue, stockPrice }: { fairValue: number; stockPr
     return truePerc < 0 ? 0 : truePerc > 1 ? 1 : truePerc;
 };
 
-const FairValue = ({ data }: { data: any }) => {
+const FairValue = ({ data, dictionary }: { data: any; dictionary?: any }) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.fairValue;
+    const commonDic = dictionary?.common;
+
     const fairValue = parseFloat(data?.fairValue || '') || 1;
     const stockPrice = parseFloat(data?.stockPrice || '');
 
@@ -52,10 +55,10 @@ const FairValue = ({ data }: { data: any }) => {
     if (!data || !fairValue || !stockPrice) {
         return (
             <Card className="rounded-[20px] p-4 md:p-6 space-y-4">
-                <Typography variant="h4">Fair Value</Typography>
+                <Typography variant="h4">{dic?.fairValueCardTitle}</Typography>
                 <div className='w-full h-100 flex items-center justify-center flex-col'>
-                    <Typography variant="body" as="h2" color='helper' className='pb-0'>Data not available.</Typography>
-                    <Typography variant="small" as="p" color='helper' className='pb-0'>Fair Value data has not been calculated yet.</Typography>
+                    <Typography variant="body" as="h2" color='helper' className='pb-0'>{commonDic?.dataNotAvailable}</Typography>
+                    <Typography variant="small" as="p" color='helper' className='pb-0'>{commonDic?.dataNotCalculated}</Typography>
                 </div>
             </Card>
         )
@@ -63,11 +66,11 @@ const FairValue = ({ data }: { data: any }) => {
 
     return (
         <Card className="rounded-[20px] p-4 md:p-6 space-y-4">
-            <Typography variant="h4">Fair Value</Typography>
+            <Typography variant="h4">{dic?.fairValueCardTitle}</Typography>
 
             {/* Fair Value */}
             <div className="flex flex-col items-center">
-                <span className="text-xs text-gray-500">Fair value</span>
+                <span className="text-xs text-gray-500">{dic?.fairValueCardTitle}</span>
                 <h3 className="mt-1 text-xl font-semibold text-white">
                     ${fairValue}
                 </h3>
@@ -107,9 +110,9 @@ const FairValue = ({ data }: { data: any }) => {
 
             {/* Labels */}
             <div className="flex justify-between text-xs text-gray-500">
-                <span>Undervalued</span>
-                <span>Stock price</span>
-                <span>Overvalued</span>
+                <span>{dic?.undervaluedLabel}</span>
+                <span>{dic?.stockPriceLabel}</span>
+                <span>{dic?.overvaluedLabel}</span>
             </div>
 
             {/* Stock Price */}

@@ -9,26 +9,28 @@ import { useRouter } from 'next/navigation';
 
 
 
-const SecFilings = ({ data }: any) => {
+const SecFilings = ({ data, dictionary }: { data: any, dictionary?: any }) => {
     const router = useRouter()
+    const dic = dictionary?.stock?.stockMain?.profileTab?.latestSecFilingsTable;
+    
     if (!data || data?.items?.length === 0) {
-        return <EmptyState title='Latest SEC Filings' />
+        return <EmptyState title={dic?.latestSecFilingsTableTitle} dictionary={dictionary} />
     }
     return (
         <Card className='p-4 md:p-6 rounded-xl space-y-4'>
-            <Typography variant="h2" className="text-[20px]!" weight="semibold">Latest SEC Filings</Typography>
+            <Typography variant="h2" className="text-[20px]!" weight="semibold">{dic?.latestSecFilingsTableTitle}</Typography>
             <div className='rounded-xl border border-[#d9d9d91a]  overflow-hidden'>
                 <Table >
                     <TableHeader className='rounded-t-md!'>
                         <TableRow className="border-b border-[#d9d9d91a] hover:bg-(--main-color) rounded-t-md! bg-(--main-color)">
                             <TableHead className="text-white font-bold  text-sm border-r border-[#d9d9d91a]   px-6 py-4">
-                                Date
+                                {dic?.dateColumn}
                             </TableHead>
                             <TableHead className="text-white font-bold  text-sm border-r border-[#d9d9d91a]   px-6 py-4">
-                                Type
+                                {dic?.typeColumn}
                             </TableHead>
                             <TableHead className="text-white font-bold  text-sm border-r border-[#d9d9d91a]   px-6 py-4">
-                                Document
+                                {dic?.documentColumn}
                             </TableHead>
                         </TableRow>
                     </TableHeader>
@@ -49,7 +51,7 @@ const SecFilings = ({ data }: any) => {
                     </TableBody>
                 </Table>
             </div>
-            <Button variant='outline' className='w-full text-base! text-[#ffffffcc]!' onClick={() => router.push(data.full_link)}>View All SEC Filings</Button>
+            <Button variant='outline' className='w-full text-base! text-[#ffffffcc]!' onClick={() => router.push(data.full_link)}>{dic?.viewAllSecFilingsButton}</Button>
         </Card>
     )
 }

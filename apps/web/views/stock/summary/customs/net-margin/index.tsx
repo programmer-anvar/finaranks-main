@@ -18,35 +18,9 @@ import { Typography } from "@finranks/design-system/components/typography";
 import { formatToMillion } from "@finranks/design-system/lib/utils";
 
 interface NetMarginProps {
-    data: Record<string, any>; // annual data
+    data: Record<string, any>;
+    dictionary?: any;
 }
-
-/* -------------------------------------------------------------------------- */
-/*                               Custom Tooltip                               */
-/* -------------------------------------------------------------------------- */
-const CustomTooltip: React.FC<any> = ({ payload, label }) => {
-    if (!payload || !payload.length) return null;
-
-    return (
-        <div className="rounded-lg bg-white p-3 shadow-lg border border-gray-200 text-xs space-y-1">
-            <div className="font-semibold text-gray-900">{label}</div>
-            {payload.map((item: any, i: number) => (
-                <div key={i} className="flex items-center gap-2">
-                    <span
-                        className="h-2.5 w-2.5 rounded-full"
-                        style={{ backgroundColor: item.color }}
-                    />
-                    <span className="text-gray-700">
-                        {item.name}:{" "}
-                        {item.name === "Current Ratio"
-                            ? item.value.toFixed(2)
-                            : formatToMillion(item.value)}
-                    </span>
-                </div>
-            ))}
-        </div>
-    );
-};
 
 /* -------------------------------------------------------------------------- */
 /*                               Custom Legend                                */
@@ -68,21 +42,56 @@ const CustomLegend: React.FC<any> = ({ payload }) => (
 /* -------------------------------------------------------------------------- */
 /*                               Component                                     */
 /* -------------------------------------------------------------------------- */
-const NetMargin: React.FC<NetMarginProps> = ({ data }) => {
+const NetMargin: React.FC<NetMarginProps> = ({ data, dictionary }) => {
+    const dic = dictionary?.stock?.stockMain?.summaryTab?.netMargin;
+
+    const LABELS = {
+        revenue: dic?.revenue,
+        netIncome: dic?.netIncome,
+        netMargin: dic?.netMargin
+    };
+
+    /* -------------------------------------------------------------------------- */
+    /*                               Custom Tooltip                               */
+    /* -------------------------------------------------------------------------- */
+    const CustomTooltip: React.FC<any> = ({ payload, label }) => {
+        if (!payload || !payload.length) return null;
+
+        return (
+            <div className="rounded-lg bg-white p-3 shadow-lg border border-gray-200 text-xs space-y-1">
+                <div className="font-semibold text-gray-900">{label}</div>
+                {payload.map((item: any, i: number) => (
+                    <div key={i} className="flex items-center gap-2">
+                        <span
+                            className="h-2.5 w-2.5 rounded-full"
+                            style={{ backgroundColor: item.color }}
+                        />
+                        <span className="text-gray-700">
+                            {item.name}:{" "}
+                            {item.name === LABELS.netMargin
+                                ? item.value.toFixed(2)
+                                : formatToMillion(item.value)}
+                        </span>
+                    </div>
+                ))}
+            </div>
+        );
+    };
+
     const formatData = Object.entries(data?.incomeStatement?.annual || {})
         .map((item: any) => {
             const totRevenue = parseFloat(item[1].totalRevenue || '') || 1;
             const netIncome = parseFloat(item[1].netIncome || '');
-            const netMargin = ((netIncome / totRevenue) * 100).toFixed(2);
+            const netMarginVal = ((netIncome / totRevenue) * 100).toFixed(2);
             return {
                 year: item[0],
-                Revenue: totRevenue,
-                'Net Income': netIncome,
-                'Net Margin': parseFloat(netMargin),
+                [LABELS.revenue]: totRevenue,
+                [LABELS.netIncome]: netIncome,
+                [LABELS.netMargin]: parseFloat(netMarginVal),
             };
         });
 
-    const netMarginValues = formatData.map(item => item['Net Margin']);
+    const netMarginValues = formatData.map(item => item[LABELS.netMargin]);
     const minMargin = Math.min(...netMarginValues);
     const maxMargin = Math.max(...netMarginValues);
 
@@ -92,22 +101,22 @@ const NetMargin: React.FC<NetMarginProps> = ({ data }) => {
         maxMargin + padding
     ];
 
-    const revenueValues = formatData.map(item => item.Revenue);
-    const netIncomeValues = formatData.map(item => item['Net Income']);
+    const revenueValues = formatData.map(item => item[LABELS.revenue]);
+    const netIncomeValues = formatData.map(item => item[LABELS.netIncome]);
     const allBarValues = [...revenueValues, ...netIncomeValues];
     const minBarValue = Math.min(...allBarValues);
     const maxBarValue = Math.max(...allBarValues);
 
-    const barPadding = Math.abs(maxBarValue - minBarValue) * 0.1 || 1000000; // 10% padding
+    const barPadding = Math.abs(maxBarValue - minBarValue) * 0.1 || 1000000;
     const barDomain = [
-        Math.min(minBarValue - barPadding, 0), // Ensure we include 0 if needed
+        Math.min(minBarValue - barPadding, 0),
         maxBarValue + barPadding
     ];
 
     return (
         <Card className="rounded-xl p-4 md:p-6">
             <Typography variant="h4" className="mb-4">
-                Net Margin
+                {dic?.netMarginTitle}
             </Typography>
 
             <div className="h-[380px] w-full">
@@ -158,8 +167,8 @@ const NetMargin: React.FC<NetMarginProps> = ({ data }) => {
                         <Legend content={<CustomLegend />} />
                         <Bar
                             yAxisId="left"
-                            dataKey="Revenue"
-                            name="Revenue"
+                            dataKey={LABELS.revenue}
+                            name={LABELS.revenue}
                             fill="var(--primary-graph-color)"
                             radius={3.6}
                             barSize={18}
@@ -167,8 +176,8 @@ const NetMargin: React.FC<NetMarginProps> = ({ data }) => {
 
                         <Bar
                             yAxisId="left"
-                            dataKey="Net Income"
-                            name="Net Income"
+                            dataKey={LABELS.netIncome}
+                            name={LABELS.netIncome}
                             fill="var(--secondary-graph-color)"
                             radius={3.6}
                             barSize={18}
@@ -176,8 +185,8 @@ const NetMargin: React.FC<NetMarginProps> = ({ data }) => {
 
                         <Line
                             yAxisId="right"
-                            dataKey="Net Margin"
-                            name="Net Margin"
+                            dataKey={LABELS.netMargin}
+                            name={LABELS.netMargin}
                             stroke="var(--tertiary-graph-color)"
                             strokeWidth={2}
                             dot={false}

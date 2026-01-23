@@ -23,12 +23,16 @@ export interface CompanyInfoProps {
     };
     market: any;
     quoteData: any;
+    dictionary?: any;
 }
 
 const CompanyInfo = (props: CompanyInfoProps) => {
     const isMobile = useMediaQuery("(max-width: 768px)")
-    const { slug, quoteData, market } = props;
+    const { slug, quoteData, market, dictionary } = props;
     const { isInWatchlist, handleRemoveFromWatchlist, addToWatchlist, addingToWatchList } = useWatchlist()
+
+    const commonDic = dictionary?.common;
+    const stockBtnsDic = dictionary?.stock?.stockMain?.stockBtns;
 
     const router = useRouter();
 
@@ -165,12 +169,12 @@ const CompanyInfo = (props: CompanyInfoProps) => {
                         className="w-full"
                         onClick={() => router.push(`/compare/${slug}`)}
                     >
-                        Compare
+                        {stockBtnsDic?.compare}
                     </Button>
                     {!isInWatchlist(slug) ? <Button prepend={<CirclePlus />} className="w-full" isLoading={addingToWatchList} onClick={() => addToWatchlist(slug)}>
-                        Add to Watchlist
+                        {stockBtnsDic?.addWatchList}
                     </Button> : <Button prepend={<Trash2 />} onClick={() => handleRemoveFromWatchlist(slug)} variant="outline" className="w-full">
-                            {isMobile ? "Remove  Watchlist" : "Remove From Watchlist"}
+                            {isMobile ? commonDic?.removeWatchlist : commonDic?.removeFromWatchlist}
                     </Button>}
                 </div>
             </CardHeader>
@@ -198,10 +202,10 @@ const CompanyInfo = (props: CompanyInfoProps) => {
                         <Typography variant="small" color="helper" className="text-[9px] md:text-[12px]">
                             <strong className="text-white">
                                 {get(displayData, "currentMarketState") === "REGULAR"
-                                    ? "Market open: "
-                                    : "At close: "}
+                                    ? commonDic?.marketOpen
+                                    : commonDic?.atClose}
                             </strong>
-                            {get(displayData, "markets.regular.displayTime")}
+                            {" "}{get(displayData, "markets.regular.displayTime")}
                         </Typography>
                     )}
                 </div>
@@ -228,7 +232,7 @@ const CompanyInfo = (props: CompanyInfoProps) => {
                                 </Typography>
                             </div>
                             <Typography variant="small" color="helper" className="text-[9px] md:text-[12px]">
-                                <strong className="text-white">Pre-market:</strong>{" "}
+                                <strong className="text-white">{commonDic?.preMarket}</strong>{" "}
                                 {get(displayData, "markets.preMarket.displayTime")}
                             </Typography>
                         </div>
@@ -258,10 +262,10 @@ const CompanyInfo = (props: CompanyInfoProps) => {
                             <Typography variant="small" color="helper" className="text-[9px] md:text-[12px]">
                                 <strong className="text-white">
                                     {get(displayData, "currentMarketState") === "REGULAR"
-                                        ? "Previous after-hours: "
-                                        : "After-hours: "}
+                                        ? commonDic?.previousAfterHours
+                                        : commonDic?.afterHours}
                                 </strong>
-                                {get(displayData, "markets.afterHours.displayTime")}
+                                {" "}{get(displayData, "markets.afterHours.displayTime")}
                             </Typography>
                         </div>
                     )}

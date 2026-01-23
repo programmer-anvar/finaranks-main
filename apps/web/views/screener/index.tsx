@@ -17,7 +17,7 @@ const ScreenerPage = () => {
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
                         <BreadcrumbLink href="#" className="inline-flex items-center gap-1.5">
-                            Screener
+                            Screenerdsdsdsd
                         </BreadcrumbLink>
                     </BreadcrumbItem>
                 </BreadcrumbList>
